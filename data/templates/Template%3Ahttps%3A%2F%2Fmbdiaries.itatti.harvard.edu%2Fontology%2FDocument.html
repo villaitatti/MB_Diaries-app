@@ -1,0 +1,80 @@
+<div class="page">
+  <div class="page__body dpub-editor-page">
+    <div class="dpub-editor-container">
+      <!-- Document body + annotation sidebar -->
+      <rs-text-annotation-workspace
+                                    document-iri="[[this]]"
+                                    storage="MB_Diaries-app"
+                                    annotation-subject-template="https://mbdiaries.itatti.harvard.edu/annotation/{{UUID}}"
+                                    fallback-template="{{> fallback-template}}"
+                                    annotation-tooltip="{{> annotation-tooltip}}">
+        <template id="fallback-template">
+          {{#> mbdiaries:template}} Missing type for annotation
+          <semantic-link iri="{{ iri.value }}"></semantic-link>
+          {{/ mbdiaries:template}}
+        </template>
+
+        <template id="annotation-tooltip">
+          <div>
+            {{#if allowEdit}}
+            <button
+                    name="edit"
+                    class="btn btn-xs btn-default"
+                    data-annotation="{{ iri.value }}"
+                    title="Edit annotation">
+              <span class="fa fa-pencil" style="pointer-events: none"></span>
+            </button>
+            {{else}}
+            <button
+                    name="edit"
+                    class="btn btn-xs btn-default"
+                    disabled
+                    title="Edit annotation">
+              <span class="fa fa-pencil" style="pointer-events: none"></span>
+            </button>
+            {{/if}} {{#if allowDelete}}
+            <button
+                    name="delete"
+                    class="btn btn-xs btn-default"
+                    data-annotation="{{ iri.value }}"
+                    title="Delete annotation">
+              <span class="fa fa-trash" style="pointer-events: none"></span>
+            </button>
+            {{else}}
+            <button
+                    name="delete"
+                    class="btn btn-xs btn-default"
+                    disabled
+                    title="Delete annotation">
+              <span class="fa fa-trash" style="pointer-events: none"></span>
+            </button>
+            {{/if}}
+          </div>
+        </template>
+
+      </rs-text-annotation-workspace>
+    </div>
+  </div>
+</div>
+
+<style>
+  .TextAnnotationEditor--component{
+    white-space: normal;
+    border: 1 px solid #ddddddd1;
+    background-color: white;
+    box-shadow: 0 1px 3px 1px rgb(60 64 67 / 15%);
+    color: #000;
+    margin-top: 40px;
+    margin-right: 20px;
+  }
+
+  .TextAnnotationWorkspace--editorPanel {
+    flex: auto;
+    overflow-y: hidden!important;
+  }
+
+  .TextAnnotationEditor--component > div {
+    padding: 20px 70px;
+  }
+</style>
+
