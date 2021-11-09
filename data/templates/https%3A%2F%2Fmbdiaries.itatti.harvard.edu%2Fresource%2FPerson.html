@@ -1,0 +1,43 @@
+<rs-text-annotation-type
+                         label="Person"
+                         rdf-type='https://mbdiaries.itatti.harvard.edu/ontology/Person'>
+  <template id='annotation'>
+    <semantic-query
+                    query='
+                      SELECT ?iri ?label WHERE {
+                        BIND({{iri}} as ?iri)
+                        ?iri oa:hasBody ?body .
+                        ?body rdfs:label ?label .
+                      }'
+                    template='{{> show}}'>
+      <template id='show'>
+        {{#> mbdiaries:template}}
+
+        <div class="dpub-annotation-content person">
+          <semantic-link iri="{{iri.value}}">
+            <strong>{{bindings.0.label.value}}</strong>
+          </semantic-link>
+        </div>
+
+        {{/ mbdiaries:template}}
+      </template>
+    </semantic-query>
+  </template>
+  <semantic-form-composite-input
+                                 for='oaHasBody'
+                                 new-subject-template='body'
+                                 fields='[[fieldDefinitions
+                                  classtype="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
+                                  label="http://www.w3.org/2000/01/rdf-schema#label"
+                                 ]]'>
+    <semantic-form-hidden-input
+                                for='classtype'
+                                default-value='https://mbdiaries.itatti.harvard.edu/ontology/Person'>
+    </semantic-form-hidden-input>
+
+    <semantic-form-text-input for='label'></semantic-form-text-input>
+
+    <semantic-form-errors></semantic-form-errors>
+  </semantic-form-composite-input>
+
+</rs-text-annotation-type>
