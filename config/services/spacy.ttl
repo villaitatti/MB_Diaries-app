@@ -1,0 +1,95 @@
+PREFIX sp: <http://spinrdf.org/sp#>
+PREFIX spin: <http://spinrdf.org/spin#>
+PREFIX spl: <http://spinrdf.org/spl#>
+PREFIX sail: <http://www.openrdf.org/config/sail#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX mbdiaries-ontology: <https://mbdiaries.itatti.harvard.edu/ontology/>
+PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+PREFIX ephedra: <http://www.researchspace.org/resource/system/ephedra#>
+PREFIX : <http://www.researchspace.org/resource/system/service/custom#>
+
+:spacy a ephedra:Service ;
+	sail:sailType "researchspace:RESTSail" ;
+	rdfs:label "A wrapper for a REST API." ;
+	ephedra:hasSPARQLPattern (
+		[
+			sp:subject :_results ;
+			sp:predicate mbdiaries-ontology:hasSection ;
+			sp:object :_section
+		]
+		[
+			sp:subject :_results ;
+			sp:predicate mbdiaries-ontology:hasText ;
+			sp:object :_text
+		]
+		[
+			sp:subject :_results ;
+			sp:predicate mbdiaries-ontology:hasLabel ;
+			sp:object :_type
+		]
+		[
+			sp:subject :_results ;
+			sp:predicate mbdiaries-ontology:startChar ;
+			sp:object :_start_char
+		]
+		[
+			sp:subject :_results ;
+			sp:predicate mbdiaries-ontology:endChar ;
+			sp:object :_end_char
+		]
+
+	) ;
+
+	spin:constraint
+	[
+		a spl:Argument ;
+		rdfs:comment "input parameter url" ;
+		spl:predicate :_section ;
+		spl:valueType xsd:string ;
+    ephedra:inputJsonPath "sections[]"
+  ] ;
+
+  spin:column
+	[
+		a spin:Column ;
+		rdfs:comment "results (fixed column, must be present)" ;
+		spl:predicate :_results ;
+		spl:valueType rdfs:Resource;
+		ephedra:jsonPath "$.data[*].entities[*]"
+	] ;
+
+  spin:column
+	[
+		a spin:Column ;
+		rdfs:comment "Type" ;
+		spl:predicate :_type ;
+		spl:valueType xsd:string;
+		ephedra:jsonPath "label"
+	] ;
+
+  spin:column
+	[
+		a spin:Column ;
+		rdfs:comment "Matched text" ;
+		spl:predicate :_text ;
+		spl:valueType xsd:string;
+		ephedra:jsonPath "text"
+	] ;
+
+  spin:column
+	[
+		a spin:Column ;
+		rdfs:comment "starting offset" ;
+		spl:predicate :_start_char ;
+		spl:valueType xsd:integer;
+		ephedra:jsonPath "start_char"
+	] ;
+
+  spin:column
+	[
+		a spin:Column ;
+		rdfs:comment "ending offset" ;
+		spl:predicate :_end_char ;
+		spl:valueType xsd:integer;
+		ephedra:jsonPath "end_char"
+	] .
