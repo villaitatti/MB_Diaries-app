@@ -2,3 +2,4 @@ mbdiaries = https://mbdiaries.itatti.harvard.edu/resource/
 mbdiaries-document = https://mbdiaries.itatti.harvard.edu/document/
 mbdiaries-ontology = https://mbdiaries.itatti.harvard.edu/ontology/
 mbdiaries-annotation = https://mbdiaries.itatti.harvard.edu/annotation/
+oa = http://www.w3.org/ns/oa#

@@ -1,0 +1,36 @@
+
+:root {
+  --color-navbar-bg: #049372;
+}
+
+  .TextAnnotationEditor--component{
+    white-space: normal;
+    border: 1 px solid #ddddddd1;
+    background-color: white;
+    box-shadow: 0 1px 3px 1px rgb(60 64 67 / 15%);
+    color: #000;
+    margin-top: 40px;
+    margin-right: 20px;
+  }
+
+  .TextAnnotationWorkspace--editorPanel {
+    flex: auto;
+    overflow-y: hidden!important;
+  }
+
+  .TextAnnotationEditor--component > div {
+    padding: 20px 70px;
+  }
+
+  .AnnotationSidebar--annotation {
+    border-left: 5px solid lightgrey;
+  }
+
+  .dpub-annotation-template {
+    padding: 10px 20px;
+  }
+
+  .dpub-annotation-template .btn-group {
+    float: right;
+    margin-bottom: 10px;
+  }

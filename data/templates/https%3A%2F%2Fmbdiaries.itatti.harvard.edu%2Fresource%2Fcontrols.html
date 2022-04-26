@@ -1,0 +1,47 @@
+<template id="annotation-tooltip">
+  <div>
+    {{#if allowEdit}}
+
+      <button
+              name="edit"
+              class="btn btn-xs btn-default"
+              data-annotation="{{ iri.value }}"
+              title="Edit annotation">
+        <span class="fa fa-pencil" style="pointer-events: none"></span>
+      </button>
+
+    {{else}}
+
+      <button
+              name="edit"
+              class="btn btn-xs btn-default"
+              disabled
+              title="Edit annotation">
+        <span class="fa fa-pencil" style="pointer-events: none"></span>
+      </button>
+
+    {{/if}} 
+
+    {{#if allowDelete}}
+
+      <button
+              name="delete"
+              class="btn btn-xs btn-default"
+              data-annotation="{{ iri.value }}"
+              title="Delete annotation">
+        <span class="fa fa-trash" style="pointer-events: none"></span>
+      </button>
+
+    {{else}}
+
+      <button
+              name="delete"
+              class="btn btn-xs btn-default"
+              disabled
+              title="Delete annotation">
+        <span class="fa fa-trash" style="pointer-events: none"></span>
+      </button>
+      
+    {{/if}}
+  </div>
+</template>
