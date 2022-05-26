@@ -2,49 +2,50 @@
   <div class='page__body'>
     <semantic-context repository='default'>
       <div>
-        <h2>Upload new document</h2>
-        <mp-file-uploader
-                          placeholder="Please drag&drop your document here"
-                          accept-pattern='text/html'
-                          generate-iri-query='
-                            SELECT ?resourceIri WHERE {
-                              BIND(URI(CONCAT("https://mbdiaries.itatti.harvard.edu/document/", ?__fileName__)) as ?resourceIri)
-                            }'
-                          resource-query='
-                            PREFIX Platform: <http://www.researchspace.org/resource/system/>
-                            PREFIX crm: <http://www.cidoc-crm.org/cidoc-crm/>
-                            PREFIX crmdig: <http://www.ics.forth.gr/isl/CRMdig/>
-                            PREFIX mbdiaries-ontology: <https://mbdiaries.itatti.harvard.edu/ontology/>
-                            CONSTRUCT {
-                              ?__resourceIri__ a Platform:File ,
-                                crm:E33_Linguistic_Object,
-                                crmdig:D1_Digital_Object,
-                                mbdiaries-ontology:Document.
-                              ?__resourceIri__ Platform:fileName ?__fileName__.
-                              ?__resourceIri__ Platform:mediaType ?__mediaType__.
-                              ?__resourceIri__ Platform:fileContext ?__contextUri__.
-                            } WHERE {}'
-                          context-uri='[[this]]'
-                          storage='MB_Diaries-app'>
-        </mp-file-uploader>
-        <h2>Uploaded documents</h2>
+        <h2>Pages of [[urlParam "diary"]] Diary.</h2>
         <semantic-table
-                        query='
-                          SELECT ?document ?user ?date WHERE {
-                            ?document a Platform:File, mbdiaries-ontology:Document.
-                            OPTIONAL {
-                              ?document prov:wasAttributedTo ?user
-                            }
-                            OPTIONAL {
-                              ?document prov:generatedAtTime ?date
-                            }
-                          }'
-                        column-configuration='[
-                          {"variableName": "document", "displayName": "File name"},
-                          {"variableName": "user", "displayName": "Uploaded by user"},
-                          {"variableName": "date", "displayName": "Created at"}
-                        ]'
-                        no-result-template='No documents uploaded yet.'>
+            query='
+              SELECT ?day ?diary ?file ?imageIRI WHERE {
+                ?day crm:P2_has_type mbdiaries-ontology:Day;
+                    mbdiaries-ontology:order ?order;
+                    crm:P46i_forms_part_of ?diary;
+                    crm:P62i_is_depicted_by ?page.
+
+                ?page crm:P129i_is_subject_of ?file;
+                    crm:P183i_has_representation ?imageIRI
+              }
+              ORDER BY ASC(?order)'
+            column-configuration='[
+              {
+                "displayName": "Page", 
+                "cellTemplate": "{{> image}}" 
+              },
+              {
+                "displayName": "Day",
+                "cellTemplate": "{{> day}}"
+              },
+              {"variableName": "diary", "displayName": "Diary"}
+            ]'
+            no-result-template='No documents uploaded yet.'>
+
+            <template id="image">
+              <div style="height: 100px">
+                <rs-iiif-image-thumbnail
+                  image-or-region='{{imageIRI.value}}'
+                  image-id-pattern='BIND(REPLACE(STR(REPLACE(STR(?imageIRI),"/full/full/0/default.jpg","")), "(^.*)\\/(.*)$", "$2") AS ?imageID)'
+                  iiif-server-url='https://ids.lib.harvard.edu/ids/iiif/'>
+                </rs-iiif-image-thumbnail>
+              </div>
+            </template>
+
+            <template id="day">
+              <div>
+                <semantic-link iri="{{file.value}}">
+                  {{day.value}}
+                </semantic-link>
+              </div>
+            </template>
+
         </semantic-table>
       </div>
     </semantic-context>

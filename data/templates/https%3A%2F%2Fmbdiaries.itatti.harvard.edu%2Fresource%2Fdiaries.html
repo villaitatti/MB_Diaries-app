@@ -1,0 +1,43 @@
+<div class="page">
+  <div class='page__body'>
+    <semantic-context repository='default'>
+      <div>
+        <h2>Uploaded documents</h2>
+        <semantic-table
+            query='
+              SELECT ?diary ?label ?imageIRI WHERE {
+                ?diary crm:P2_has_type <https://mbdiaries.itatti.harvard.edu/ontology/Diary>;
+                  rdfs:label ?label;
+                  crm:P183i_has_representation ?imageIRI.
+                
+              }'
+            tuple-template='{{>diary_card }}'
+            no-result-template='No Diaries uploaded yet.'>
+
+              <template id="diary_card">
+                <div style="padding:10px;">
+                  <div class="text-center panel panel-default" style="border:none;margin-right:20px;font-size:12px;height:120px;width: 100%;">
+                    <div class="panel-body" style="height: 200px">
+                      <semantic-link iri="https://mbdiaries.itatti.harvard.edu/resource/pages?diary={{label.value}}">
+                        <rs-iiif-image-thumbnail
+                          image-or-region='{{imageIRI.value}}'
+                          image-id-pattern='BIND(REPLACE(STR(REPLACE(STR(?imageIRI),"/full/full/0/default.jpg","")), "(^.*)\\/(.*)$", "$2") AS ?imageID)'
+                          iiif-server-url='https://ids.lib.harvard.edu/ids/iiif/'>
+                        </rs-iiif-image-thumbnail>
+                      </semantic-link>
+                    </div>
+                    <div class="panel-footer" style="position: relative;  border: none;">
+                      {{label.value}}
+                    </div>
+                  </div>
+                </div>
+
+              </template>
+
+        </semantic-table>
+
+
+      </div>
+    </semantic-context>
+  </div>
+</div>
