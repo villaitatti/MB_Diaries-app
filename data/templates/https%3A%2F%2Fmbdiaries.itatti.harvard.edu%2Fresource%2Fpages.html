@@ -5,8 +5,9 @@
         <h2>Pages of [[urlParam "diary"]] Diary.</h2>
         <semantic-table
             query='
-              SELECT ?day ?diary ?file ?imageIRI WHERE {
+              SELECT ?day ?day_lbl ?diary ?file ?imageIRI WHERE {
                 ?day crm:P2_has_type mbdiaries-ontology:Day;
+                    rdfs:label ?day_lbl;
                     mbdiaries-ontology:order ?order;
                     crm:P46i_forms_part_of ?diary;
                     crm:P62i_is_depicted_by ?page.
@@ -41,7 +42,7 @@
             <template id="day">
               <div>
                 <semantic-link iri="{{file.value}}">
-                  {{day.value}}
+                  {{day_lbl.value}}
                 </semantic-link>
               </div>
             </template>
