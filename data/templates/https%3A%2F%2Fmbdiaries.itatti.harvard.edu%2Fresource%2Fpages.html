@@ -5,24 +5,21 @@
         <h2>Pages of [[urlParam "diary"]] Diary.</h2>
         <semantic-table
             query='
-              SELECT ?day ?day_lbl ?diary ?file ?imageIRI WHERE {
-                ?day crm:P2_has_type mbdiaries-ontology:Day;
-                    rdfs:label ?day_lbl;
-                    mbdiaries-ontology:order ?order;
-                    crm:P46i_forms_part_of ?diary;
-                    crm:P62i_is_depicted_by ?page.
-
-                ?page crm:P129i_is_subject_of ?file;
-                    crm:P183i_has_representation ?imageIRI
-              }
-              ORDER BY ASC(?order)'
+              SELECT * WHERE {
+                ?document a <https://mbdiaries.itatti.harvard.edu/ontology/Document>.
+  
+                ?page crm:P129i_is_subject_of ?document;
+                      crm:P183i_has_representation ?imageIRI
+                
+                filter(regex(str(?document), "1933"))
+              }order by asc(?document)'
             column-configuration='[
               {
-                "displayName": "Page", 
+                "displayName": "Image", 
                 "cellTemplate": "{{> image}}" 
               },
               {
-                "displayName": "Day",
+                "displayName": "Page",
                 "cellTemplate": "{{> day}}"
               },
               {"variableName": "diary", "displayName": "Diary"}
@@ -41,8 +38,8 @@
 
             <template id="day">
               <div>
-                <semantic-link iri="{{file.value}}">
-                  {{day_lbl.value}}
+                <semantic-link iri="{{document.value}}">
+                  {{page.value}}
                 </semantic-link>
               </div>
             </template>
