@@ -6,12 +6,13 @@
         <semantic-table
             query='
               SELECT * WHERE {
-                ?document a <https://mbdiaries.itatti.harvard.edu/ontology/Document>.
-  
-                ?page crm:P129i_is_subject_of ?document;
-                      crm:P183i_has_representation ?imageIRI
-                
-                filter(regex(str(?document), "1933"))
+                ?diary crm:P2_has_type <https://mbdiaries.itatti.harvard.edu/ontology/Diary>;
+                  rdfs:label "[[urlParam "diary"]]".
+         
+                ?page <https://mbdiaries.itatti.harvard.edu/ontology/part_of> ?diary;
+                  crm:P129i_is_subject_of ?document;
+                  crm:P183i_has_representation ?imageIRI
+
               }order by asc(?document)'
             column-configuration='[
               {
