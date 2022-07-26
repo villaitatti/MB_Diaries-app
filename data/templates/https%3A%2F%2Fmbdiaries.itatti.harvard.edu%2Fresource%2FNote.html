@@ -1,6 +1,6 @@
 <rs-text-annotation-type
-  label="Person"
-  rdf-type='https://mbdiaries.itatti.harvard.edu/ontology/Person'>
+  label="Note"
+  rdf-type='https://mbdiaries.itatti.harvard.edu/ontology/Note'>
 
   <template id='annotation'>
     <semantic-query
@@ -31,12 +31,10 @@
     fields='[[fieldDefinitions
       classtype="http://www.researchspace.org/pattern/image_observation/rdf:type"
       label="http://www.researchspace.org/pattern/general/rdfs:label"
-      sameAs="https://collection.itatti.harvard.edu/fieldDefinitionContainer/owl_sameAs"
     ]]'>
     <semantic-form-hidden-input for='classtype' default-value='https://mbdiaries.itatti.harvard.edu/ontology/Person'></semantic-form-hidden-input>
 
     <semantic-form-text-input for='label' label="Annotation text"></semantic-form-text-input>
-    <semantic-form-text-input for='sameAs' label="Wikidata URI"></semantic-form-text-input>
 
 
     <semantic-form-errors></semantic-form-errors>
