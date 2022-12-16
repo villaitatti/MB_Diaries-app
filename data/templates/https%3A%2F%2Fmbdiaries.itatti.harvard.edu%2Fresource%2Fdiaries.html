@@ -9,8 +9,7 @@
                 ?diary crm:P2_has_type <https://mbdiaries.itatti.harvard.edu/ontology/Diary>;
                   rdfs:label ?label;
                   crm:P183i_has_representation ?imageIRI.
-                
-              }'
+              } order by asc(?label)'
             tuple-template='{{>diary_card }}'
             no-result-template='No Diaries uploaded yet.'>
 
