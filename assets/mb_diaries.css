@@ -31,3 +31,7 @@
     float: right;
     margin-bottom: 10px;
   }
+
+  .dpub-annotation-template .dpub-annotation-type-icon {
+    height: 60px!important;
+  }

@@ -2,6 +2,10 @@
   div.TextAnnotationEditor--textEditor {
     padding-top: 20px;
   }
+
+  .dpub-annotation-type-icon {
+    max-height: 30px!important;
+  }
 </style>
 
 <div class="container-fluid">
@@ -50,9 +54,10 @@
 
         [[> mbdiaries:controls]]
 
-        [[> mbdiaries:Person ]]
-        [[> mbdiaries:Book ]]
-        [[> mbdiaries:Note ]]
+        [[> mbdiaries-type:person ]]
+        [[> mbdiaries-type:location ]]
+        [[> mbdiaries-type:organization ]]
+        [[> mbdiaries-type:date ]]
       </rs-text-annotation-workspace>
     </div>
   </div>
