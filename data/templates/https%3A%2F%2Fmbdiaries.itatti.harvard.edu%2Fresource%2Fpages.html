@@ -14,7 +14,16 @@
                   crm:P183i_has_representation ?imageIRI;
                   rdfs:label ?str_index
 
+                {
+                  select ?page (count(?annotation) as ?n) where {
+                    ?page crm:P129i_is_subject_of ?doc.
+                    ?annotation oa:hasSource ?doc
+                  } group by ?page
+		            }
+
                 BIND(xsd:integer(?str_index) as ?index)
+
+
 
               } order by asc(?index)'
             column-configuration='[
@@ -26,6 +35,7 @@
                 "displayName": "Page",
                 "cellTemplate": "{{> day}}"
               },
+              {"variableName": "n", "displayName": "Annotations"},
               {"variableName": "diary", "displayName": "Diary"}
             ]'
             no-result-template='No documents uploaded yet.'>
