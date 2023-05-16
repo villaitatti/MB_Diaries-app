@@ -5,7 +5,7 @@
         <h2>Pages of [[urlParam "diary"]] Diary.</h2>
         <semantic-table
             query='
-              SELECT * WHERE {
+              SELECT ?diary ?page ?document ?imageIRI ?str_index ?n ?index WHERE {
                 ?diary crm:P2_has_type <https://mbdiaries.itatti.harvard.edu/ontology/Diary>;
                   rdfs:label "[[urlParam "diary"]]".
          
@@ -14,7 +14,7 @@
                   crm:P183i_has_representation ?imageIRI;
                   rdfs:label ?str_index
 
-                {
+                OPTIONAL {
                   select ?page (count(?annotation) as ?n) where {
                     ?page crm:P129i_is_subject_of ?doc.
                     ?annotation oa:hasSource ?doc

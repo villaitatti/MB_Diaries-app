@@ -1,1 +1,29 @@
 # MB_Diaries-app
+
+
+
+## Default repository
+
+REPLACE `ENDPOINT`, `USERNAME`, AND `PASSWORD` with the right data
+
+```
+@prefix rep: <http://www.openrdf.org/config/repository#> .
+@prefix sail: <http://www.openrdf.org/config/sail#> .
+@prefix sr: <http://www.openrdf.org/config/repository/sail#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix mph: <http://www.researchspace.org/resource/system/repository#> .
+@prefix ephedra: <http://www.researchspace.org/resource/system/ephedra#> .
+@prefix fedsail: <http://www.openrdf.org/config/sail/federation#> .
+@prefix sparqlr: <http://www.openrdf.org/config/repository/sparql#> .
+[] a rep:Repository;
+  rep:repositoryID "default";
+  rdfs:label "Default HTTP SPARQL Repository";
+  rep:repositoryImpl [
+      rep:repositoryType "researchspace:SPARQLBasicAuthRepository";
+      sparqlr:query-endpoint <ENDPOINT>;
+      mph:quadMode true;
+      mph:writable true;
+      mph:username "USERNAME";
+      mph:password "PASSWORD"
+    ] .
+```
