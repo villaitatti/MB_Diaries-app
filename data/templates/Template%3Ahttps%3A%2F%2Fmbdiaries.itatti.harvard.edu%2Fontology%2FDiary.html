@@ -37,7 +37,7 @@
                   rdfs:label ?string_index
                 BIND(xsd:integer(?string_index) AS ?index)
                } 
-               ORDER BY ASC(?index) limit 2'
+               ORDER BY ASC(?index) limit 15'
               column-configuration='[
                 {
                   "displayName": "Text",
@@ -53,7 +53,7 @@
                 <rs-text-annotation-workspace
                   document-iri="{{document.value}}"
                   storage="MB_Diaries-app"
-                  annotation-subject-template="https://mbdiaries.itatti.harvard.edu/annotation/{{UUID}}"
+                  annotation-subject-template="https://mbdiaries.itatti.harvard.edu/annotation/{{{{raw}}}}{{UUID}}{{{{/raw}}}}"
                   fallback-template="{{> fallback-template}}"
                   annotation-tooltip="{{> annotation-tooltip}}"
                   image-iri="{{imageIRI.value}}"
@@ -66,7 +66,8 @@
                     {{/ mbdiaries:template}}
                   </template>
 
-                  [[> mbdiaries-type:Person ]] 
+                  [[> mbdiaries-type:person ]] 
+                  [[> mbdiaries-type:art ]] 
 
                 </rs-text-annotation-workspace>
               </template>
@@ -129,5 +130,9 @@
 
   .dpub-annotation-type-icon{
     height: 20px;
+  }
+
+  .dpub-annotation-content{
+    font-size: 20px;
   }
 </style>

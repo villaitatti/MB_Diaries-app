@@ -2,8 +2,7 @@
   label="Person"
   rdf-type='https://mbdiaries.itatti.harvard.edu/ontology/person'
   icon-url='../../assets/icons/actor.svg'
-  color="#F9690E"
- >
+  color="#4B77BE">
 
   <template id='annotation'>
     <semantic-query
@@ -17,7 +16,7 @@
 
       <template id='show'>
         {{#> mbdiaries:template}}
-          <div class="dpub-annotation-content location">
+          <div class="dpub-annotation-content person">
             <semantic-link iri="{{iri.value}}">
               <strong>{{bindings.0.label.value}}</strong>
             </semantic-link>
@@ -28,6 +27,7 @@
     </semantic-query>
   </template>
 
+
   <semantic-form-composite-input
     for='oaHasBody'
     new-subject-template='body'
@@ -36,7 +36,7 @@
       label="https://collection.itatti.harvard.edu/fieldDefinitionContainer/label"
       sameAs="https://collection.itatti.harvard.edu/fieldDefinitionContainer/owl_sameAs"
     ]]'>
-    <semantic-form-hidden-input for='classtype' default-value='https://mbdiaries.itatti.harvard.edu/ontology/location'></semantic-form-hidden-input>
+    <semantic-form-hidden-input for='classtype' default-value='https://mbdiaries.itatti.harvard.edu/ontology/person'></semantic-form-hidden-input>
 
     <semantic-form-text-input for='label' label="Annotation text"></semantic-form-text-input>
     <semantic-form-text-input for='sameAs' label="Wikidata URI"></semantic-form-text-input>
