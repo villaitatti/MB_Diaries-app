@@ -68,7 +68,7 @@
               <template id="diary_card">
 
                 <div class="container_diary">
-                  <semantic-link iri="https://mbdiaries.itatti.harvard.edu/resource/pages?diary={{label.value}}">
+                  <semantic-link iri="{{diary.value}}">
                     <rs-iiif-image-thumbnail
                       image-or-region='{{imageIRI.value}}'
                       image-id-pattern='BIND(REPLACE(STR(REPLACE(STR(?imageIRI),"/full/full/0/default.jpg","")), "(^.*)\\/(.*)$", "$2") AS ?imageID)'
