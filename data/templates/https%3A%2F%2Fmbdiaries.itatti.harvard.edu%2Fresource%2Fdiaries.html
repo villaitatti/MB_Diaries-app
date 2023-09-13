@@ -1,9 +1,60 @@
-<div class="page">
-  <div class='page__body'>
-    <semantic-context repository='default'>
-      <div>
-        <h2>Uploaded documents</h2>
-        <semantic-table
+<link rel="stylesheet" href="../../assets/mb_diaries.css">
+
+<div class="container-fluid">
+
+  <div id="mb_home" data-flex-layout="column spread-stretch">
+    <div class="panel1">
+
+      <div class="container_title" data-flex-layout="column center-center">
+
+        <h1>
+          The Mary Berenson Diaries
+          <br>
+          1891 - 1937
+        </h1>
+
+        <div class="search">
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel2">
+
+      <div data-flex-layout="column top-center">
+        <h2>Introduction</h2>
+        
+        <div>
+          <p class="introduction">
+            The diaries kept by Mary Berenson between 1891 and 1937 are preserved in the Biblioteca Berenson at I Tatti - the Harvard University Center for Italian Renaissance Studies in Florence.
+            <br>
+            <br>
+            <strong>
+              They not only contain descriptions of Mary’s many visits with Bernard to museums, churches, and private collections; but also reveal her thoughts on books, music, and the myriad people the couple encountered over the years.
+            </strong>
+            <br>
+            <br>
+            Mary’s diaries capture the zeitgeist of the Berensons’ I Tatti, where the guests at afternoon tea were nearly as distinguished as the Renaissance artists the Villa’s occupants spent their mornings researching. Mary’s casual reference to a young “Keynes”, for example, was none other than John Maynard Keynes, while “Bertie” was simply an affectionate nickname for Bertrand Russell.
+            <br>
+            <br>
+            The diaries form a potentially important source for all manner of research projects and as such, the Biblioteca Berenson has decided to make them available in an online edition.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="panel3">
+
+      <div data-flex-layout="column spread-center">
+
+        <h2>Browse the Diaries</h2>
+
+        <div class="container_table">
+          <semantic-table
             query='
               SELECT ?diary ?label ?imageIRI WHERE {
                 ?diary crm:P2_has_type <https://mbdiaries.itatti.harvard.edu/ontology/Diary>;
@@ -11,32 +62,31 @@
                   crm:P183i_has_representation ?imageIRI.
               } order by asc(?label)'
             tuple-template='{{>diary_card }}'
+            options='{"showFilter": false}'
             no-result-template='No Diaries uploaded yet.'>
 
               <template id="diary_card">
-                <div style="padding:10px;">
-                  <div class="text-center panel panel-default" style="border:none;margin-right:20px;font-size:12px;height:120px;width: 100%;">
-                    <div class="panel-body" style="height: 200px">
-                      <semantic-link iri="https://mbdiaries.itatti.harvard.edu/resource/pages?diary={{label.value}}">
-                        <rs-iiif-image-thumbnail
-                          image-or-region='{{imageIRI.value}}'
-                          image-id-pattern='BIND(REPLACE(STR(REPLACE(STR(?imageIRI),"/full/full/0/default.jpg","")), "(^.*)\\/(.*)$", "$2") AS ?imageID)'
-                          iiif-server-url='https://ids.lib.harvard.edu/ids/iiif/'>
-                        </rs-iiif-image-thumbnail>
-                      </semantic-link>
-                    </div>
-                    <div class="panel-footer" style="position: relative;  border: none;">
-                      {{label.value}}
-                    </div>
-                  </div>
+
+                <div class="container_diary">
+                  <semantic-link iri="{{diary.value}}">
+                    <rs-iiif-image-thumbnail
+                      image-or-region='{{imageIRI.value}}'
+                      image-id-pattern='BIND(REPLACE(STR(REPLACE(STR(?imageIRI),"/full/full/0/default.jpg","")), "(^.*)\\/(.*)$", "$2") AS ?imageID)'
+                      iiif-server-url='https://ids.lib.harvard.edu/ids/iiif/'>
+                    </rs-iiif-image-thumbnail>
+                  </semantic-link>
+                  <p><strong>{{label.value}}</strong></p>
                 </div>
 
               </template>
 
         </semantic-table>
-
-
+        </div>
       </div>
-    </semantic-context>
+
+    </div>
+
+
   </div>
+
 </div>

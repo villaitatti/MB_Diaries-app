@@ -3,49 +3,52 @@
     <semantic-context repository='default'>
       <div>
         <h2>Pages of [[urlParam "diary"]] Diary.</h2>
-        <semantic-table
-            query='
-              SELECT ?diary ?page ?document ?imageIRI ?str_index ?n ?index WHERE {
-                ?diary crm:P2_has_type <https://mbdiaries.itatti.harvard.edu/ontology/Diary>;
-                  rdfs:label "[[urlParam "diary"]]".
-         
-                ?page <https://mbdiaries.itatti.harvard.edu/ontology/part_of> ?diary;
-                  crm:P129i_is_subject_of ?document;
-                  crm:P183i_has_representation ?imageIRI;
-                  rdfs:label ?str_index
 
-                OPTIONAL {
-                  select ?page (count(?annotation) as ?n) where {
-                    ?page crm:P129i_is_subject_of ?doc.
-                    ?annotation oa:hasSource ?doc
-                  } group by ?page
-		            }
+        <bs-tabs unmount-on-exit=true id='search-results' animation=false>
+          <bs-tab event-key="1" title="Table">
+          <semantic-table
+                          query='
+                SELECT ?diary ?page ?document ?imageIRI ?str_index ?n ?index WHERE {
+                  ?diary crm:P2_has_type <https://mbdiaries.itatti.harvard.edu/ontology/Diary>;
+                    rdfs:label "[[urlParam "diary"]]".
+          
+                  ?page <https://mbdiaries.itatti.harvard.edu/ontology/part_of> ?diary;
+                    crm:P129i_is_subject_of ?document;
+                    crm:P183i_has_representation ?imageIRI;
+                    rdfs:label ?str_index
 
-                BIND(xsd:integer(?str_index) as ?index)
+                  OPTIONAL {
+                    select ?page (count(?annotation) as ?n) where {
+                      ?page crm:P129i_is_subject_of ?doc.
+                      ?annotation oa:hasSource ?doc
+                    } group by ?page
+                  }
+
+                  BIND(xsd:integer(?str_index) as ?index)
 
 
 
-              } order by asc(?index)'
-            column-configuration='[
-              {
-                "displayName": "Image", 
-                "cellTemplate": "{{> image}}" 
-              },
-              {
-                "displayName": "Page",
-                "cellTemplate": "{{> day}}"
-              },
-              {"variableName": "n", "displayName": "Annotations"},
-              {"variableName": "diary", "displayName": "Diary"}
-            ]'
-            no-result-template='No documents uploaded yet.'>
+                } order by asc(?index)'
+                          column-configuration='[
+                {
+                  "displayName": "Image", 
+                  "cellTemplate": "{{> image}}" 
+                },
+                {
+                  "displayName": "Page",
+                  "cellTemplate": "{{> day}}"
+                },
+                {"variableName": "n", "displayName": "Annotations"},
+                {"variableName": "diary", "displayName": "Diary"}
+              ]'
+              no-result-template='No documents uploaded yet.'>
 
             <template id="image">
               <div style="height: 100px">
                 <rs-iiif-image-thumbnail
-                  image-or-region='{{imageIRI.value}}'
-                  image-id-pattern='BIND(REPLACE(STR(REPLACE(STR(?imageIRI),"/full/full/0/default.jpg","")), "(^.*)\\/(.*)$", "$2") AS ?imageID)'
-                  iiif-server-url='https://ids.lib.harvard.edu/ids/iiif/'>
+                                        image-or-region='{{imageIRI.value}}'
+                                        image-id-pattern='BIND(REPLACE(STR(REPLACE(STR(?imageIRI),"/full/full/0/default.jpg","")), "(^.*)\\/(.*)$", "$2") AS ?imageID)'
+                                        iiif-server-url='https://ids.lib.harvard.edu/ids/iiif/'>
                 </rs-iiif-image-thumbnail>
               </div>
             </template>
@@ -58,7 +61,31 @@
               </div>
             </template>
 
-        </semantic-table>
+          </semantic-table>
+          </bs-tab>
+
+          <bs-tab event-key="2" title="Map">
+            <div style='height: 35vw;'>
+              <semantic-map
+                query='
+                SELECT ?wkt ?description ?link WHERE {
+                  ?diary crm:P2_has_type <https://mbdiaries.itatti.harvard.edu/ontology/Diary>;
+                    rdfs:label "[[urlParam "diary"]]".
+          
+                  ?page <https://mbdiaries.itatti.harvard.edu/ontology/part_of> ?diary;
+                    crm:P129i_is_subject_of ?document;
+                    <https://mbdiaries.itatti.harvard.edu/ontology/hasLocationLink> ?link;
+                    <https://mbdiaries.itatti.harvard.edu/ontology/hasLocationName> ?description;
+                    <https://mbdiaries.itatti.harvard.edu/ontology/hasLocationWkt> ?wkt;
+                  filter(?wkt != "NaN")
+                }'
+                tuple-template='<b>{{description.value}}</b><br><a href="{{link.value}}" target="_blank">Open in wikidata</a>'></semantic-map>
+            </div>
+          </bs-tab>
+
+        </bs-tabs>
+
+
       </div>
     </semantic-context>
   </div>
