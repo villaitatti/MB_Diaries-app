@@ -16,8 +16,22 @@
 
                 ?annotation oa:hasTarget ?range;
                   oa:hasBody ?body.
+                
+                ?body a mbdiaries-ontology:Person;
+                  owl:sameAs ?__value__.
+              }"
+            }],
+            "<https://mbdiaries.itatti.harvard.edu/ontology/page_artwork>": [{
+              "kind": "resource",
+              "queryPattern": "{
+                $subject crm:P129i_is_subject_of ?document.
+                ?range oa:hasSource ?document.
 
-                ?body owl:sameAs ?__value__
+                ?annotation oa:hasTarget ?range;
+                  oa:hasBody ?body.
+
+                ?body a mbdiaries-ontology:Artwork;
+                  owl:sameAs ?__value__
               }"
             }]
           }'
@@ -31,6 +45,10 @@
               {
                 "iri": "<https://mbdiaries.itatti.harvard.edu/ontology/Person>",
                 "label": "Person"
+              },
+              {
+                "iri": "<https://mbdiaries.itatti.harvard.edu/ontology/Artwork>",
+                "label": "Artwork"
               }
             ],
             "relations": [
@@ -39,6 +57,12 @@
                 "label": "PEOPLE",
                 "hasDomain": "<https://mbdiaries.itatti.harvard.edu/ontology/Page>",
                 "hasRange": "<https://mbdiaries.itatti.harvard.edu/ontology/Person>"
+              },
+              {
+                "iri": "<https://mbdiaries.itatti.harvard.edu/ontology/page_artwork>",
+                "label": "ARTWORKS",
+                "hasDomain": "<https://mbdiaries.itatti.harvard.edu/ontology/Page>",
+                "hasRange": "<https://mbdiaries.itatti.harvard.edu/ontology/Artwork>"
               }
             ]
           }'
@@ -156,6 +180,7 @@
                       </template>
 
                       [[> mbdiaries-type:Person ]] 
+                      [[> mbdiaries-type:Artwork ]] 
 
                     </rs-text-annotation-workspace>
                     </template>
@@ -238,5 +263,67 @@
 
   .show-facet-button__hide{
     display: none !important;
+  }
+
+  .show-facet-button__show{
+    display: none !important; 
+  }
+
+  .facet__category-selector-holder{
+    display: none!important;
+  }
+
+  .AnnotationSidebar--annotation{
+    box-shadow: none !important;
+    background-color: #FAFAFA!important;
+    border: none !important;
+  }
+  
+  .anno-icon{
+    height: 25px!important;
+  }
+
+  .anno-label{
+    font-size: 20px;
+    margin-left: 20px;
+  }
+
+  .dpub-annotation-template{
+    padding: 10px;
+  }
+
+  .dpub-annotation-template .btn-group{
+    float: right;
+    margin-top: -30px;
+  }
+
+  .image-thumbnail{
+    margin: auto;
+  }
+
+  .image-container{
+    position: relative;
+  }
+
+  .rs--image-click{
+    position: absolute;
+    height: 35px;
+    width: 35px;
+    background-color: #F0F0F0;
+    left: 69%!important;
+    bottom: 9%!important;
+    border-radius: 50%;
+  }
+
+  .rs--image-click:hover{
+    background-color: lightgray;
+  }
+
+  .rs--image-click > span{
+    text-align: center;
+    vertical-align: middle;
+    line-height: 32px;
+    margin-left: 11px;
+    font-weight: bold;
   }
 </style>

@@ -1,7 +1,6 @@
 <rs-text-annotation-type
   label="Person"
   rdf-type='https://mbdiaries.itatti.harvard.edu/ontology/Person'
-  icon-url='../../assets/icons/actor.svg'
   color="#4B77BE">
 
   <template id='annotation'>
@@ -17,11 +16,18 @@
 
       <template id='show'>
         {{#> mbdiaries:template}}
-          <div class="dpub-annotation-content person">
-            <semantic-link iri="{{iri.value}}">
-              <strong>{{bindings.0.label.value}}</strong>
-            </semantic-link>
-          </div>
+
+          <container-fluid class="person">
+            <bs-row>
+              <bs-col sm="3" md="3">
+                <img class="anno-icon" src="../../assets/icons/actor.svg" alt="People icon">
+              </bs-col>
+              <bs-col>
+                <em class="anno-label">{{bindings.0.label.value}}</em>
+              </bs-col>
+            </bs-row>
+          </container-fluid>
+
         {{/ mbdiaries:template}}
       </template>
 
@@ -35,7 +41,7 @@
     fields='[[fieldDefinitions
       classtype               = "https://collection.itatti.harvard.edu/fieldDefinitionContainer/type"
       sameAs_existing         = "https://collection.itatti.harvard.edu/fieldDefinitionContainer/owl_sameAs_existing_person"
-      sameAs_new              = "https://collection.itatti.harvard.edu/fieldDefinitionContainer/owl_sameAs_new_person"
+      sameAs_new              = "https://collection.itatti.harvard.edu/fieldDefinitionContainer/owl_sameAs"
     ]]'>
     <semantic-form-hidden-input for='classtype' default-value='https://mbdiaries.itatti.harvard.edu/ontology/Person'></semantic-form-hidden-input>
 
@@ -61,10 +67,6 @@
         </semantic-form-composite-input>
       </bs-tab>
     </bs-tabs>
-              
-
-
-
 
     <semantic-form-errors></semantic-form-errors>
   </semantic-form-composite-input>
