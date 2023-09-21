@@ -1,80 +1,171 @@
 <div class="page">
-  <div class='page__body'>
+  <div class='container-fluid'>
     <semantic-context repository='default'>
       <div>
-        <semantic-query
-          query='select ?label where {<[[this]]> rdfs:label ?label}'
-          template="{{>header}}"
+
+
+
+        <semantic-search
+
+          relations='{
+            "<https://mbdiaries.itatti.harvard.edu/ontology/page_person>": [{
+              "kind": "resource",
+              "queryPattern": "{
+                $subject crm:P129i_is_subject_of ?document.
+                ?range oa:hasSource ?document.
+
+                ?annotation oa:hasTarget ?range;
+                  oa:hasBody ?body.
+
+                ?body owl:sameAs ?__value__
+              }"
+            }]
+          }'
+
+          search-profile='{
+            "categories": [
+              {
+                "iri": "<https://mbdiaries.itatti.harvard.edu/ontology/Page>",
+                "label": "Page"
+              },
+              {
+                "iri": "<https://mbdiaries.itatti.harvard.edu/ontology/Person>",
+                "label": "Person"
+              }
+            ],
+            "relations": [
+              {
+                "iri": "<https://mbdiaries.itatti.harvard.edu/ontology/page_person>",
+                "label": "PEOPLE",
+                "hasDomain": "<https://mbdiaries.itatti.harvard.edu/ontology/Page>",
+                "hasRange": "<https://mbdiaries.itatti.harvard.edu/ontology/Person>"
+              }
+            ]
+          }'
         >
-          <template id="header">
-            <header>
-              <h1>Diary {{bindings.0.label.value}}</h1>
-            </header>
-          </template>
-        </semantic-query>
-
-        <semantic-search>
           <semantic-search-query-constant
-            domain='<https://mbdiaries.itatti.harvard.edu/ontology/Document>'
-            query='
-              SELECT ?subject WHERE {
-                ?subject <https://mbdiaries.itatti.harvard.edu/ontology/part_of> <[[this]]>.
-              }'
-          ></semantic-search-query-constant>
+            domain='<https://mbdiaries.itatti.harvard.edu/ontology/Page>'
+            query="
+              SELECT ?subject WHERE { 
+                ?subject mbdiaries-ontology:part_of <[[this]]>.
+              }
+            "></semantic-search-query-constant>
 
-          <div data-flex-self="size-1of3" style="flex: 0 0 20px;">
-            <semantic-search-facet
-              open-by-default="true"
-            ></semantic-search-facet>
+          <div data-flex-layout="row stretch-stretch">
+            <div data-flex-self="size-1of3" style="flex: 0 0 20px;">
+              <semantic-search-facet
+                open-by-default="true"
+              ></semantic-search-facet>
+            </div>
+            <semantic-search-result-holder>
+              <div data-flex-self="md-full">
+
+                <semantic-search-result>
+                  <semantic-query
+                    id="diary_name"
+                    query='select ?label where {<[[this]]> rdfs:label ?label}'
+                    template="{{>header}}"
+                  >
+                    <template id="header">
+                      <header>
+                        <h1>Diary {{bindings.0.label.value}}</h1>
+                      </header>
+                    </template>
+                  </semantic-query>
+                </semantic-search-result>
+
+                
+                <semantic-search-result>
+                  <semantic-table 
+                    id='table-result'
+                    query='SELECT DISTINCT ?subject ?document ?imageIRI WHERE { 
+                      ?subject mbdiaries-ontology:index ?index;
+                        crm:P129i_is_subject_of ?document;
+                        crm:P183i_has_representation ?imageIRI.
+                    } ORDER BY ASC(?index)'
+
+                    column-configuration='[
+                      {
+                        "displayName": "Text",
+                        "cellTemplate": "{{> text}}"
+                      }
+                    ]'
+                    options='{
+                      "showTableHeading": false
+                    }'
+                    number-of-displayed-rows="5">
+
+                    <template id="text">
+                    <rs-text-annotation-workspace
+                      document-iri="{{document.value}}"
+                      storage="MB_Diaries-app"
+                      annotation-subject-template="https://mbdiaries.itatti.harvard.edu/annotation/{{{{raw}}}}{{UUID}}{{{{/raw}}}}"
+                      fallback-template="{{> fallback-template}}"
+                      annotation-tooltip="{{> annotation-tooltip}}"
+                      image-iri="{{imageIRI.value}}"
+                      image-id-pattern='BIND(REPLACE(STR(REPLACE(STR(?imageIRI),"/full/full/0/default.jpg","")), "(^.*)\\/(.*)$", "$2") AS ?imageID)'
+                      iiif-server-url="https://ids.lib.harvard.edu/ids/iiif/">
+
+                      <template id="fallback-template">
+                        {{#> mbdiaries:template}} Missing type for annotation
+                          <semantic-link iri="{{ iri.value }}"></semantic-link>
+                        {{/ mbdiaries:template}}
+                      </template>
+
+                      <template id="annotation-tooltip">
+                        <div>
+                          {{#if allowEdit}}
+                          <button
+                            name="edit"
+                            class="btn btn-xs btn-default"
+                            data-annotation="{{ iri.value }}"
+                            title="Edit annotation"
+                          >
+                            <span class="fa fa-pencil" style="pointer-events: none;"></span>
+                          </button>
+                          {{else}}
+                          <button
+                            name="edit"
+                            class="btn btn-xs btn-default"
+                            disabled
+                            title="Edit annotation"
+                          >
+                            <span class="fa fa-pencil" style="pointer-events: none;"></span>
+                          </button>
+                          {{/if}}
+                          {{#if allowDelete}}
+                          <button
+                            name="delete"
+                            class="btn btn-xs btn-default"
+                            data-annotation="{{ iri.value }}"
+                            title="Delete annotation"
+                          >
+                            <span class="fa fa-trash" style="pointer-events: none;"></span>
+                          </button>
+                          {{else}}
+                          <button
+                            name="delete"
+                            class="btn btn-xs btn-default"
+                            disabled
+                            title="Delete annotation"
+                          >
+                            <span class="fa fa-trash" style="pointer-events: none;"></span>
+                          </button>
+                          {{/if}}
+                        </div>
+                      </template>
+
+                      [[> mbdiaries-type:Person ]] 
+
+                    </rs-text-annotation-workspace>
+                    </template>
+
+                  </semantic-table>
+                </semantic-search-result>
+
+              </div>
+            </semantic-search-result-holder>
           </div>
-          <semantic-search-result-holder>
-            <semantic-table
-              query='
-                SELECT ?subject ?document ?imageIRI ?index WHERE { 
-                ?subject <https://mbdiaries.itatti.harvard.edu/ontology/part_of> <[[this]]>;
-                  crm:P129i_is_subject_of ?document;
-                  crm:P183i_has_representation ?imageIRI;
-                  rdfs:label ?string_index
-                BIND(xsd:integer(?string_index) AS ?index)
-               } 
-               ORDER BY ASC(?index) limit 15'
-              column-configuration='[
-                {
-                  "displayName": "Text",
-                  "cellTemplate": "{{> text}}"
-                }
-              ]'
-              options='{
-                "showTableHeading": false
-              }'
-            >
-
-              <template id="text">
-                <rs-text-annotation-workspace
-                  document-iri="{{document.value}}"
-                  storage="MB_Diaries-app"
-                  annotation-subject-template="https://mbdiaries.itatti.harvard.edu/annotation/{{{{raw}}}}{{UUID}}{{{{/raw}}}}"
-                  fallback-template="{{> fallback-template}}"
-                  annotation-tooltip="{{> annotation-tooltip}}"
-                  image-iri="{{imageIRI.value}}"
-                  image-id-pattern='BIND(REPLACE(STR(REPLACE(STR(?imageIRI),"/full/full/0/default.jpg","")), "(^.*)\\/(.*)$", "$2") AS ?imageID)'
-                  iiif-server-url="https://ids.lib.harvard.edu/ids/iiif/"
-                    >
-                  <template id="fallback-template">
-                    {{#> mbdiaries:template}} Missing type for annotation
-                      <semantic-link iri="{{ iri.value }}"></semantic-link>
-                    {{/ mbdiaries:template}}
-                  </template>
-
-                  [[> mbdiaries-type:person ]] 
-                  [[> mbdiaries-type:art ]] 
-
-                </rs-text-annotation-workspace>
-              </template>
-
-            </semantic-table>
-          </semantic-search-result-holder>
-
         </semantic-search>
 
       </div>
@@ -84,32 +175,37 @@
 
 
 <style>
-  div.top-section{
+  div.top-section {
     display: none;
   }
+
   .TextAnnotationWorkspace--component {
     margin-top: 2px;
   }
-  .TextAnnotationEditor--textEditor{
+
+  .TextAnnotationEditor--textEditor {
     font-size: 16px;
   }
-  .TextAnnotationWorkspace--editorPanel{
+
+  .TextAnnotationWorkspace--editorPanel {
     border-top: 1px solid black;
     padding: 15px 0;
   }
+
   .image-thumbnail {
-    width: 300px!important;
+    width: 300px !important;
   }
-  td{
-    padding-top: 0px!important;
-    padding-bottom: 0px!important;
+
+  td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
   }
 
   .TextAnnotationEditor--textEditor h3 {
     color: #E32B31;
   }
 
-  .TextAnnotationWorkspace--annotationsPanel{
+  .TextAnnotationWorkspace--annotationsPanel {
     padding-bottom: 2px;
     background-color: #F0F0F0
   }
@@ -118,21 +214,29 @@
     padding: 20px;
   }
 
-  header>h1{
+  header>h1 {
     padding-left: 8px;
     font-size: 32px;
     padding-bottom: 25px;
   }
 
-  tr.standard-row:hover{
-    background-color: #fff!important;
+  tr.standard-row:hover {
+    background-color: #fff !important;
   }
 
-  .dpub-annotation-type-icon{
+  .dpub-annotation-type-icon {
     height: 20px;
   }
 
-  .dpub-annotation-content{
+  .dpub-annotation-content {
     font-size: 20px;
+  }
+
+  .semantic-facet-holder {
+    margin-top: 82px;
+  }
+
+  .show-facet-button__hide{
+    display: none !important;
   }
 </style>
