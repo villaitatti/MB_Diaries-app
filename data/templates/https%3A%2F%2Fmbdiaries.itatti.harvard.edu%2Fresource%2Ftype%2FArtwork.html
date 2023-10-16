@@ -1,16 +1,18 @@
 <rs-text-annotation-type
-  label="Artwork"
+  label="Book"
   rdf-type='https://mbdiaries.itatti.harvard.edu/ontology/Artwork'
   color="#E2B13C">
 
   <template id='annotation'>
     <semantic-query
       query='
-        SELECT ?iri ?label WHERE {
+        SELECT ?iri ?label ?subtitle ?lod WHERE {
           BIND({{iri}} as ?iri)
           ?iri oa:hasBody ?body .
           ?body owl:sameAs ?wikidata .
-          ?wikidata rdfs:label ?label .
+          ?wikidata rdfs:label ?label.
+          optional{ ?wikidata mbdiaries-ontology:subtitle ?subtitle }
+          optional{ ?wikidata owl:sameAs ?lod }
         }'
       template='{{> show}}'>
 
@@ -22,7 +24,15 @@
                 <img class="anno-icon" src="../../assets/icons/book.svg" alt="Artwork icon">
               </bs-col>
               <bs-col>
-                <em class="anno-label">{{bindings.0.label.value}}</em>
+
+                {{#if bindings.0.lod.value}}
+                  <h3><a href="{{bindings.0.lod.value}}" target="_blank">{{bindings.0.label.value}}</a></h3>
+                {{else}}
+                  <h3>{{bindings.0.label.value}}</h3>
+                {{/if}}
+                  
+                <p>{{bindings.0.subtitle.value}}</p>
+
               </bs-col>
             </bs-row>
           </container-fluid>
@@ -43,13 +53,13 @@
     <semantic-form-hidden-input for='classtype' default-value='https://mbdiaries.itatti.harvard.edu/ontology/Artwork'></semantic-form-hidden-input>
 
     <bs-tabs id="tabs">
-      <bs-tab event-key="1" title="Existing Artwork">
+      <bs-tab event-key="1" title="Existing book">
 
-        <semantic-form-autocomplete-input render-header="false" for='sameAs_existing' placeholder="Search and select an Artwork here ...">
+        <semantic-form-autocomplete-input render-header="false" for='sameAs_existing' placeholder="Search and select a Book here ...">
         </semantic-form-autocomplete-input>
 
       </bs-tab>
-      <bs-tab event-key="2" title="Create a new Artwork">
+      <bs-tab event-key="2" title="Create a new Book">
         <semantic-form-composite-input
           label="Artwork"
           render-header="false"
@@ -58,10 +68,13 @@
           fields='[[fieldDefinitions
             classtype             = "https://collection.itatti.harvard.edu/fieldDefinitionContainer/type"
             label                 = "https://collection.itatti.harvard.edu/fieldDefinitionContainer/label"
+            subtitle              = "https://collection.itatti.harvard.edu/fieldDefinitionContainer/label_subtitle"
             sameAs                = "https://collection.itatti.harvard.edu/fieldDefinitionContainer/owl_sameAs"
           ]]'
         >
-          <semantic-form-text-input for='label' label="Display Label" placeholder="Type new Artwork label here ..."></semantic-form-text-input>
+          <semantic-form-text-input for='label' label="Display title" placeholder="Type new Book title here ..."></semantic-form-text-input>
+          <semantic-form-text-input for='subtitle' label="Display author and date" placeholder="Type author and date here ..."></semantic-form-text-input>
+
           <semantic-form-text-input for='sameAs' label="Linked open data" placeholder="Type URIs (e.g., Hollis permalink, Wikidata ID, etc) here ..."></semantic-form-text-input>
 
           
