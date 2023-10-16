@@ -1,7 +1,6 @@
 <rs-text-annotation-type
   label="Location"
-  rdf-type='https://mbdiaries.itatti.harvard.edu/ontology/location'
-  icon-url='../../assets/icons/place.svg'
+  rdf-type='https://mbdiaries.itatti.harvard.edu/ontology/Location'
   color="#03A678">
 
   <template id='annotation'>
@@ -10,17 +9,23 @@
         SELECT ?iri ?label WHERE {
           BIND({{iri}} as ?iri)
           ?iri oa:hasBody ?body .
-          ?body rdfs:label ?label .
+          ?body owl:sameAs ?wikidata .
+          ?wikidata rdfs:label ?label .
         }'
       template='{{> show}}'>
 
       <template id='show'>
         {{#> mbdiaries:template}}
-          <div class="dpub-annotation-content person">
-            <semantic-link iri="{{iri.value}}">
-              <strong>{{bindings.0.label.value}}</strong>
-            </semantic-link>
-          </div>
+          <container-fluid class="person">
+            <bs-row>
+              <bs-col sm="3" md="3">
+                <img class="anno-icon" src="../../assets/icons/place.svg" alt="Location icon">
+              </bs-col>
+              <bs-col>
+                <em class="anno-label">{{bindings.0.label.value}}</em>
+              </bs-col>
+            </bs-row>
+          </container-fluid>
         {{/ mbdiaries:template}}
       </template>
 
@@ -29,17 +34,40 @@
 
   <semantic-form-composite-input
     for='oaHasBody'
-    new-subject-template='body'
+    new-subject-template='/body'
     fields='[[fieldDefinitions
-      classtype="https://collection.itatti.harvard.edu/fieldDefinitionContainer/type"
-      label="https://collection.itatti.harvard.edu/fieldDefinitionContainer/label"
-      sameAs="https://collection.itatti.harvard.edu/fieldDefinitionContainer/owl_sameAs"
+      classtype               = "https://collection.itatti.harvard.edu/fieldDefinitionContainer/type"
+      sameAs_existing         = "https://collection.itatti.harvard.edu/fieldDefinitionContainer/owl_sameAs_existing_location"
+      sameAs_new              = "https://collection.itatti.harvard.edu/fieldDefinitionContainer/owl_sameAs"
     ]]'>
-    <semantic-form-hidden-input for='classtype' default-value='https://mbdiaries.itatti.harvard.edu/ontology/location'></semantic-form-hidden-input>
+    <semantic-form-hidden-input for='classtype' default-value='https://mbdiaries.itatti.harvard.edu/ontology/Location'></semantic-form-hidden-input>
 
-    <semantic-form-text-input for='label' label="Annotation text"></semantic-form-text-input>
-    <semantic-form-text-input for='sameAs' label="Wikidata URI"></semantic-form-text-input>
+    <bs-tabs id="tabs">
+      <bs-tab event-key="1" title="Existing Location">
 
+        <semantic-form-autocomplete-input render-header="false" for='sameAs_existing' placeholder="Search and select an Location here ...">
+        </semantic-form-autocomplete-input>
+
+      </bs-tab>
+      <bs-tab event-key="2" title="Create a new Location">
+        <semantic-form-composite-input
+          label="Location"
+          render-header="false"
+          for='sameAs_new'
+          new-subject-template='https://www.wikidata.org/wiki/{{{{raw}}}}{{UUID}}{{{{/raw}}}}'
+          fields='[[fieldDefinitions
+            classtype             = "https://collection.itatti.harvard.edu/fieldDefinitionContainer/type"
+            label                 = "https://collection.itatti.harvard.edu/fieldDefinitionContainer/label"
+            sameAs                = "https://collection.itatti.harvard.edu/fieldDefinitionContainer/owl_sameAs"
+          ]]'
+        >
+          <semantic-form-text-input for='label' label="Display Label" placeholder="Type new Location label here ..."></semantic-form-text-input>
+          <semantic-form-text-input for='sameAs' label="Linked open data" placeholder="Type URIs (e.g., Hollis permalink, Wikidata ID, etc) here ..."></semantic-form-text-input>
+
+          
+        </semantic-form-composite-input>
+      </bs-tab>
+    </bs-tabs>
 
     <semantic-form-errors></semantic-form-errors>
   </semantic-form-composite-input>

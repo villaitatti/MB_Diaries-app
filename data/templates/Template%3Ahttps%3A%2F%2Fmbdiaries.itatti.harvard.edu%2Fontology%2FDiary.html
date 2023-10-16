@@ -33,6 +33,29 @@
                 ?body a mbdiaries-ontology:Artwork;
                   owl:sameAs ?__value__
               }"
+            }],
+            "<https://mbdiaries.itatti.harvard.edu/ontology/page_location>": [{
+              "kind": "resource",
+              "queryPattern": "{
+                $subject crm:P129i_is_subject_of ?document.
+                ?range oa:hasSource ?document.
+
+                ?annotation oa:hasTarget ?range;
+                  oa:hasBody ?body.
+
+                ?body a mbdiaries-ontology:Location;
+                  owl:sameAs ?__value__
+              }"
+            }],
+            "<https://mbdiaries.itatti.harvard.edu/ontology/hasDate>": [{
+              "kind": "date-range",
+              "datatype": "http://www.w3.org/2001/XMLSchema#date",
+              "queryPattern": "
+                {
+                  $subject ?__relation__ ?date .
+                  FILTER(?date <= ?__dateEndValue__) .
+                  FILTER(?date >= ?__dateBeginValue__) .
+                }"
             }]
           }'
 
@@ -49,6 +72,14 @@
               {
                 "iri": "<https://mbdiaries.itatti.harvard.edu/ontology/Artwork>",
                 "label": "Artwork"
+              },
+              {
+                "iri": "<http://www.w3.org/2001/XMLSchema#date>",
+                "label": "Date"
+              },
+              {
+                "iri": "<https://mbdiaries.itatti.harvard.edu/ontology/Location>",
+                "label": "Location"
               }
             ],
             "relations": [
@@ -63,6 +94,18 @@
                 "label": "ARTWORKS",
                 "hasDomain": "<https://mbdiaries.itatti.harvard.edu/ontology/Page>",
                 "hasRange": "<https://mbdiaries.itatti.harvard.edu/ontology/Artwork>"
+              },
+              {
+                "iri": "<https://mbdiaries.itatti.harvard.edu/ontology/page_location>",
+                "label": "PLACES",
+                "hasDomain": "<https://mbdiaries.itatti.harvard.edu/ontology/Page>",
+                "hasRange": "<https://mbdiaries.itatti.harvard.edu/ontology/Location>"
+              },
+              {
+                "iri": "<https://mbdiaries.itatti.harvard.edu/ontology/hasDate>",
+                "label": "DATE",
+                "hasDomain": "<https://mbdiaries.itatti.harvard.edu/ontology/Page>",
+                "hasRange": "<http://www.w3.org/2001/XMLSchema#date>"
               }
             ]
           }'
@@ -92,7 +135,7 @@
                   >
                     <template id="header">
                       <header>
-                        <h1>Diary {{bindings.0.label.value}}</h1>
+                        <h1>{{bindings.0.label.value}}</h1>
                       </header>
                     </template>
                   </semantic-query>
@@ -120,69 +163,70 @@
                     number-of-displayed-rows="5">
 
                     <template id="text">
-                    <rs-text-annotation-workspace
-                      document-iri="{{document.value}}"
-                      storage="MB_Diaries-app"
-                      annotation-subject-template="https://mbdiaries.itatti.harvard.edu/annotation/{{{{raw}}}}{{UUID}}{{{{/raw}}}}"
-                      fallback-template="{{> fallback-template}}"
-                      annotation-tooltip="{{> annotation-tooltip}}"
-                      image-iri="{{imageIRI.value}}"
-                      image-id-pattern='BIND(REPLACE(STR(REPLACE(STR(?imageIRI),"/full/full/0/default.jpg","")), "(^.*)\\/(.*)$", "$2") AS ?imageID)'
-                      iiif-server-url="https://ids.lib.harvard.edu/ids/iiif/">
+                      <rs-text-annotation-workspace
+                        document-iri="{{document.value}}"
+                        storage="MB_Diaries-app"
+                        annotation-subject-template="https://mbdiaries.itatti.harvard.edu/annotation/{{{{raw}}}}{{UUID}}{{{{/raw}}}}"
+                        fallback-template="{{> fallback-template}}"
+                        annotation-tooltip="{{> annotation-tooltip}}"
+                        image-iri="{{imageIRI.value}}"
+                        image-id-pattern='BIND(REPLACE(STR(REPLACE(STR(?imageIRI),"/full/full/0/default.jpg","")), "(^.*)\\/(.*)$", "$2") AS ?imageID)'
+                        iiif-server-url="https://ids.lib.harvard.edu/ids/iiif/">
 
-                      <template id="fallback-template">
-                        {{#> mbdiaries:template}} Missing type for annotation
-                          <semantic-link iri="{{ iri.value }}"></semantic-link>
-                        {{/ mbdiaries:template}}
-                      </template>
+                        <template id="fallback-template">
+                          {{#> mbdiaries:template}} Missing type for annotation
+                            <semantic-link iri="{{ iri.value }}"></semantic-link>
+                          {{/ mbdiaries:template}}
+                        </template>
 
-                      <template id="annotation-tooltip">
-                        <div>
-                          {{#if allowEdit}}
-                          <button
-                            name="edit"
-                            class="btn btn-xs btn-default"
-                            data-annotation="{{ iri.value }}"
-                            title="Edit annotation"
-                          >
-                            <span class="fa fa-pencil" style="pointer-events: none;"></span>
-                          </button>
-                          {{else}}
-                          <button
-                            name="edit"
-                            class="btn btn-xs btn-default"
-                            disabled
-                            title="Edit annotation"
-                          >
-                            <span class="fa fa-pencil" style="pointer-events: none;"></span>
-                          </button>
-                          {{/if}}
-                          {{#if allowDelete}}
-                          <button
-                            name="delete"
-                            class="btn btn-xs btn-default"
-                            data-annotation="{{ iri.value }}"
-                            title="Delete annotation"
-                          >
-                            <span class="fa fa-trash" style="pointer-events: none;"></span>
-                          </button>
-                          {{else}}
-                          <button
-                            name="delete"
-                            class="btn btn-xs btn-default"
-                            disabled
-                            title="Delete annotation"
-                          >
-                            <span class="fa fa-trash" style="pointer-events: none;"></span>
-                          </button>
-                          {{/if}}
-                        </div>
-                      </template>
+                        <template id="annotation-tooltip">
+                          <div>
+                            {{#if allowEdit}}
+                            <button
+                              name="edit"
+                              class="btn btn-xs btn-default"
+                              data-annotation="{{ iri.value }}"
+                              title="Edit annotation"
+                            >
+                              <span class="fa fa-pencil" style="pointer-events: none;"></span>
+                            </button>
+                            {{else}}
+                            <button
+                              name="edit"
+                              class="btn btn-xs btn-default"
+                              disabled
+                              title="Edit annotation"
+                            >
+                              <span class="fa fa-pencil" style="pointer-events: none;"></span>
+                            </button>
+                            {{/if}}
+                            {{#if allowDelete}}
+                            <button
+                              name="delete"
+                              class="btn btn-xs btn-default"
+                              data-annotation="{{ iri.value }}"
+                              title="Delete annotation"
+                            >
+                              <span class="fa fa-trash" style="pointer-events: none;"></span>
+                            </button>
+                            {{else}}
+                            <button
+                              name="delete"
+                              class="btn btn-xs btn-default"
+                              disabled
+                              title="Delete annotation"
+                            >
+                              <span class="fa fa-trash" style="pointer-events: none;"></span>
+                            </button>
+                            {{/if}}
+                          </div>
+                        </template>
 
-                      [[> mbdiaries-type:Person ]] 
-                      [[> mbdiaries-type:Artwork ]] 
+                        [[> mbdiaries-type:Person ]] 
+                        [[> mbdiaries-type:Artwork ]] 
+                        [[> mbdiaries-type:Location ]] 
 
-                    </rs-text-annotation-workspace>
+                      </rs-text-annotation-workspace>
                     </template>
 
                   </semantic-table>

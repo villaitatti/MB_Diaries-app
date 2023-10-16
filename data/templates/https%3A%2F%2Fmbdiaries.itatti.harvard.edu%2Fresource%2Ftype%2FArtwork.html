@@ -1,6 +1,7 @@
 <rs-text-annotation-type
   label="Artwork"
-  rdf-type='https://mbdiaries.itatti.harvard.edu/ontology/Artwork'>
+  rdf-type='https://mbdiaries.itatti.harvard.edu/ontology/Artwork'
+  color="#E2B13C">
 
   <template id='annotation'>
     <semantic-query
@@ -57,9 +58,12 @@
           fields='[[fieldDefinitions
             classtype             = "https://collection.itatti.harvard.edu/fieldDefinitionContainer/type"
             label                 = "https://collection.itatti.harvard.edu/fieldDefinitionContainer/label"
+            sameAs                = "https://collection.itatti.harvard.edu/fieldDefinitionContainer/owl_sameAs"
           ]]'
         >
-          <semantic-form-text-input for='label' render-header="false" placeholder="Type new Artwork label here ..."></semantic-form-text-input>
+          <semantic-form-text-input for='label' label="Display Label" placeholder="Type new Artwork label here ..."></semantic-form-text-input>
+          <semantic-form-text-input for='sameAs' label="Linked open data" placeholder="Type URIs (e.g., Hollis permalink, Wikidata ID, etc) here ..."></semantic-form-text-input>
+
           
         </semantic-form-composite-input>
       </bs-tab>
