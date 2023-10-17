@@ -48,13 +48,11 @@
               }"
             }],
             "<https://mbdiaries.itatti.harvard.edu/ontology/hasDate>": [{
-              "kind": "date-range",
+              "kind": "literal",
               "datatype": "http://www.w3.org/2001/XMLSchema#date",
               "queryPattern": "
                 {
-                  $subject ?__relation__ ?date .
-                  FILTER(?date <= ?__dateEndValue__) .
-                  FILTER(?date >= ?__dateBeginValue__) .
+                  $subject ?__relation__ ?__literal__ .
                 }"
             }]
           }'
@@ -74,7 +72,7 @@
                 "label": "Artwork"
               },
               {
-                "iri": "<http://www.w3.org/2001/XMLSchema#date>",
+                "iri": "<http://www.w3.org/2001/XMLSchema#string>",
                 "label": "Date"
               },
               {
@@ -97,15 +95,9 @@
               },
               {
                 "iri": "<https://mbdiaries.itatti.harvard.edu/ontology/page_location>",
-                "label": "PLACES",
+                "label": "CITIES",
                 "hasDomain": "<https://mbdiaries.itatti.harvard.edu/ontology/Page>",
                 "hasRange": "<https://mbdiaries.itatti.harvard.edu/ontology/Location>"
-              },
-              {
-                "iri": "<https://mbdiaries.itatti.harvard.edu/ontology/hasDate>",
-                "label": "DATE",
-                "hasDomain": "<https://mbdiaries.itatti.harvard.edu/ontology/Page>",
-                "hasRange": "<http://www.w3.org/2001/XMLSchema#date>"
               }
             ]
           }'
