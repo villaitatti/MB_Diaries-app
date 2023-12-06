@@ -34,6 +34,19 @@
                   owl:sameAs ?__value__
               }"
             }],
+            "<https://mbdiaries.itatti.harvard.edu/ontology/page_painting>": [{
+              "kind": "resource",
+              "queryPattern": "{
+                $subject crm:P129i_is_subject_of ?document.
+                ?range oa:hasSource ?document.
+
+                ?annotation oa:hasTarget ?range;
+                  oa:hasBody ?body.
+
+                ?body a mbdiaries-ontology:Painting;
+                  owl:sameAs ?__value__
+              }"
+            }],
             "<https://mbdiaries.itatti.harvard.edu/ontology/page_location>": [{
               "kind": "resource",
               "queryPattern": "{
@@ -72,6 +85,10 @@
                 "label": "Artwork"
               },
               {
+                "iri": "<https://mbdiaries.itatti.harvard.edu/ontology/Painting>",
+                "label": "Painting"
+              },
+              {
                 "iri": "<http://www.w3.org/2001/XMLSchema#string>",
                 "label": "Date"
               },
@@ -92,6 +109,12 @@
                 "label": "BOOKS",
                 "hasDomain": "<https://mbdiaries.itatti.harvard.edu/ontology/Page>",
                 "hasRange": "<https://mbdiaries.itatti.harvard.edu/ontology/Artwork>"
+              },
+              {
+                "iri": "<https://mbdiaries.itatti.harvard.edu/ontology/page_painting>",
+                "label": "PAINTINGS",
+                "hasDomain": "<https://mbdiaries.itatti.harvard.edu/ontology/Page>",
+                "hasRange": "<https://mbdiaries.itatti.harvard.edu/ontology/Painting>"
               },
               {
                 "iri": "<https://mbdiaries.itatti.harvard.edu/ontology/page_location>",
@@ -216,6 +239,7 @@
 
                         [[> mbdiaries-type:Person ]] 
                         [[> mbdiaries-type:Artwork ]] 
+                        [[> mbdiaries-type:Painting ]] 
                         [[> mbdiaries-type:Location ]] 
 
                       </rs-text-annotation-workspace>
