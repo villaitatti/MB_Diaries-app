@@ -164,7 +164,8 @@
                       ?subject mbdiaries-ontology:index ?index;
                         crm:P129i_is_subject_of ?document;
                         crm:P183i_has_representation ?imageIRI.
-                    } ORDER BY ASC(?index)'
+                        BIND(xsd:integer(?index) as ?index_num)
+                    } ORDER BY ASC(?index_num)'
 
                     column-configuration='[
                       {

@@ -61,8 +61,6 @@
                   rdfs:label ?label;
                   crm:P183i_has_representation ?imageIRI.
 
-                  filter(?diary = <https://mbdiaries.itatti.harvard.edu/diary/1891>)
-                  filter(?label = "1891")
 
               } order by asc(?label)'
             tuple-template='{{>diary_card }}'
