@@ -8,6 +8,17 @@
         <semantic-search
 
           relations='{
+
+            "<https://mbdiaries.itatti.harvard.edu/ontology/page_day>":[{
+                "kind": "literal",
+                "queryPattern": "{
+                    $subject crm:P108i_was_produced_by ?production.
+                    ?production crm:P4_has_time-span ?timespan.
+                    ?timespan crm:P86_falls_within ?day.
+                    ?day rdfs:label ?__literal__.
+                }"
+            }],
+
             "<https://mbdiaries.itatti.harvard.edu/ontology/page_person>": [{
               "kind": "resource",
               "queryPattern": "{
@@ -72,6 +83,10 @@
 
           search-profile='{
             "categories": [
+            {
+                "iri": "<http://www.cidoc-crm.org/cidoc-crm/E52_Time_Span>",
+                "label": "Day"
+            },
               {
                 "iri": "<https://mbdiaries.itatti.harvard.edu/ontology/Page>",
                 "label": "Page"
@@ -103,6 +118,12 @@
                 "label": "PEOPLE",
                 "hasDomain": "<https://mbdiaries.itatti.harvard.edu/ontology/Page>",
                 "hasRange": "<https://mbdiaries.itatti.harvard.edu/ontology/Person>"
+              },
+            {
+                "iri": "<https://mbdiaries.itatti.harvard.edu/ontology/page_day>",
+                "label": "DAY",
+                "hasDomain": "<https://mbdiaries.itatti.harvard.edu/ontology/Page>",
+                "hasRange": "<http://www.cidoc-crm.org/cidoc-crm/E52_Time_Span>"
               },
               {
                 "iri": "<https://mbdiaries.itatti.harvard.edu/ontology/page_artwork>",
