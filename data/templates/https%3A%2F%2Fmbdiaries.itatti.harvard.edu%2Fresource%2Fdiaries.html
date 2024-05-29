@@ -61,8 +61,7 @@
                   rdfs:label ?label;
                   crm:P183i_has_representation ?imageIRI;
                   mbdiaries-ontology:order ?order.
-
-
+                FILTER(?label != "Diary 1, 1891-1894")
               } order by ASC(?order)'
             number-of-displayed-rows='32'
             tuple-template='{{>diary_card }}'
