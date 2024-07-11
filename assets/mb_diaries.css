@@ -331,3 +331,11 @@
 .container-fluid {
     margin-top: 12px;
 }
+
+.TextAnnotationEditor--textEditor {
+    font-size: 18px!important;
+}
+
+.TextAnnotationEditor--textEditor h3 {
+    font-size: 20px!important;
+}
