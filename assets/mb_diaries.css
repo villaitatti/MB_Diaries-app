@@ -194,9 +194,7 @@
   white-space: normal;
   border: 1 px solid #ddddddd1;
   background-color: white;
-  box-shadow: 0 1px 3px 1px rgb(60 64 67 / 15%);
   color: #000;
-  margin-top: 40px;
   margin-right: 20px;
 }
 
@@ -324,4 +322,12 @@
 
 #mb_home .panel3 .container_table .container_diary p{
   text-align: center;
+}
+
+.navbar.navbar-default.navbar-fixed-top {
+    display: none;
+}
+
+.container-fluid {
+    margin-top: 12px;
 }
