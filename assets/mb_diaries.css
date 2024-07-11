@@ -324,10 +324,6 @@
   text-align: center;
 }
 
-.navbar.navbar-default.navbar-fixed-top {
-    display: none;
-}
-
 .container-fluid {
     margin-top: 12px;
 }
@@ -338,4 +334,8 @@
 
 .TextAnnotationEditor--textEditor h3 {
     font-size: 20px!important;
+}
+
+nav#collection {
+    display: none;
 }

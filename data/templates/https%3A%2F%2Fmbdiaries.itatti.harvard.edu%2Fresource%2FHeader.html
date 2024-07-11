@@ -1,0 +1,50 @@
+<bs-navbar class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="rs-header">
+    
+    <bs-navbar-collapse class="pull-right">
+      <bs-nav>
+
+        <bs-nav-item>
+          <semantic-link class="rs-body-m-M" iri="mbdiaries:diaries">DIARIES</semantic-link>
+        </bs-nav-item>
+
+        <mp-anonymous-hidden>
+          <bs-nav-item>
+            <semantic-link
+              iri="rsp:admin"
+              title="Go to admin settings"
+              class="rs-body-m-M"
+            >ADMIN</semantic-link>
+          </bs-nav-item>
+        </mp-anonymous-hidden>
+
+        <mp-anonymous-hidden>
+          <li role="presentation">
+            <a
+              href="/sparql"
+              title="Go to SPARQL endpoint"
+              class="rs-body-m-M"
+            >SPARQL</a>
+          </li>
+        </mp-anonymous-hidden>
+
+        <li role="presentation">
+          <mp-anonymous-hidden>
+            <a
+              id="logout-Link"
+              href="/logout"
+              title="logout"
+              class="rs-body-m-M fa fa-sign-out"
+            >Logout</a>
+          </mp-anonymous-hidden>
+          <a
+            id="login-Link"
+            href="/login"
+            title="login"
+            class="rs-body-m-M fa fa-sign-in"
+          >Login</a>
+        </li>
+      </bs-nav>
+    </bs-navbar-collapse>
+  </div>
+</bs-navbar>

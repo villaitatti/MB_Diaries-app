@@ -1,285 +1,284 @@
 <link rel="stylesheet" href="../../assets/mb_diaries.css">
+[[> mbdiaries:Header ]]
 
 <div class="page">
-  <div class='container-fluid'>
-    <semantic-context repository='default'>
-      <div>
+    <div class='container-fluid'>
+        <semantic-context repository='default'>
+            <div>
 
+                <semantic-search
 
+                relations='{
 
-        <semantic-search
+                    "<https://mbdiaries.itatti.harvard.edu/ontology/page_day>":[{
+                        "kind": "literal",
+                        "queryPattern": "{
+                            $subject crm:P108i_was_produced_by ?production.
+                            ?production crm:P4_has_time-span ?timespan.
+                            ?timespan crm:P86_falls_within ?day.
+                            ?day rdfs:label ?__literal__.
+                        }"
+                    }],
 
-          relations='{
+                    "<https://mbdiaries.itatti.harvard.edu/ontology/page_person>": [{
+                    "kind": "resource",
+                    "queryPattern": "{
+                        $subject crm:P129i_is_subject_of ?document.
+                        ?range oa:hasSource ?document.
 
-            "<https://mbdiaries.itatti.harvard.edu/ontology/page_day>":[{
-                "kind": "literal",
-                "queryPattern": "{
-                    $subject crm:P108i_was_produced_by ?production.
-                    ?production crm:P4_has_time-span ?timespan.
-                    ?timespan crm:P86_falls_within ?day.
-                    ?day rdfs:label ?__literal__.
-                }"
-            }],
+                        ?annotation oa:hasTarget ?range;
+                        oa:hasBody ?body.
+                        
+                        ?body a mbdiaries-ontology:Person;
+                        owl:sameAs ?__value__.
+                    }"
+                    }],
+                    "<https://mbdiaries.itatti.harvard.edu/ontology/page_artwork>": [{
+                    "kind": "resource",
+                    "queryPattern": "{
+                        $subject crm:P129i_is_subject_of ?document.
+                        ?range oa:hasSource ?document.
 
-            "<https://mbdiaries.itatti.harvard.edu/ontology/page_person>": [{
-              "kind": "resource",
-              "queryPattern": "{
-                $subject crm:P129i_is_subject_of ?document.
-                ?range oa:hasSource ?document.
+                        ?annotation oa:hasTarget ?range;
+                        oa:hasBody ?body.
 
-                ?annotation oa:hasTarget ?range;
-                  oa:hasBody ?body.
-                
-                ?body a mbdiaries-ontology:Person;
-                  owl:sameAs ?__value__.
-              }"
-            }],
-            "<https://mbdiaries.itatti.harvard.edu/ontology/page_artwork>": [{
-              "kind": "resource",
-              "queryPattern": "{
-                $subject crm:P129i_is_subject_of ?document.
-                ?range oa:hasSource ?document.
+                        ?body a mbdiaries-ontology:Artwork;
+                        owl:sameAs ?__value__
+                    }"
+                    }],
+                    "<https://mbdiaries.itatti.harvard.edu/ontology/page_painting>": [{
+                    "kind": "resource",
+                    "queryPattern": "{
+                        $subject crm:P129i_is_subject_of ?document.
+                        ?range oa:hasSource ?document.
 
-                ?annotation oa:hasTarget ?range;
-                  oa:hasBody ?body.
+                        ?annotation oa:hasTarget ?range;
+                        oa:hasBody ?body.
 
-                ?body a mbdiaries-ontology:Artwork;
-                  owl:sameAs ?__value__
-              }"
-            }],
-            "<https://mbdiaries.itatti.harvard.edu/ontology/page_painting>": [{
-              "kind": "resource",
-              "queryPattern": "{
-                $subject crm:P129i_is_subject_of ?document.
-                ?range oa:hasSource ?document.
+                        ?body a mbdiaries-ontology:Painting;
+                        owl:sameAs ?__value__
+                    }"
+                    }],
+                    "<https://mbdiaries.itatti.harvard.edu/ontology/page_location>": [{
+                    "kind": "resource",
+                    "queryPattern": "{
+                        $subject crm:P129i_is_subject_of ?document.
+                        ?range oa:hasSource ?document.
 
-                ?annotation oa:hasTarget ?range;
-                  oa:hasBody ?body.
+                        ?annotation oa:hasTarget ?range;
+                        oa:hasBody ?body.
 
-                ?body a mbdiaries-ontology:Painting;
-                  owl:sameAs ?__value__
-              }"
-            }],
-            "<https://mbdiaries.itatti.harvard.edu/ontology/page_location>": [{
-              "kind": "resource",
-              "queryPattern": "{
-                $subject crm:P129i_is_subject_of ?document.
-                ?range oa:hasSource ?document.
+                        ?body a mbdiaries-ontology:Location;
+                        owl:sameAs ?__value__
+                    }"
+                    }],
+                    "<https://mbdiaries.itatti.harvard.edu/ontology/hasDate>": [{
+                    "kind": "literal",
+                    "datatype": "http://www.w3.org/2001/XMLSchema#date",
+                    "queryPattern": "
+                        {
+                        $subject ?__relation__ ?__literal__ .
+                        }"
+                    }]
+                }'
 
-                ?annotation oa:hasTarget ?range;
-                  oa:hasBody ?body.
+                search-profile='{
+                    "categories": [
+                    {
+                        "iri": "<http://www.cidoc-crm.org/cidoc-crm/E52_Time_Span>",
+                        "label": "Day"
+                    },
+                    {
+                        "iri": "<https://mbdiaries.itatti.harvard.edu/ontology/Page>",
+                        "label": "Page"
+                    },
+                    {
+                        "iri": "<https://mbdiaries.itatti.harvard.edu/ontology/Person>",
+                        "label": "Person"
+                    },
+                    {
+                        "iri": "<https://mbdiaries.itatti.harvard.edu/ontology/Artwork>",
+                        "label": "Artwork"
+                    },
+                    {
+                        "iri": "<https://mbdiaries.itatti.harvard.edu/ontology/Painting>",
+                        "label": "Painting"
+                    },
+                    {
+                        "iri": "<http://www.w3.org/2001/XMLSchema#string>",
+                        "label": "Date"
+                    },
+                    {
+                        "iri": "<https://mbdiaries.itatti.harvard.edu/ontology/Location>",
+                        "label": "Location"
+                    }
+                    ],
+                    "relations": [
+                    {
+                        "iri": "<https://mbdiaries.itatti.harvard.edu/ontology/page_person>",
+                        "label": "PEOPLE",
+                        "hasDomain": "<https://mbdiaries.itatti.harvard.edu/ontology/Page>",
+                        "hasRange": "<https://mbdiaries.itatti.harvard.edu/ontology/Person>"
+                    },
+                    {
+                        "iri": "<https://mbdiaries.itatti.harvard.edu/ontology/page_day>",
+                        "label": "DAY",
+                        "hasDomain": "<https://mbdiaries.itatti.harvard.edu/ontology/Page>",
+                        "hasRange": "<http://www.cidoc-crm.org/cidoc-crm/E52_Time_Span>"
+                    },
+                    {
+                        "iri": "<https://mbdiaries.itatti.harvard.edu/ontology/page_artwork>",
+                        "label": "BOOKS",
+                        "hasDomain": "<https://mbdiaries.itatti.harvard.edu/ontology/Page>",
+                        "hasRange": "<https://mbdiaries.itatti.harvard.edu/ontology/Artwork>"
+                    },
+                    {
+                        "iri": "<https://mbdiaries.itatti.harvard.edu/ontology/page_painting>",
+                        "label": "PAINTINGS",
+                        "hasDomain": "<https://mbdiaries.itatti.harvard.edu/ontology/Page>",
+                        "hasRange": "<https://mbdiaries.itatti.harvard.edu/ontology/Painting>"
+                    },
+                    {
+                        "iri": "<https://mbdiaries.itatti.harvard.edu/ontology/page_location>",
+                        "label": "CITIES",
+                        "hasDomain": "<https://mbdiaries.itatti.harvard.edu/ontology/Page>",
+                        "hasRange": "<https://mbdiaries.itatti.harvard.edu/ontology/Location>"
+                    }
+                    ]
+                }'
+                >
+                <semantic-search-query-constant
+                    domain='<https://mbdiaries.itatti.harvard.edu/ontology/Page>'
+                    query="
+                    SELECT ?subject WHERE { 
+                        ?subject mbdiaries-ontology:part_of <[[this]]>.
+                    }
+                    "></semantic-search-query-constant>
 
-                ?body a mbdiaries-ontology:Location;
-                  owl:sameAs ?__value__
-              }"
-            }],
-            "<https://mbdiaries.itatti.harvard.edu/ontology/hasDate>": [{
-              "kind": "literal",
-              "datatype": "http://www.w3.org/2001/XMLSchema#date",
-              "queryPattern": "
-                {
-                  $subject ?__relation__ ?__literal__ .
-                }"
-            }]
-          }'
+                <div data-flex-layout="row stretch-stretch">
+                    <div data-flex-self="size-1of3" style="flex: 0 0 20px;">
+                    <semantic-search-facet
+                        open-by-default="true"
+                    ></semantic-search-facet>
+                    </div>
+                    <semantic-search-result-holder>
+                    <div data-flex-self="md-full">
 
-          search-profile='{
-            "categories": [
-            {
-                "iri": "<http://www.cidoc-crm.org/cidoc-crm/E52_Time_Span>",
-                "label": "Day"
-            },
-              {
-                "iri": "<https://mbdiaries.itatti.harvard.edu/ontology/Page>",
-                "label": "Page"
-              },
-              {
-                "iri": "<https://mbdiaries.itatti.harvard.edu/ontology/Person>",
-                "label": "Person"
-              },
-              {
-                "iri": "<https://mbdiaries.itatti.harvard.edu/ontology/Artwork>",
-                "label": "Artwork"
-              },
-              {
-                "iri": "<https://mbdiaries.itatti.harvard.edu/ontology/Painting>",
-                "label": "Painting"
-              },
-              {
-                "iri": "<http://www.w3.org/2001/XMLSchema#string>",
-                "label": "Date"
-              },
-              {
-                "iri": "<https://mbdiaries.itatti.harvard.edu/ontology/Location>",
-                "label": "Location"
-              }
-            ],
-            "relations": [
-              {
-                "iri": "<https://mbdiaries.itatti.harvard.edu/ontology/page_person>",
-                "label": "PEOPLE",
-                "hasDomain": "<https://mbdiaries.itatti.harvard.edu/ontology/Page>",
-                "hasRange": "<https://mbdiaries.itatti.harvard.edu/ontology/Person>"
-              },
-            {
-                "iri": "<https://mbdiaries.itatti.harvard.edu/ontology/page_day>",
-                "label": "DAY",
-                "hasDomain": "<https://mbdiaries.itatti.harvard.edu/ontology/Page>",
-                "hasRange": "<http://www.cidoc-crm.org/cidoc-crm/E52_Time_Span>"
-              },
-              {
-                "iri": "<https://mbdiaries.itatti.harvard.edu/ontology/page_artwork>",
-                "label": "BOOKS",
-                "hasDomain": "<https://mbdiaries.itatti.harvard.edu/ontology/Page>",
-                "hasRange": "<https://mbdiaries.itatti.harvard.edu/ontology/Artwork>"
-              },
-              {
-                "iri": "<https://mbdiaries.itatti.harvard.edu/ontology/page_painting>",
-                "label": "PAINTINGS",
-                "hasDomain": "<https://mbdiaries.itatti.harvard.edu/ontology/Page>",
-                "hasRange": "<https://mbdiaries.itatti.harvard.edu/ontology/Painting>"
-              },
-              {
-                "iri": "<https://mbdiaries.itatti.harvard.edu/ontology/page_location>",
-                "label": "CITIES",
-                "hasDomain": "<https://mbdiaries.itatti.harvard.edu/ontology/Page>",
-                "hasRange": "<https://mbdiaries.itatti.harvard.edu/ontology/Location>"
-              }
-            ]
-          }'
-        >
-          <semantic-search-query-constant
-            domain='<https://mbdiaries.itatti.harvard.edu/ontology/Page>'
-            query="
-              SELECT ?subject WHERE { 
-                ?subject mbdiaries-ontology:part_of <[[this]]>.
-              }
-            "></semantic-search-query-constant>
+                        <semantic-search-result>
+                        <semantic-query
+                            id="diary_name"
+                            query='select ?label where {<[[this]]> rdfs:label ?label}'
+                            template="{{>header}}"
+                        >
+                            <template id="header">
+                            <header>
+                                <h1>{{bindings.0.label.value}}</h1>
+                            </header>
+                            </template>
+                        </semantic-query>
+                        </semantic-search-result>
 
-          <div data-flex-layout="row stretch-stretch">
-            <div data-flex-self="size-1of3" style="flex: 0 0 20px;">
-              <semantic-search-facet
-                open-by-default="true"
-              ></semantic-search-facet>
+                        
+                        <semantic-search-result>
+                        <semantic-table 
+                            id='table-result'
+                            query='SELECT DISTINCT ?subject ?document ?imageIRI WHERE { 
+                            ?subject mbdiaries-ontology:index ?index;
+                                crm:P129i_is_subject_of ?document;
+                                crm:P183i_has_representation ?imageIRI.
+                                BIND(xsd:integer(?index) as ?index_num)
+                            } ORDER BY ASC(?index_num)'
+
+                            column-configuration='[
+                            {
+                                "displayName": "Text",
+                                "cellTemplate": "{{> text}}"
+                            }
+                            ]'
+                            options='{
+                            "showTableHeading": false
+                            }'
+                            number-of-displayed-rows="10">
+
+                            <template id="text">
+                            <rs-text-annotation-workspace
+                                document-iri="{{document.value}}"
+                                storage="MB_Diaries-app"
+                                annotation-subject-template="https://mbdiaries.itatti.harvard.edu/annotation/{{{{raw}}}}{{UUID}}{{{{/raw}}}}"
+                                fallback-template="{{> fallback-template}}"
+                                annotation-tooltip="{{> annotation-tooltip}}"
+                                image-iri="{{imageIRI.value}}"
+                                image-id-pattern='BIND(REPLACE(STR(REPLACE(STR(?imageIRI),"/full/full/0/default.jpg","")), "(^.*)\\/(.*)$", "$2") AS ?imageID)'
+                                iiif-server-url="https://ids.lib.harvard.edu/ids/iiif/">
+
+                                <template id="fallback-template">
+                                {{#> mbdiaries:template}} Missing type for annotation
+                                    <semantic-link iri="{{ iri.value }}"></semantic-link>
+                                {{/ mbdiaries:template}}
+                                </template>
+
+                                <template id="annotation-tooltip">
+                                <div>
+                                    {{#if allowEdit}}
+                                    <button
+                                    name="edit"
+                                    class="btn btn-xs btn-default"
+                                    data-annotation="{{ iri.value }}"
+                                    title="Edit annotation"
+                                    >
+                                    <span class="fa fa-pencil" style="pointer-events: none;"></span>
+                                    </button>
+                                    {{else}}
+                                    <button
+                                    name="edit"
+                                    class="btn btn-xs btn-default"
+                                    disabled
+                                    title="Edit annotation"
+                                    >
+                                    <span class="fa fa-pencil" style="pointer-events: none;"></span>
+                                    </button>
+                                    {{/if}}
+                                    {{#if allowDelete}}
+                                    <button
+                                    name="delete"
+                                    class="btn btn-xs btn-default"
+                                    data-annotation="{{ iri.value }}"
+                                    title="Delete annotation"
+                                    >
+                                    <span class="fa fa-trash" style="pointer-events: none;"></span>
+                                    </button>
+                                    {{else}}
+                                    <button
+                                    name="delete"
+                                    class="btn btn-xs btn-default"
+                                    disabled
+                                    title="Delete annotation"
+                                    >
+                                    <span class="fa fa-trash" style="pointer-events: none;"></span>
+                                    </button>
+                                    {{/if}}
+                                </div>
+                                </template>
+
+                                [[> mbdiaries-type:Person ]] 
+                                [[> mbdiaries-type:Artwork ]] 
+                                [[> mbdiaries-type:Painting ]] 
+                                [[> mbdiaries-type:Location ]] 
+
+                            </rs-text-annotation-workspace>
+                            </template>
+
+                        </semantic-table>
+                        </semantic-search-result>
+
+                    </div>
+                    </semantic-search-result-holder>
+                </div>
+                </semantic-search>
+
             </div>
-            <semantic-search-result-holder>
-              <div data-flex-self="md-full">
-
-                <semantic-search-result>
-                  <semantic-query
-                    id="diary_name"
-                    query='select ?label where {<[[this]]> rdfs:label ?label}'
-                    template="{{>header}}"
-                  >
-                    <template id="header">
-                      <header>
-                        <h1>{{bindings.0.label.value}}</h1>
-                      </header>
-                    </template>
-                  </semantic-query>
-                </semantic-search-result>
-
-                
-                <semantic-search-result>
-                  <semantic-table 
-                    id='table-result'
-                    query='SELECT DISTINCT ?subject ?document ?imageIRI WHERE { 
-                      ?subject mbdiaries-ontology:index ?index;
-                        crm:P129i_is_subject_of ?document;
-                        crm:P183i_has_representation ?imageIRI.
-                        BIND(xsd:integer(?index) as ?index_num)
-                    } ORDER BY ASC(?index_num)'
-
-                    column-configuration='[
-                      {
-                        "displayName": "Text",
-                        "cellTemplate": "{{> text}}"
-                      }
-                    ]'
-                    options='{
-                      "showTableHeading": false
-                    }'
-                    number-of-displayed-rows="10">
-
-                    <template id="text">
-                      <rs-text-annotation-workspace
-                        document-iri="{{document.value}}"
-                        storage="MB_Diaries-app"
-                        annotation-subject-template="https://mbdiaries.itatti.harvard.edu/annotation/{{{{raw}}}}{{UUID}}{{{{/raw}}}}"
-                        fallback-template="{{> fallback-template}}"
-                        annotation-tooltip="{{> annotation-tooltip}}"
-                        image-iri="{{imageIRI.value}}"
-                        image-id-pattern='BIND(REPLACE(STR(REPLACE(STR(?imageIRI),"/full/full/0/default.jpg","")), "(^.*)\\/(.*)$", "$2") AS ?imageID)'
-                        iiif-server-url="https://ids.lib.harvard.edu/ids/iiif/">
-
-                        <template id="fallback-template">
-                          {{#> mbdiaries:template}} Missing type for annotation
-                            <semantic-link iri="{{ iri.value }}"></semantic-link>
-                          {{/ mbdiaries:template}}
-                        </template>
-
-                        <template id="annotation-tooltip">
-                          <div>
-                            {{#if allowEdit}}
-                            <button
-                              name="edit"
-                              class="btn btn-xs btn-default"
-                              data-annotation="{{ iri.value }}"
-                              title="Edit annotation"
-                            >
-                              <span class="fa fa-pencil" style="pointer-events: none;"></span>
-                            </button>
-                            {{else}}
-                            <button
-                              name="edit"
-                              class="btn btn-xs btn-default"
-                              disabled
-                              title="Edit annotation"
-                            >
-                              <span class="fa fa-pencil" style="pointer-events: none;"></span>
-                            </button>
-                            {{/if}}
-                            {{#if allowDelete}}
-                            <button
-                              name="delete"
-                              class="btn btn-xs btn-default"
-                              data-annotation="{{ iri.value }}"
-                              title="Delete annotation"
-                            >
-                              <span class="fa fa-trash" style="pointer-events: none;"></span>
-                            </button>
-                            {{else}}
-                            <button
-                              name="delete"
-                              class="btn btn-xs btn-default"
-                              disabled
-                              title="Delete annotation"
-                            >
-                              <span class="fa fa-trash" style="pointer-events: none;"></span>
-                            </button>
-                            {{/if}}
-                          </div>
-                        </template>
-
-                        [[> mbdiaries-type:Person ]] 
-                        [[> mbdiaries-type:Artwork ]] 
-                        [[> mbdiaries-type:Painting ]] 
-                        [[> mbdiaries-type:Location ]] 
-
-                      </rs-text-annotation-workspace>
-                    </template>
-
-                  </semantic-table>
-                </semantic-search-result>
-
-              </div>
-            </semantic-search-result-holder>
-          </div>
-        </semantic-search>
-
-      </div>
-    </semantic-context>
-  </div>
+        </semantic-context>
+    </div>
 </div>
 
 
