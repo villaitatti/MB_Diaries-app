@@ -15,9 +15,9 @@
                         "queryPattern": "{
                             $subject crm:P108i_was_produced_by ?production.
                             ?production crm:P4_has_time-span ?timespan.
-                            ?timespan crm:P86_falls_within ?day.
-                            ?day rdfs:label ?__literal__.
-                        }"
+                            ?timespan crm:P86_falls_within ?value.
+                            ?value rdf:value ?__literal__.
+                       }"
                     }],
 
                     "<https://mbdiaries.itatti.harvard.edu/ontology/page_person>": [{
@@ -122,7 +122,7 @@
                     },
                     {
                         "iri": "<https://mbdiaries.itatti.harvard.edu/ontology/page_day>",
-                        "label": "DAY",
+                        "label": "DAY (yyyy-mm-dd)",
                         "hasDomain": "<https://mbdiaries.itatti.harvard.edu/ontology/Page>",
                         "hasRange": "<http://www.cidoc-crm.org/cidoc-crm/E52_Time_Span>"
                     },
