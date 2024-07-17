@@ -1,0 +1,139 @@
+<link rel="stylesheet" href="../../assets/mb_diaries.css">
+
+[[> mbdiaries:Header ]]
+
+<div class="container-fluid">
+
+    <div id="mb_home" data-flex-layout="column spread-stretch">
+
+
+<semantic-search>
+  <!-- 1. search definition -->
+  <semantic-search-form-query
+     query-template='{
+       "queryString": 
+            "SELECT ?subject ?d ?diary ?page ?stringLabel WHERE { 
+                ?subject a mbdiaries-ontology:Page;
+                    rdf:value ?stringLabel;
+                    rdfs:label ?page;
+                    mbdiaries-ontology:index ?pageOrder;
+                    mbdiaries-ontology:part_of ?d.
+
+  				?d rdfs:label ?diary;
+                    mbdiaries-ontology:order ?diaryOrder.
+                FILTER(REGEX(?stringLabel,?label,\"i\"))
+            }",
+       "arguments": {
+            "label": {"type": "xsd:string"}
+       }
+     }'
+     fields='[
+       {
+        "id": "label",
+        "label": "Label",
+        "description": "Will match with regex on all rdfs:labels.",
+        "minOccurs": "1",
+        "xsdDatatype":"xsd:string"
+        }
+     ]'>
+       <semantic-form-text-input for="label" placeholder='Type "li" to find , for example, "mona lisa" or "alice"'></semantic-form-text-input>
+       <button type='button' name='submit' className='btn btn-action'>Search</button>
+   </semantic-search-form-query>
+
+  <semantic-search-result-holder>
+    <semantic-search-result>
+      <semantic-table 
+        id='table' 
+        query='
+            SELECT ?d ?diary ?page ?stringLabel ?diaryOrder ?pageOrder 
+            WHERE{ } order by ?diaryOrder ?pageOrder'
+        tuple-template="{{> table-row}}">
+        <template id="table-row">
+            <bs-row class="show-one">
+                <bs-col sm="3" md="3">
+                    <strong>Diary</strong>
+                </bs-col>
+                <bs-col sm="3" md="3">
+                    <strong>Page</strong>
+                </bs-col>
+                <bs-col sm="6" md="6">
+                    <strong>Matching label</strong>
+                </bs-col>
+            </bs-row>
+
+
+            <semantic-link iri="{{d.value}}">
+                <bs-row class="clickable-row">
+                    <bs-col sm="3" md="3">
+                        {{diary.value}}
+                    </bs-col>
+                    <bs-col sm="3" md="3">
+                        Page {{page.value}}
+                    </bs-col>
+                    <bs-col sm="6" md="6">
+                        {{stringLabel.value}}
+                    </bs-col>
+                </bs-row>
+            </semantic-link> 
+
+    </semantic-table>
+    </semantic-search-result>
+  </semantic-search-result-holder>
+</semantic-search>
+
+
+    </div>
+</div>
+
+
+
+<style>
+    .facet__category-selector-holder{
+        display: none;
+    }
+
+   .page{
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+   .align-text{
+        margin-top: 0px;
+    }
+
+   .btn a{
+        color: #fff!important;
+    }
+
+   .griddle-custom-row{
+        display: block!important;
+    }
+   .clickable-row{
+        padding: 10px 0;
+        border-top: 1px solid lightgrey!important;
+    }
+
+   .clickable-row:first-child{
+        border-top: none;
+    }
+   .clickable-row:hover{
+    background-color: var(--color-primary-10);;
+    cursor: pointer;
+  }
+   .clickable-row .detail-img{
+    min-width: 80px;
+    height: 80px;
+    object-fit: cover;
+  }
+   .show-one{
+    display: none;
+  }
+   .show-one:first-of-type{
+    display: block!important;
+    margin-bottom: 10px;
+  }
+   .rs-draggable-container{
+    padding: none;
+    border: none;
+  }
+</style>
