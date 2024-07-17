@@ -182,10 +182,11 @@
                         <semantic-search-result>
                         <semantic-table 
                             id='table-result'
-                            query='SELECT DISTINCT ?subject ?document ?imageIRI WHERE { 
+                            query='SELECT DISTINCT ?subject ?string ?document ?imageIRI WHERE { 
                             ?subject mbdiaries-ontology:index ?index;
                                 crm:P129i_is_subject_of ?document;
-                                crm:P183i_has_representation ?imageIRI.
+                                crm:P183i_has_representation ?imageIRI;
+                                rdf:value ?string.
                                 BIND(xsd:integer(?index) as ?index_num)
                             } ORDER BY ASC(?index_num)'
 
@@ -196,9 +197,10 @@
                             }
                             ]'
                             options='{
-                            "showTableHeading": false
+                            "showTableHeading": false,
+                            "showFilter": true
                             }'
-                            number-of-displayed-rows="10">
+                            number-of-displayed-rows="15">
 
                             <template id="text">
                             <rs-text-annotation-workspace
@@ -283,9 +285,6 @@
 
 
 <style>
-  div.top-section {
-    display: none;
-  }
 
   .TextAnnotationWorkspace--component {
     margin-top: 2px;
