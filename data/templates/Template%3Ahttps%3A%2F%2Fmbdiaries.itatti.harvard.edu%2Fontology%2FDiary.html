@@ -164,16 +164,30 @@
                     <semantic-search-result-holder>
                     <div data-flex-self="md-full">
 
+
                         <semantic-search-result>
                         <semantic-query
                             id="diary_name"
-                            query='select ?label where {<[[this]]> rdfs:label ?label}'
+                            query='select ?label ?manifest where {
+                                <[[this]]> rdfs:label ?label;
+                                mbdiaries-ontology:iiif-manifest ?manifest.
+                            }'
                             template="{{>header}}"
                         >
                             <template id="header">
                             <header>
-                                <h1>{{bindings.0.label.value}}</h1>
+                                <h1>{{bindings.0.label.value}}
+                                <a href="{{bindings.0.manifest.value}}" target="_blank">
+                                    <img height="30px" src="../../assets/icons/IIIF-logo-colored-text.svg" alt="IIIF logo">
+                                </a>
+
+                                </h1>
+
+
+
                             </header>
+
+
                             </template>
                         </semantic-query>
                         </semantic-search-result>
@@ -182,7 +196,7 @@
                         <semantic-search-result>
                         <semantic-table 
                             id='table-result'
-                            query='SELECT DISTINCT ?subject ?string ?document ?imageIRI WHERE { 
+                            query='SELECT DISTINCT ?subject ?string ?document ?imageIRI ?index_num WHERE { 
                             ?subject mbdiaries-ontology:index ?index;
                                 crm:P129i_is_subject_of ?document;
                                 crm:P183i_has_representation ?imageIRI;
@@ -203,6 +217,8 @@
                             number-of-displayed-rows="15">
 
                             <template id="text">
+                                <span class="page-n">P. {{index_num.value}}</span>
+
                             <rs-text-annotation-workspace
                                 document-iri="{{document.value}}"
                                 storage="MB_Diaries-app"
@@ -407,5 +423,12 @@
     line-height: 32px;
     margin-left: 11px;
     font-weight: bold;
+  }
+
+  .page-n{
+    bottom: -10px;
+    position: relative;
+    background-color: white;
+    padding: 5px;
   }
 </style>
