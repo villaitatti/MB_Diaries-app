@@ -169,17 +169,21 @@
                         <semantic-query
                             id="diary_name"
                             query='select ?label ?manifest where {
-                                <[[this]]> rdfs:label ?label;
-                                mbdiaries-ontology:iiif-manifest ?manifest.
+                                <[[this]]> rdfs:label ?label.
+                                optional {
+                                    <[[this]]> mbdiaries-ontology:iiif-manifest ?manifest.
+                                }
                             }'
                             template="{{>header}}"
                         >
                             <template id="header">
                             <header>
                                 <h1>{{bindings.0.label.value}}
-                                <a href="{{bindings.0.manifest.value}}" target="_blank">
-                                    <img height="30px" src="../../assets/icons/IIIF-logo-colored-text.svg" alt="IIIF logo">
-                                </a>
+                                {{#if bindings.0.manifest.value}}
+                                    <a href="{{bindings.0.manifest.value}}" target="_blank">
+                                        <img height="30px" src="../../assets/icons/IIIF-logo-colored-text.svg" alt="IIIF logo">
+                                    </a>
+                                {{/if}}
 
                                 </h1>
 
