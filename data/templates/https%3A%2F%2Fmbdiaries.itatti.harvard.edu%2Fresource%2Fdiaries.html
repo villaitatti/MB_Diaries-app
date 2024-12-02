@@ -76,16 +76,17 @@
               SELECT ?g ?diary ?label ?imageIRI ?order WHERE {
                 GRAPH ?g {
                     ?diary crm:P2_has_type <https://mbdiaries.itatti.harvard.edu/ontology/Diary>;
-                    rdfs:label ?label;
-                    crm:P183i_has_representation ?imageIRI;
-                    mbdiaries-ontology:order ?order.
-                    FILTER(?label != "Diary 1, 1891-1894")
+                      rdfs:label ?label;
+                      crm:P183i_has_representation ?imageIRI;
+                      mbdiaries-ontology:is_published true;
+                      mbdiaries-ontology:order ?order.
+                    
                 }
               } order by ASC(?order)'
             number-of-displayed-rows='32'
             tuple-template='{{>diary_card }}'
             options='{"showFilter": false}'
-            no-result-template='No Diaries found'>
+            no-result-template='No Diaries published'>
 
               <template id="diary_card">
 
