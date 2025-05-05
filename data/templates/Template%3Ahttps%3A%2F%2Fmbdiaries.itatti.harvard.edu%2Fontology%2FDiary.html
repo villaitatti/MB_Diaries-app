@@ -158,7 +158,7 @@
                 <div data-flex-layout="row stretch-stretch">
                     <div data-flex-self="size-1of3" style="flex: 0 0 20px;">
                     <semantic-search-facet
-                        open-by-default="true"
+                        open-by-default="false"
                     ></semantic-search-facet>
                     </div>
                     <semantic-search-result-holder>
@@ -178,7 +178,7 @@
                         >
                             <template id="header">
                             <header>
-                                <h1>{{bindings.0.label.value}}
+                                <h1 class="diary-title">{{bindings.0.label.value}}
                                 {{#if bindings.0.manifest.value}}
                                     <a href="{{bindings.0.manifest.value}}" target="_blank">
                                         <img height="30px" src="../../assets/icons/IIIF-logo-colored-text.svg" alt="IIIF logo">
@@ -221,7 +221,7 @@
                             number-of-displayed-rows="15">
 
                             <template id="text">
-                                <span class="page-n">P. {{index_num.value}}</span>
+                                <span class="page-n">Sequence {{index_num.value}}</span>
 
                             <rs-text-annotation-workspace
                                 document-iri="{{document.value}}"
@@ -305,6 +305,19 @@
 
 
 <style>
+  /* Diary title styling */
+  .diary-title {
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    padding-left: 8px;
+    font-size: 32px;
+    padding-bottom: 25px;
+  }
+
+  /* Style the dash in the diary title */
+  .diary-title span {
+    color: var(--harvard-crimson);
+  }
 
   .TextAnnotationWorkspace--component {
     margin-top: 2px;
@@ -319,8 +332,12 @@
     padding: 15px 0;
   }
 
+  /* Image styling with border */
   .image-thumbnail {
     width: 400px !important;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
   }
 
   td {
@@ -338,7 +355,7 @@
   }
 
   .TextAnnotationWorkspace--annotationsPanel .image-thumbnail {
-    padding: 20px;
+    margin: 20px;
   }
 
   header>h1 {
@@ -359,17 +376,13 @@
     font-size: 20px;
   }
 
-  .semantic-facet-holder {
-    margin-top: 82px;
+  .semantic-facet-holder input,
+  .semantic-facet-holder select,
+  .semantic-facet-holder button {
+    border-color: var(--harvard-light-grey) !important;
+    color: var(--harvard-anthracite) !important;
   }
 
-  .show-facet-button__hide{
-    display: none !important;
-  }
-
-  .show-facet-button__show{
-    display: none !important; 
-  }
 
   .facet__category-selector-holder{
     display: none!important;
@@ -411,10 +424,12 @@
     position: absolute;
     height: 35px;
     width: 35px;
-    background-color: #F0F0F0;
+    color: white;
+    background-color: var(--harvard-crimson);
     left: 69%!important;
     bottom: 9%!important;
     border-radius: 50%;
+    box-shadow: inset 0 0 5px 2px rgba(0, 0, 0, 0.2);
   }
 
   .rs--image-click:hover{
@@ -429,10 +444,33 @@
     font-weight: bold;
   }
 
+  /* Page number styling */
   .page-n{
     bottom: -10px;
     position: relative;
     background-color: white;
     padding: 5px;
+    color: var(--harvard-crimson);
+    font-weight: bold;
+    cursor: help;
+  }
+
+  /* Search filter styling */
+  .table-filter {
+    border: 1px solid var(--harvard-light-grey);
+    border-radius: 4px;
+    padding: 8px;
+    margin-bottom: 15px;
+    background-color: #f9f9f9;
+  }
+
+  .table-filter input {
+    border-color: var(--harvard-light-grey);
+    color: var(--harvard-anthracite);
+  }
+
+  .show-facet-button__show, .show-facet-button__hide {
+    background-color: var(--harvard-medium-grey);
+    top: 240px!important;
   }
 </style>

@@ -77,6 +77,7 @@ em, i {
   --harvard-light-grey: #e5eaec; /* RGB: 229,234,236 */
   --harvard-medium-grey: #b3bec5; /* RGB: 179,190,197 */
   --harvard-black: #1d1d1b; /* RGB: 29,29,27 */
+  --harvard-white: #ffffff; /* RGB: 255,255,255 */
   
   /* Legacy Colors: */
   --unnamed-color-fafafa: #fafafa;
@@ -416,7 +417,11 @@ mp-anonymous-hidden,
 #logout-Link,
 #login-Link,
 a[href="/sparql"],
-a[title="rsp:admin"] {
+a[title="rsp:admin"],
+a[title="Show Statements"],
+a[title="Show Graph"],
+a[title="Copy IRI"]
+{
   display: none !important;
 }
 
@@ -756,4 +761,24 @@ a.smooth-scroll {
 
 .component-page-toolbar__btn_edit {
   display: none;
+}
+
+.TextAnnotationWorkspace--annotationsPanel {
+  background-color: #fff!important;
+}
+
+div#rs-text-annotation-types .nav-tabs li a {
+  text-decoration: none;
+}
+
+div#rs-text-annotation-types .nav-tabs li:active a{
+  font-weight: bold;
+}
+
+.filter-container{
+  margin-left: 12px;
+}
+
+.filter-container input{
+  width: 61%;
 }
