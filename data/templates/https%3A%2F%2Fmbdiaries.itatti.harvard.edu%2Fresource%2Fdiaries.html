@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="../../assets/mb_diaries.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
 [[> mbdiaries:Header ]]
 
@@ -9,29 +10,32 @@
 
       <div class="container_title" data-flex-layout="column center-center">
 
+        <div class="container">
+          <div class="row">
+            <h1>
+              The Mary Berenson Diaries
+            </h1>
+            <h1 style="text-align: right;">1891 <span>-</span> 1937</h1>
+          </div>
 
-
-        <div class="search-box">
-
-
-
-            <div class="container">
-
-            <div class="row">
-                <h1>
-                The Mary Berenson Diaries
-                <br>
-                1891 - 1937
-                </h1>
+          <div class="row">
+            <div class="buttons-container">
+              <div class="search-box">
+                <semantic-link iri="mbdiaries:Search">
+                  <button class="search-button">
+                    <i class="fas fa-search"></i> Search the Diaries
+                  </button>
+                </semantic-link>
+              </div>
+              <div class="browse-box">
+                <a href="#browse-section" class="smooth-scroll">
+                  <button class="browse-button">
+                    <i class="fas fa-book-open"></i> View the Diaries
+                  </button>
+                </a>
+              </div>
             </div>
-
-                <div class="row">
-                    <semantic-link iri="mbdiaries:Search">
-                        <button class="btn btn-danger">Go to the global search page</button>
-                    </semantic-link>
-                </div>
-            </div>
-
+          </div>
         </div>
 
       </div>
@@ -41,7 +45,7 @@
     <div class="panel2">
 
       <div data-flex-layout="column top-center">
-        <h2>Introduction</h2>
+        <h2>MARY'S DIARIES: AN ONLINE EDITION</h2>
         
         <div>
           <p class="introduction">
@@ -49,11 +53,11 @@
             <br>
             <br>
             <strong>
-              They not only contain descriptions of Mary’s many visits with Bernard to museums, churches, and private collections; but also reveal her thoughts on books, music, and the myriad people the couple encountered over the years.
+              They not only contain descriptions of Mary's many visits with Bernard to museums, churches, and private collections; but also reveal her thoughts on books, music, and the myriad people the couple encountered over the years.
             </strong>
             <br>
             <br>
-            Mary’s diaries capture the zeitgeist of the Berensons’ I Tatti, where the guests at afternoon tea were nearly as distinguished as the Renaissance artists the Villa’s occupants spent their mornings researching. Mary’s casual reference to a young “Keynes”, for example, was none other than John Maynard Keynes, while “Bertie” was simply an affectionate nickname for Bertrand Russell.
+            Mary's diaries capture the zeitgeist of the Berensons' I Tatti, where the guests at afternoon tea were nearly as distinguished as the Renaissance artists the Villa's occupants spent their mornings researching. Mary's casual reference to a young "Keynes", for example, was none other than John Maynard Keynes, while "Bertie" was simply an affectionate nickname for Bertrand Russell.
             <br>
             <br>
             The diaries form a potentially important source for all manner of research projects and as such, the Biblioteca Berenson has decided to make them available in an online edition.
@@ -64,11 +68,11 @@
     </div>
 
 
-    <div class="panel3">
+    <div id="browse-section" class="panel3">
 
       <div data-flex-layout="column spread-center">
 
-        <h2>Browse the Diaries</h2>
+        <h2>View the Diaries</h2>
 
         <div class="container_table">
           <semantic-table
@@ -109,7 +113,7 @@
 
     </div>
 
-
   </div>
+
 
 </div>
