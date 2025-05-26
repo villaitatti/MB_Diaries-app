@@ -77,7 +77,8 @@
                     "datatype": "http://www.w3.org/2001/XMLSchema#date",
                     "queryPattern": "
                         {
-                        $subject ?__relation__ ?__literal__ .
+                        $subject mbdiaries-ontology:has_date ?dateNode .
+                        ?dateNode rdf:value ?__literal__ .
                         }"
                     }]
                 }'
