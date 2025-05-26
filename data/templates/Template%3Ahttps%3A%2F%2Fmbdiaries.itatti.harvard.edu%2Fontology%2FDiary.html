@@ -73,12 +73,11 @@
                     }"
                     }],
                     "<https://mbdiaries.itatti.harvard.edu/ontology/hasDate>": [{
-                    "kind": "literal",
-                    "datatype": "http://www.w3.org/2001/XMLSchema#date",
+                    "kind": "resource",
                     "queryPattern": "
                         {
-                        $subject mbdiaries-ontology:has_date ?dateNode .
-                        ?dateNode rdf:value ?__literal__ .
+                        $subject crm:P129i_is_subject_of ?document .
+                        ?document mbdiaries-ontology:has_date ?__value__ .
                         }"
                     }]
                 }'
