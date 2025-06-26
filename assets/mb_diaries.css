@@ -755,9 +755,11 @@ a.smooth-scroll {
     }
 }
 
-.griddle-custom-row {
+
+.panel3 .griddle-custom-row {
   width: 700px;
 }
+
 
 .component-page-toolbar__btn_edit {
   display: none;
@@ -775,10 +777,11 @@ div#rs-text-annotation-types .nav-tabs li:active a{
   font-weight: bold;
 }
 
-.filter-container{
+
+.page .filter-container{
   margin-left: 12px;
 }
 
-.filter-container input{
+.page .filter-container input{
   width: 61%;
 }
