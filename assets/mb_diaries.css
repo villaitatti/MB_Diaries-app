@@ -773,7 +773,9 @@ a.smooth-scroll {
 }
 
 div#rs-text-annotation-types .nav-tabs li a {
+  font-family: 'Brandon Grotesque', 'Open Sans', sans-serif;
   text-decoration: none;
+  font-size: 18px;
 }
 
 div#rs-text-annotation-types .nav-tabs li:active a{
@@ -787,4 +789,8 @@ div#rs-text-annotation-types .nav-tabs li:active a{
 
 .page .filter-container input{
   width: 61%;
+}
+
+.grey {
+  color: var(--harvard-anthracite);
 }
