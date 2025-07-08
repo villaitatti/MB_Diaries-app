@@ -336,7 +336,7 @@ em, i {
 }
 
 .hero-title-section {
-  margin-bottom: 40px;
+  margin-bottom: 250px;
 }
 
 .main-title {
@@ -428,6 +428,15 @@ em, i {
   font-size: 70px; /* Slightly smaller than the main title */
 }
 
+/* Main title right alignment */
+.main-title {
+  text-align: right;
+}
+
+.date-title {
+  text-align: right;
+}
+
 /* Style the dash in the date range */
 #mb_home .panel1 .container_title .row:first-child h1:last-child span {
   color: var(--harvard-crimson);
@@ -450,6 +459,18 @@ em, i {
   font-weight: 400;
 }
 
+/* Panel 3 description text styling - different from panel 1 */
+#panel-3 .hero-description-text {
+  color: var(--harvard-anthracite);
+  text-shadow: none;
+  margin-bottom: 40px;
+}
+
+#panel-3 .hero-description-text .highlight-bold {
+  font-weight: 700;
+  color: var(--harvard-black);
+}
+
 /* Red bold text for hero description highlights */
 .hero-description-text .highlight-red {
   font-weight: 700;
@@ -460,7 +481,7 @@ em, i {
 /* Black bold text for about section highlights */
 .about-content .highlight-bold {
   font-weight: 700;
-  color: var(--harvard-anthracite);
+  color: var(--harvard-black);
 }
 
 /* Scroll CTA */
@@ -642,6 +663,15 @@ em, i {
   letter-spacing: var(--unnamed-character-spacing-0) !important;
   text-decoration: none !important;
   transition: color 0.3s ease !important;
+  font-style: normal !important; /* Remove italic styling */
+}
+
+/* Breadcrumbs styling - ensure consistent font family and no italics */
+.breadcrumb,
+.breadcrumb li,
+.breadcrumb a {
+  font-family: 'Brandon Grotesque', 'Open Sans', sans-serif !important;
+  font-style: normal !important;
 }
 
 .top-nav a,
@@ -1468,4 +1498,80 @@ div#rs-text-annotation-types .nav-tabs li:active a{
 
 .grey {
   color: var(--harvard-anthracite);
+}
+
+/* Images and Notes tabs styling - follow Browse Diaries header style */
+div#rs-text-annotation-types .nav-tabs li a {
+  border-bottom: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  font-family: 'Brandon Grotesque', 'Open Sans', sans-serif !important;
+  font-size: var(--unnamed-font-size-18) !important;
+  line-height: var(--unnamed-line-spacing-24) !important;
+  font-weight: var(--unnamed-font-weight-normal) !important;
+  letter-spacing: var(--unnamed-character-spacing-0) !important;
+  text-decoration: none !important;
+  transition: all 0.3s ease !important;
+  font-style: normal !important;
+  position: relative;
+  display: inline-block;
+}
+
+div#rs-text-annotation-types .nav-tabs li a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: var(--harvard-crimson);
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+div#rs-text-annotation-types .nav-tabs li a:hover {
+  color: var(--harvard-crimson) !important;
+  border-bottom: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+div#rs-text-annotation-types .nav-tabs li a:hover::after {
+  width: 100%;
+}
+
+div#rs-text-annotation-types .nav-tabs li.active a {
+  border-bottom: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: var(--harvard-crimson) !important;
+}
+
+div#rs-text-annotation-types .nav-tabs li.active a::after {
+  width: 100% !important; /* Show bottom border for active tabs */
+}
+
+/* Remove any default Bootstrap nav-tabs styling */
+div#rs-text-annotation-types .nav-tabs {
+  border-bottom: none !important;
+}
+
+div#rs-text-annotation-types .nav-tabs > li.active > a,
+div#rs-text-annotation-types .nav-tabs > li.active > a:hover,
+div#rs-text-annotation-types .nav-tabs > li.active > a:focus {
+  border: none !important;
+  box-shadow: none !important;
+  background-color: transparent !important;
+  color: var(--harvard-crimson) !important;
+}
+
+/* Force remove all borders from active li elements */
+div#rs-text-annotation-types .nav-tabs > li.active {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+div#rs-text-annotation-types .nav-tabs > li {
+  border: none !important;
+  box-shadow: none !important;
 }
