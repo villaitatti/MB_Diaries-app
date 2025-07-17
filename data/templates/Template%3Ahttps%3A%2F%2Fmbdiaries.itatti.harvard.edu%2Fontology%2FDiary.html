@@ -333,12 +333,26 @@
     padding: 15px 0;
   }
 
-  /* Image styling with border */
+  /* Set 50/50 ratio for text and image panels */
+  .TextAnnotationEditor--component {
+    flex: 1 1 50% !important;
+    max-width: 50% !important;
+  }
+  .AnnotationSidebar--component {
+    flex: 1 1 50% !important;
+    max-width: 50% !important;
+  }
+
+  /* Image styling with border - fill available width */
   .image-thumbnail {
-    width: 400px !important;
+    width: 100% !important;
+    max-width: 800px !important;
+    height: auto !important;
     border: 1px solid #ddd;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 4px;
+    margin: 0 !important;
+    display: block;
   }
 
   td {
@@ -421,25 +435,43 @@
     position: relative;
   }
 
-  .rs--image-click{
+
+  /* CTA style for enlarge image button */
+  .rs--image-click {
     position: absolute;
-    height: 35px;
-    width: 35px;
+    height: 40px;
+    width: 40px;
     color: white;
     background-color: var(--harvard-crimson);
-    left: 69%!important;
-    bottom: 9%!important;
+    left: 90% !important;
+    top: 2% !important;
     border-radius: 50%;
-    box-shadow: inset 0 0 5px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 12px rgba(227, 43, 49, 0.15), 0 0 5px 2px rgba(0, 0, 0, 0.2) inset;
     display: flex;
     align-items: center;
     justify-content: center;
     text-decoration: none;
+    transition: transform 0.18s cubic-bezier(0.4,0,0.2,1), box-shadow 0.18s cubic-bezier(0.4,0,0.2,1), background 0.18s;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    font-size: 18px;
+    z-index: 2;
   }
 
-  .rs--image-click:hover{
-    background-color: lightgray;
+  .rs--image-click:hover, .rs--image-click:focus {
+    background-color: #b71c1c;
+    box-shadow: 0 8px 24px rgba(227, 43, 49, 0.25), 0 0 8px 3px rgba(0,0,0,0.18) inset;
+    transform: scale(1.12);
     text-decoration: none;
+  }
+
+  /* Slightly enlarge the image on button hover */
+  .rs--image-click:hover ~ .image-thumbnail,
+  .rs--image-click:focus ~ .image-thumbnail {
+    transform: scale(1.04);
+    transition: transform 0.18s cubic-bezier(0.4,0,0.2,1);
+    z-index: 1;
   }
 
   .rs--image-click > span{
@@ -479,7 +511,7 @@
 
   /* Page number styling */
   .page-n{
-    bottom: -15px;
+    bottom: -50px;
     position: relative;
     background-color: white;
     padding: 5px;
@@ -514,6 +546,8 @@
   }
 
   /* 50/50 layout for text and image */
+
+  /* 40/60 layout for text and image - enlarged image */
   .TextAnnotationWorkspace--component {
     display: flex !important;
     gap: 20px;
@@ -521,28 +555,58 @@
   }
 
   .TextAnnotationWorkspace--editorPanel {
-    flex: 1 1 50% !important;
-    max-width: 50% !important;
+    flex: 1 1 40% !important;
+    max-width: 40% !important;
+    margin-top: 36px;
   }
 
+
   .TextAnnotationWorkspace--annotationsPanel {
-    flex: 1 1 50% !important;
-    max-width: 50% !important;
+    flex: 1 1 60% !important;
+    max-width: 60% !important;
     display: flex;
     justify-content: center;
     align-items: flex-start;
+    min-height: 600px; /* Ensures consistent height even if image is missing */
+    box-sizing: border-box;
+    position: relative;
   }
 
-  /* Ensure image container takes appropriate space */
+  /* Ensure image container takes full width of annotation panel and centers image */
+
   .image-container {
-    width: 100%;
+    width: 80%;
+    max-width: 100%;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0;
+    margin-left: 20px;
+    box-sizing: border-box;
+    min-height: 500px; /* Ensures container keeps height even if image is missing */
+    position: relative;
+  }
+
+  .image-toolbar-row {
+    width: 60%;
+    min-width: 300px;
+    margin: 0 auto 10px auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
   }
 
   .image-thumbnail {
     width: 100% !important;
-    max-width: 600px !important;
+    max-width: 800px !important;
     height: auto !important;
+    margin: 0 auto !important;
+    display: block;
+  }
+
+  #rs-text-annotation-types{
+    width: 100% !important;
   }
 </style>
