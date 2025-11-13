@@ -232,7 +232,7 @@
                                 annotation-tooltip="{{> annotation-tooltip}}"
                                 image-iri="{{imageIRI.value}}"
                                 image-id-pattern='BIND(REPLACE(STR(REPLACE(STR(?imageIRI),"/full/full/0/default.jpg","")), "(^.*)\\/(.*)$", "$2") AS ?imageID)'
-                                iiif-server-url="https://ids.lib.harvard.edu/ids/iiif/">
+                                iiif-server-url="https://ids.lib.harvard.edu/ids/iiif">
 
                                 <template id="fallback-template">
                                 {{#> mbdiaries:template}} Missing type for annotation
