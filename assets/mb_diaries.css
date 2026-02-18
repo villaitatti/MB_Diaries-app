@@ -69,6 +69,7 @@
   color: var(--harvard-crimson);
   text-decoration: none;
 }
+
 /* Serif Font: Bauer Bodoni (primary), Garamond (fallback) */
 @font-face {
   font-family: 'BauerBodoni BT';
@@ -102,13 +103,6 @@
 @font-face {
   font-family: 'Brandon Grotesque';
   font-style: normal;
-  font-weight: 500;
-  src: url('fonts/HVD Fonts - BrandonGrotesque-Medium.otf') format('opentype');
-}
-
-@font-face {
-  font-family: 'Brandon Grotesque';
-  font-style: normal;
   font-weight: 700;
   src: url('fonts/HVD Fonts - BrandonGrotesque-Bold.otf') format('opentype');
 }
@@ -120,207 +114,44 @@
   src: url('fonts/HVD Fonts - BrandonGrotesque-BoldItalic.otf') format('opentype');
 }
 
-/* Headers and titles (use serif) */
-h1, h2, h3, h4, .title, .header {
+/* Headers and titles (use serif) - scoped to mbdiaries pages only */
+#mb_home h1,
+#mb_home h2,
+#mb_home h3,
+#mb_home h4,
+.page h1,
+.page h2,
+.page h3,
+.page h4 {
   font-family: 'BauerBodoni BT', Garamond, serif;
 }
 
-/* Body and general content (use sans-serif) */
-body, p, span, .content, .label {
+/* Body and general content (use sans-serif) - scoped to mbdiaries pages only */
+#mb_home body,
+#mb_home p,
+#mb_home span,
+.page body,
+.page p,
+.page span {
   font-family: 'Brandon Grotesque', 'Open Sans', sans-serif;
 }
 
-/* Emphasis in body text */
-em, i {
+/* Emphasis in body text - scoped to mbdiaries pages only */
+#mb_home em,
+#mb_home i,
+.page em,
+.page i {
   font-style: italic;
-}
-
-/* Medium weight use, e.g., for subheadings */
-.subheading {
-  font-family: 'Brandon Grotesque', 'Open Sans', sans-serif;
-  font-weight: 500;
 }
 
 :root {
   /* Harvard Brand Colors: */
-  --harvard-crimson: #ab192d; /* RGB: 171,25,45 */
-  --harvard-anthracite: #1d252c; /* RGB: 29,37,44 */
-  --harvard-light-grey: #e5eaec; /* RGB: 229,234,236 */
-  --harvard-medium-grey: #b3bec5; /* RGB: 179,190,197 */
-  --harvard-black: #1d1d1b; /* RGB: 29,29,27 */
-  --harvard-white: #ffffff; /* RGB: 255,255,255 */
-  
-  /* Legacy Colors: */
-  --unnamed-color-fafafa: #fafafa;
-  --unnamed-color-f0f0f0: #f0f0f0;
-  --unnamed-color-e0b532: #e0b532;
-  --unnamed-color-ff4612: #ff4612;
-  --unnamed-color-e32b31: #e32b31;
-  --r-170-g-24-b-44: #ab192d; /* Updated to match Harvard crimson */
-  --unnamed-color-6b181a: #6b181a;
-  --unnamed-color-333333: #333333;
-  --unnamed-color-000000: #000000;
-  --unnamed-color-ffffff: #ffffff;
-  --unnamed-color-3a393a: #3a393a;
-  --unnamed-color-1d252c: #1d252c;
-  --unnamed-color-ed6b5c: #ed6b5c;
-  --unnamed-color-707070: #707070;
-
-  /* Font/text values */
-  --unnamed-font-family-lora: Lora;
-  --unnamed-font-family-montserrat: Montserrat;
-  --unnamed-font-family-gothic-a1-black: Gothic A1 Black;
-  --unnamed-font-family-gothic-a1-medium: Gothic A1 Medium;
-  --unnamed-font-family-open-sans: Open Sans;
-  --unnamed-font-style-normal: normal;
-  --unnamed-font-style-italic: italic;
-  --unnamed-font-weight-600: 600px;
-  --unnamed-font-weight-normal: normal;
-  --unnamed-font-weight-bold: bold;
-  --unnamed-font-size-13: 13px;
-  --unnamed-font-size-14: 14px;
-  --unnamed-font-size-16: 16px;
-  --unnamed-font-size-18: 18px;
-  --unnamed-font-size-20: 20px;
-  --unnamed-font-size-22: 22px;
-  --unnamed-font-size-25: 25px;
-  --unnamed-font-size-28: 28px;
-  --unnamed-font-size-32: 32px;
-  --unnamed-font-size-61: 61px;
-  --unnamed-character-spacing-0: 0px;
-  --unnamed-character-spacing-0-44: 0.44px;
-  --unnamed-character-spacing-0-5: 0.5px;
-  --unnamed-line-spacing-12: 12px;
-  --unnamed-line-spacing-16: 16px;
-  --unnamed-line-spacing-18: 18px;
-  --unnamed-line-spacing-20: 20px;
-  --unnamed-line-spacing-24: 24px;
-  --unnamed-line-spacing-28: 28px;
-  --unnamed-line-spacing-32: 32px;
-  --unnamed-line-spacing-34: 34px;
-  --unnamed-line-spacing-36: 36px;
-  --unnamed-line-spacing-59: 59px;
-  --unnamed-text-transform-uppercase: uppercase;
-}
-
-/* Character Styles */
-.p {
-  font-family: var(--unnamed-font-family-lora);
-  font-style: var(--unnamed-font-style-normal);
-  font-weight: var(--unnamed-font-weight-normal);
-  font-size: var(--unnamed-font-size-22);
-  line-height: var(--unnamed-line-spacing-28);
-  letter-spacing: var(--unnamed-character-spacing-0-44);
-  color: var(--unnamed-color-3a393a);
-}
-.h1-—-67pt {
-  font-family: var(--unnamed-font-family-lora);
-  font-style: var(--unnamed-font-style-normal);
-  font-weight: var(--unnamed-font-weight-600);
-  font-size: var(--unnamed-font-size-61);
-  line-height: var(--unnamed-line-spacing-59);
-  letter-spacing: var(--unnamed-character-spacing-0);
-  color: var(--unnamed-color-ffffff);
-}
-.h2-—-32pt {
-  font-family: var(--unnamed-font-family-lora);
-  font-style: var(--unnamed-font-style-normal);
-  font-weight: var(--unnamed-font-weight-600);
-  font-size: var(--unnamed-font-size-32);
-  line-height: var(--unnamed-line-spacing-36);
-  letter-spacing: var(--unnamed-character-spacing-0);
-  color: var(--unnamed-color-3a393a);
-}
-.h3 {
-  font-family: var(--unnamed-font-family-montserrat);
-  font-style: var(--unnamed-font-style-normal);
-  font-weight: var(--unnamed-font-weight-600);
-  font-size: var(--unnamed-font-size-28);
-  line-height: var(--unnamed-line-spacing-28);
-  letter-spacing: var(--unnamed-character-spacing-0);
-  color: var(--unnamed-color-3a393a);
-}
-.h4 {
-  font-family: var(--unnamed-font-family-montserrat);
-  font-style: var(--unnamed-font-style-normal);
-  font-weight: var(--unnamed-font-weight-bold);
-  font-size: var(--unnamed-font-size-20);
-  line-height: var(--unnamed-line-spacing-18);
-  letter-spacing: var(--unnamed-character-spacing-0);
-  color: var(--unnamed-color-3a393a);
-}
-.h5 {
-  font-family: var(--unnamed-font-family-montserrat);
-  font-style: var(--unnamed-font-style-italic);
-  font-weight: var(--unnamed-font-weight-600);
-  font-size: var(--unnamed-font-size-25);
-  line-height: var(--unnamed-line-spacing-32);
-  letter-spacing: var(--unnamed-character-spacing-0-5);
-  color: var(--unnamed-color-3a393a);
-}
-.h6 {
-  font-family: var(--unnamed-font-family-gothic-a1-black);
-  font-style: var(--unnamed-font-style-normal);
-  font-weight: var(--unnamed-font-weight-normal);
-  font-size: var(--unnamed-font-size-14);
-  line-height: var(--unnamed-line-spacing-24);
-  letter-spacing: var(--unnamed-character-spacing-0);
-  color: var(--unnamed-color-1d252c);
-}
-.button {
-  font-family: var(--unnamed-font-family-montserrat);
-  font-style: var(--unnamed-font-style-normal);
-  font-weight: var(--unnamed-font-weight-600);
-  font-size: var(--unnamed-font-size-16);
-  line-height: var(--unnamed-line-spacing-20);
-  letter-spacing: var(--unnamed-character-spacing-0);
-  color: var(--unnamed-color-ed6b5c);
-}
-.dida {
-  font-family: var(--unnamed-font-family-gothic-a1-medium);
-  font-style: var(--unnamed-font-style-normal);
-  font-weight: var(--unnamed-font-weight-normal);
-  font-size: var(--unnamed-font-size-13);
-  line-height: var(--unnamed-line-spacing-16);
-  letter-spacing: var(--unnamed-character-spacing-0);
-  color: var(--unnamed-color-1d252c);
-}
-.button-text {
-  font-family: var(--unnamed-font-family-open-sans);
-  font-style: var(--unnamed-font-style-normal);
-  font-weight: var(--unnamed-font-weight-600);
-  font-size: var(--unnamed-font-size-18);
-  line-height: var(--unnamed-line-spacing-24);
-  letter-spacing: var(--unnamed-character-spacing-0);
-  color: var(--unnamed-color-ffffff);
-}
-.menu {
-  font-family: var(--unnamed-font-family-open-sans);
-  font-style: var(--unnamed-font-style-normal);
-  font-weight: var(--unnamed-font-weight-normal);
-  font-size: var(--unnamed-font-size-14);
-  line-height: var(--unnamed-line-spacing-12);
-  letter-spacing: var(--unnamed-character-spacing-0);
-  color: var(--unnamed-color-1d252c);
-  text-transform: var(--unnamed-text-transform-uppercase);
-}
-.unnamed-character-style-1 {
-  font-family: var(--unnamed-font-family-gothic-a1-medium);
-  font-style: var(--unnamed-font-style-normal);
-  font-weight: var(--unnamed-font-weight-normal);
-  font-size: var(--unnamed-font-size-20);
-  line-height: var(--unnamed-line-spacing-34);
-  letter-spacing: var(--unnamed-character-spacing-0);
-  color: var(--unnamed-color-707070);
-}
-.unnamed-character-style-2 {
-  font-family: var(--unnamed-font-family-gothic-a1-medium);
-  font-style: var(--unnamed-font-style-normal);
-  font-weight: var(--unnamed-font-weight-normal);
-  font-size: var(--unnamed-font-size-20);
-  line-height: var(--unnamed-line-spacing-34);
-  letter-spacing: var(--unnamed-character-spacing-0);
-  color: var(--r-170-g-24-b-44);
+  --harvard-crimson: #ab192d;
+  --harvard-anthracite: #1d252c;
+  --harvard-light-grey: #e5eaec;
+  --harvard-medium-grey: #b3bec5;
+  --harvard-black: #1d1d1b;
+  --harvard-white: #ffffff;
 }
 
 .TextAnnotationEditor--component {
@@ -419,6 +250,7 @@ em, i {
   margin-bottom: 20px;
   line-height: 1.0;
   white-space: nowrap;
+  text-align: right;
 }
 
 .date-title {
@@ -429,6 +261,7 @@ em, i {
   text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.8), 1px 1px 3px rgba(0, 0, 0, 0.9);
   margin: 0;
   line-height: 1.1;
+  text-align: right;
 }
 
 .date-title span {
@@ -440,78 +273,10 @@ em, i {
 .container-fluid {
   padding-left: 0;
   padding-right: 0;
-  overflow-x: hidden; /* Prevent horizontal scrollbar */
-}
-
-#mb_home .panel1 .container_title {
-  height: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end; /* Align to bottom */
-  align-items: center;
-  width: 100%;
-  padding-bottom: 60px; /* Space at the bottom */
-}
-
-#mb_home .panel1 .container_title h1 {
-  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-600)
-    56px/56px var(--unnamed-font-family-lora);
-  letter-spacing: var(--unnamed-character-spacing-0);
-  color: var(--unnamed-color-fafafa);
-  font: normal normal 600 56px/56px 'BauerBodoni BT', Garamond, serif; /* Updated to Bauer Bodoni */
-  letter-spacing: 0px;
-  color: #fafafa;
-  opacity: 1;
-  margin-bottom: 10px;
-  font-size: 80px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Text shadow for better readability */
-}
-
-/* Container for all title elements */
-#mb_home .panel1 .container_title .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Center the container */
-  width: 100%;
-  max-width: 1000px; /* Control the width of the title container */
-}
-
-/* First title row styling */
-#mb_home .panel1 .container_title .row:first-child {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end; /* Align items to the right */
-  margin-bottom: 20px;
-  width: 100%;
-}
-
-/* First h1 (The Mary Berenson Diaries) */
-#mb_home .panel1 .container_title .row:first-child h1:first-child {
-  text-align: right; /* Align to the right */
-  width: 100%;
-  margin-bottom: 20px;
-}
-
-/* Second h1 (1891 - 1937) */
-#mb_home .panel1 .container_title .row:first-child h1:last-child {
-  text-align: right;
-  margin-bottom: 0;
-  font-size: 70px; /* Slightly smaller than the main title */
-}
-
-/* Main title right alignment */
-.main-title {
-  text-align: right;
-}
-
-.date-title {
-  text-align: right;
-}
-
-/* Style the dash in the date range */
-#mb_home .panel1 .container_title .row:first-child h1:last-child span {
-  color: var(--harvard-crimson);
-  margin: 0 10px;
+  overflow-x: hidden;
+  padding: 0;
+  margin: 0;
+  margin-top: 12px;
 }
 
 .hero-description-section {
@@ -535,24 +300,6 @@ em, i {
   color: var(--harvard-anthracite);
   text-shadow: none;
   margin-bottom: 40px;
-}
-
-#panel-3 .hero-description-text .highlight-bold {
-  font-weight: 700;
-  color: var(--harvard-black);
-}
-
-/* Red bold text for hero description highlights */
-.hero-description-text .highlight-red {
-  font-weight: 700;
-  color: var(--harvard-crimson);
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
-}
-
-/* Black bold text for about section highlights */
-.about-content .highlight-bold {
-  font-weight: 700;
-  color: var(--harvard-black);
 }
 
 /* Scroll CTA */
@@ -700,59 +447,33 @@ em, i {
   transform: translateY(-50%) translateX(-5px);
 }
 
-/* Navigation menu styling */
-.top-nav {
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 20px;
-  display: flex;
-  gap: 30px;
-  z-index: 100;
-}
-
-.top-nav a {
-  font-family: 'Brandon Grotesque', 'Open Sans', sans-serif; /* Updated to Brandon Grotesque */
-  font-style: var(--unnamed-font-style-normal);
-  font-weight: var(--unnamed-font-weight-normal);
-  font-size: var(--unnamed-font-size-18);
-  line-height: var(--unnamed-line-spacing-24);
-  letter-spacing: var(--unnamed-character-spacing-0);
-  color: #fafafa;
-  text-transform: var(--unnamed-text-transform-uppercase);
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
 /* Header navigation links standardization */
-.rs-body-m-M.grey,
-.rs-body-m-M {
+#mb_diaries_header .rs-body-m-M.grey,
+#mb_diaries_header .rs-body-m-M {
   font-family: 'Brandon Grotesque', 'Open Sans', sans-serif !important;
-  font-size: var(--unnamed-font-size-18) !important;
-  line-height: var(--unnamed-line-spacing-24) !important;
-  font-weight: var(--unnamed-font-weight-normal) !important;
-  letter-spacing: var(--unnamed-character-spacing-0) !important;
+  font-size: 18px !important;
+  line-height: 24px !important;
+  font-weight: normal !important;
+  letter-spacing: 0 !important;
   text-decoration: none !important;
   transition: color 0.3s ease !important;
-  font-style: normal !important; /* Remove italic styling */
+  font-style: normal !important;
 }
 
 /* Breadcrumbs styling - ensure consistent font family and no italics */
-.breadcrumb,
-.breadcrumb li,
-.breadcrumb a {
+#mb_diaries_header .breadcrumb,
+#mb_diaries_header .breadcrumb li,
+#mb_diaries_header .breadcrumb a {
   font-family: 'Brandon Grotesque', 'Open Sans', sans-serif !important;
   font-style: normal !important;
 }
 
-.top-nav a,
-.rs-body-m-M.grey {
+#mb_diaries_header .rs-body-m-M.grey {
   position: relative;
   display: inline-block;
 }
 
-.top-nav a::after,
-.rs-body-m-M.grey::after {
+#mb_diaries_header .rs-body-m-M.grey::after {
   content: '';
   position: absolute;
   bottom: -4px;
@@ -764,25 +485,23 @@ em, i {
   transform: translateX(-50%);
 }
 
-.top-nav a:hover,
-.rs-body-m-M.grey:hover {
+#mb_diaries_header .rs-body-m-M.grey:hover {
   color: var(--harvard-crimson);
 }
 
-.top-nav a:hover::after,
-.rs-body-m-M.grey:hover::after {
+#mb_diaries_header .rs-body-m-M.grey:hover::after {
   width: 100%;
 }
 
 /* Hide ADMIN, SPARQL, and logout buttons */
-mp-anonymous-hidden,
-#logout-Link,
-#login-Link,
-a[href="/sparql"],
-a[title="rsp:admin"],
-a[title="Show Statements"],
-a[title="Show Graph"],
-a[title="Copy IRI"]
+#mb_diaries_header mp-anonymous-hidden,
+#mb_diaries_header #logout-Link,
+#mb_diaries_header #login-Link,
+#mb_diaries_header a[href="/sparql"],
+#mb_diaries_header a[title="rsp:admin"],
+#mb_diaries_header a[title="Show Statements"],
+#mb_diaries_header a[title="Show Graph"],
+#mb_diaries_header a[title="Copy IRI"]
 {
   display: none !important;
 }
@@ -797,6 +516,12 @@ a[title="Copy IRI"]
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  height: 100%;
+  max-width: 1000px;
+  padding: 0 60px;
+  text-align: center;
+}
 
 #mb_home .panel2 h2 {
   font-family: 'BauerBodoni BT', Garamond, serif;
@@ -838,270 +563,17 @@ a[title="Copy IRI"]
   padding-top: 80px;
 }
 
-/* Scroll behavior */
-html {
-  scroll-behavior: smooth;
-  scroll-snap-type: y mandatory;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-}
-
-/* Container fluid adjustments */
-
-/* Responsive Design for Full-Screen Layout */
-@media (max-width: 1200px) {
-    .main-title {
-        font-size: 100px;
-    }
-    
-    .date-title {
-        font-size: 42px;
-    }
-    
-    .hero-description-text {
-        font-size: 20px;
-        max-width: 600px;
-    }
-    
-    #mb_home .panel2 h2 {
-        font-size: 42px;
-    }
-    
-    .panel-content {
-        padding: 0 40px;
-    }
-}
-
-@media (max-width: 992px) {
-    .main-title {
-        font-size: 80px;
-    }
-    
-    .date-title {
-        font-size: 38px;
-    }
-    
-    .hero-description-text {
-        font-size: 18px;
-        max-width: 500px;
-    }
-    
-    #mb_home .panel2 h2 {
-        font-size: 36px;
-        margin-bottom: 40px;
-    }
-    
-    #mb_home .panel2 p.introduction {
-        font-size: 18px;
-    }
-    
-    .page-nav-dots-css {
-        right: 20px;
-        gap: 15px;
-    }
-    
-    .nav-dot-css {
-        width: 10px;
-        height: 10px;
-    }
-}
-
-@media (max-width: 768px) {
-    .hero-content {
-        padding: 0 30px;
-    }
-    
-    .main-title {
-        font-size: 60px;
-    }
-    
-    .date-title {
-        font-size: 32px;
-    }
-    
-    .hero-description-text {
-        font-size: 16px;
-        max-width: 400px;
-        line-height: 1.5;
-    }
-    
-    .scroll-cta {
-        margin-top: 40px;
-    }
-    
-    .scroll-down-btn {
-        width: 50px;
-        height: 50px;
-    }
-    
-    .scroll-down-btn i {
-        font-size: 16px;
-    }
-    
-    #mb_home .panel2 h2 {
-        font-size: 32px;
-        margin-bottom: 30px;
-    }
-    
-    #mb_home .panel2 p.introduction {
-        font-size: 16px;
-        line-height: 1.6;
-    }
-    
-    .panel-content {
-        padding: 0 30px;
-    }
-    
-    .page-nav-dots {
-        right: 15px;
-        gap: 12px;
-    }
-    
-    .nav-dot {
-        width: 8px;
-        height: 8px;
-    }
-    
-    .nav-dot::after {
-        width: 16px;
-        height: 16px;
-    }
-}
-
-@media (max-width: 480px) {
-    .hero-content {
-        padding: 0 20px;
-    }
-    
-    .main-title {
-        font-size: 42px;
-    }
-    
-    .date-title {
-        font-size: 26px;
-    }
-    
-    .hero-description-text {
-        font-size: 15px;
-        max-width: 320px;
-    }
-    
-    #mb_home .panel2 h2 {
-        font-size: 28px;
-    }
-    
-    #mb_home .panel2 p.introduction {
-        font-size: 15px;
-    }
-    
-    .panel-content {
-        padding: 0 20px;
-    }
-    
-    .page-nav-dots {
-        right: 10px;
-    }
-}
-.container-fluid {
-  padding: 0;
-  margin: 0;
-  overflow-x: hidden;
-}
-
-#mb_home {
-  scroll-snap-type: y mandatory;
-}
-  justify-content: center;
-  height: 100%;
-  max-width: 1000px;
-  padding: 0 60px;
-  text-align: center;
-}
-
-#mb_home .panel2 h2 {
-  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-600)
-    var(--unnamed-font-size-32) / var(--unnamed-line-spacing-36)
-    var(--unnamed-font-family-lora);
-  letter-spacing: var(--unnamed-character-spacing-0);
-  color: var(--harvard-anthracite);
-  text-align: center;
-  font: normal normal 600 32px/36px 'BauerBodoni BT', Garamond, serif; /* Updated to Bauer Bodoni */
-  letter-spacing: 0px;
-  opacity: 1;
-  margin-top: 80px;
-  margin-bottom: 40px;
-  width: 100%;
-  max-width: 960px;
-  text-transform: uppercase;
-}
-
-#mb_home .panel2 p.introduction {
-  max-width: 840px;
-  margin: 20px auto;
-  font: var(--unnamed-font-style-normal) normal
-    var(--unnamed-font-weight-normal) var(--unnamed-font-size-20) /
-    var(--unnamed-line-spacing-24) Muli;
-  letter-spacing: var(--unnamed-character-spacing-0);
-  color: var(--unnamed-color-000000);
-  text-align: left;
-  font: normal normal normal 20px/28px 'Brandon Grotesque', 'Open Sans', sans-serif; /* Updated to Brandon Grotesque */
-  letter-spacing: 0px;
-  color: #000000;
-}
-
-/* Introductory section styling */
-.intro-section {
-  background-color: white;
-  padding: 60px 20px;
-  margin: 0;
-}
-
-.intro-section .container {
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.intro-content {
-  text-align: center;
-}
-
-.intro-text {
-  font-family: 'Brandon Grotesque', 'Open Sans', sans-serif;
-  font-size: 20px;
-  line-height: 1.6;
-  color: var(--harvard-anthracite);
-  margin: 0 auto;
-  max-width: 800px;
-  font-weight: 400;
-}
-
-#mb_home .panel3 {
-  background: var(--harvard-light-grey) 0% 0% no-repeat padding-box;
-  opacity: 1;
-  margin-top: 60px;
-  min-height: 500px;
-  padding: 60px 20px;
-}
-
 #mb_home .panel3 h2 {
-  /* Layout Properties */
   max-width: 960px;
   margin-top: 80px;
   margin-bottom: 40px;
-
-  /* UI Properties */
-  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-600)
-    var(--unnamed-font-size-32) / var(--unnamed-line-spacing-36)
-    var(--unnamed-font-family-lora);
-  letter-spacing: var(--unnamed-character-spacing-0);
+  font-family: 'BauerBodoni BT', Garamond, serif;
+  font-size: 32px;
+  line-height: 36px;
+  font-weight: 600;
+  letter-spacing: 0px;
   color: var(--harvard-anthracite);
   text-align: center;
-  font: normal normal 600 32px/36px 'BauerBodoni BT', Garamond, serif; /* Updated to Bauer Bodoni */
-  letter-spacing: 0px;
   opacity: 1;
   text-transform: uppercase;
 }
@@ -1130,7 +602,7 @@ body {
   grid-auto-flow: row;
   grid-auto-rows: auto;
   gap: 20px;
-  justify-content: start; /* Align items to the start of the container */
+  justify-content: start;
 }
 
 /* Force each row to have exactly 5 items */
@@ -1159,57 +631,6 @@ body {
   display: block;
   padding: 0;
   border: none;
-}
-
-/* Keep the 5-column grid structure for all screen sizes */
-@media (max-width: 1200px) {
-  #mb_home .panel3 .container_table tbody {
-    grid-template-columns: repeat(5, 1fr);
-    gap: 15px; /* Slightly reduce gap on smaller screens */
-  }
-  
-  #mb_home .panel3 .container_table .container_diary {
-    max-width: 120px; /* Slightly smaller on medium screens */
-  }
-  
-  #mb_home .panel3 .container_table .container_diary img {
-    max-width: 100px;
-  }
-}
-
-@media (max-width: 992px) {
-  #mb_home .panel3 .container_table tbody {
-    grid-template-columns: repeat(5, 1fr);
-    gap: 10px; /* Further reduce gap on smaller screens */
-  }
-  
-  #mb_home .panel3 .container_table .container_diary {
-    max-width: 100px; /* Smaller on small screens */
-  }
-  
-  #mb_home .panel3 .container_table .container_diary img {
-    max-width: 80px;
-  }
-}
-
-@media (max-width: 768px) {
-  #mb_home .panel3 .container_table tbody {
-    grid-template-columns: repeat(5, 1fr);
-    gap: 5px; /* Minimal gap on mobile */
-  }
-  
-  #mb_home .panel3 .container_table .container_diary {
-    max-width: 80px; /* Very small on mobile */
-    padding: 5px;
-  }
-  
-  #mb_home .panel3 .container_table .container_diary img {
-    max-width: 70px;
-  }
-  
-  #mb_home .panel3 .container_table .container_diary p {
-    font-size: 12px; /* Smaller text on mobile */
-  }
 }
 
 #mb_home .panel3 .container_table .container_diary {
@@ -1254,7 +675,6 @@ body {
   transform: translateY(-5px);
 }
 
-
 .diary-thumbnail-wrapper:hover {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
   transform: scale(1.03);
@@ -1272,10 +692,7 @@ body {
   border-radius: 8px;
 }
 
-#mb_home .panel3 .container_table .container_diary img,
-#mb_home .panel3 .container_table .container_diary .image-thumbnail,
-#mb_home .panel3 .container_table .container_diary rs-iiif-image-thumbnail img,
-#mb_home .panel3 .container_table .container_diary rs-iiif-image-thumbnail .image-thumbnail {
+#mb_home .panel3 .container_table .container_diary img {
   width: 120px !important;
   height: 160px !important;
   object-fit: cover !important;
@@ -1316,7 +733,7 @@ body {
   text-align: center;
   margin-top: 10px;
   font-size: 14px;
-  color: var(--unnamed-color-333333);
+  color: #333333;
   height: 40px !important;
   min-height: 40px !important;
   max-height: 40px !important;
@@ -1328,236 +745,34 @@ body {
   width: 100%;
 }
 
-.container-fluid {
-    margin-top: 12px;
+/* Scroll behavior - only for mbdiaries pages */
+#mb_home {
+  scroll-snap-type: y mandatory;
+}
+
+#mb_home html {
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
+}
+
+/* Body styles only when inside mbdiaries context */
+body:has(#mb_home) {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
 }
 
 .TextAnnotationEditor--textEditor {
-    font-size: 18px!important;
+  font-size: 18px!important;
 }
 
 .TextAnnotationEditor--textEditor h3 {
-    font-size: 20px!important;
-}
-
-nav#collection {
-    display: none;
-}
-
-.search-container {
-    margin-top: 100px;
-}
-
-/* Enable smooth scrolling for the entire page */
-html {
-    scroll-behavior: smooth;
-}
-
-/* Main container for the search box */
-.search-box, .browse-box {
-    display: flex;
-    align-items: center;
-    height: 100%;
-}
-
-/* Button styles shared between search and browse */
-.search-button, .browse-button {
-    border: none;
-    border-radius: 6px;
-    padding: 14px 28px;
-    cursor: pointer;
-    font-family: 'Brandon Grotesque', 'Open Sans', sans-serif;
-    font-weight: 600;
-    font-size: 16px;
-    text-transform: none; /* Changed from uppercase to sentence case */
-    letter-spacing: 0.5px;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    color: white;
-    height: 52px;
-    box-sizing: border-box;
-    position: relative;
-    overflow: hidden;
-}
-
-/* Search button specific styles */
-.search-button {
-    background-color: var(--harvard-crimson);
-}
-
-.search-button:hover {
-    background-color: #8a1425;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-    transform: translateY(-3px);
-}
-
-/* Browse button specific styles */
-.browse-button {
-    background-color: var(--harvard-anthracite);
-}
-
-.browse-button:hover {
-    background-color: #2a3540;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-    transform: translateY(-3px);
-}
-
-.search-button:active, .browse-button:active {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.search-button i, .browse-button i {
-    margin-right: 10px;
-    font-size: 14px;
-}
-
-/* Tooltip styling for buttons */
-.search-button:hover::after,
-.browse-button:hover::after {
-    content: attr(title);
-    position: absolute;
-    bottom: -45px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: rgba(0, 0, 0, 0.9);
-    color: white;
-    padding: 8px 12px;
-    border-radius: 4px;
-    font-size: 14px;
-    white-space: nowrap;
-    z-index: 1000;
-    opacity: 0;
-    animation: fadeInTooltip 0.3s ease-in-out 0.5s forwards;
-}
-
-@keyframes fadeInTooltip {
-    from { opacity: 0; transform: translateX(-50%) translateY(5px); }
-    to { opacity: 1; transform: translateX(-50%) translateY(0); }
-}
-
-/* Remove default link styling for smooth scroll links */
-a.smooth-scroll {
-    text-decoration: none;
-    color: inherit;
-}
-
-/* Footer styles */
-.site-footer {
-    background-color: var(--harvard-anthracite);
-    color: white;
-    padding: 30px 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.footer-copyright {
-    font-family: 'Brandon Grotesque', 'Open Sans', sans-serif;
-    font-size: 14px;
-    color: var(--harvard-light-grey);
-}
-
-.footer-logo {
-    height: 60px;
-    width: auto;
-}
-
-@media (max-width: 768px) {
-    .site-footer {
-        flex-direction: column;
-        text-align: center;
-        padding: 20px;
-    }
-    
-    .footer-copyright {
-        margin-bottom: 20px;
-    }
-
-/* Responsive design for hero description section */
-@media (max-width: 992px) {
-    .hero-description-section {
-        margin-top: 25px;
-    }
-    
-    .hero-description-text {
-        font-size: 17px;
-        max-width: 550px;
-    }
-}
-
-@media (max-width: 768px) {
-    /* Mobile hero description adjustments */
-    .hero-description-section {
-        margin-top: 20px;
-        padding: 0 30px;
-    }
-    
-    .hero-description-text {
-        font-size: 16px;
-        max-width: 500px;
-        line-height: 1.4;
-    }
-    
-    /* Enhanced thumbnail mobile adjustments */
-    .diary-thumbnail-wrapper:hover {
-        transform: scale(1.02);
-    }
-    
-    .clickable-diary:hover {
-        transform: translateY(-3px);
-    }
-    
-    .diary-overlay {
-        width: 20px;
-        height: 20px;
-        font-size: 9px;
-        top: 6px;
-        right: 6px;
-    }
-}
-
-@media (max-width: 480px) {
-    /* Very small screens */
-    .hero-description-section {
-        margin-top: 15px;
-        padding: 0 20px;
-    }
-    
-    .hero-description-text {
-        font-size: 15px;
-        max-width: 400px;
-    }
-}
-}
-
-
-.panel3 .griddle-custom-row {
-  width: 700px;
-}
-
-
-.component-page-toolbar__btn_edit {
-  display: none;
+  font-size: 20px!important;
 }
 
 .TextAnnotationWorkspace--annotationsPanel {
   background-color: #fff!important;
 }
-
-div#rs-text-annotation-types .nav-tabs li a {
-  font-family: 'Brandon Grotesque', 'Open Sans', sans-serif;
-  text-decoration: none;
-  font-size: 18px;
-}
-
-div#rs-text-annotation-types .nav-tabs li:active a{
-  font-weight: bold;
-}
-
 
 .page .filter-container{
   margin-left: 12px;
@@ -1571,16 +786,16 @@ div#rs-text-annotation-types .nav-tabs li:active a{
   color: var(--harvard-anthracite);
 }
 
-/* Images and Notes tabs styling - follow Browse Diaries header style */
+/* Images and Notes tabs styling */
 div#rs-text-annotation-types .nav-tabs li a {
   border-bottom: none !important;
   border: none !important;
   box-shadow: none !important;
   font-family: 'Brandon Grotesque', 'Open Sans', sans-serif !important;
-  font-size: var(--unnamed-font-size-18) !important;
-  line-height: var(--unnamed-line-spacing-24) !important;
-  font-weight: var(--unnamed-font-weight-normal) !important;
-  letter-spacing: var(--unnamed-character-spacing-0) !important;
+  font-size: 18px !important;
+  line-height: 24px !important;
+  font-weight: normal !important;
+  letter-spacing: 0 !important;
   text-decoration: none !important;
   transition: all 0.3s ease !important;
   font-style: normal !important;
@@ -1619,7 +834,7 @@ div#rs-text-annotation-types .nav-tabs li.active a {
 }
 
 div#rs-text-annotation-types .nav-tabs li.active a::after {
-  width: 100% !important; /* Show bottom border for active tabs */
+  width: 100% !important;
 }
 
 /* Remove any default Bootstrap nav-tabs styling */
@@ -1636,7 +851,6 @@ div#rs-text-annotation-types .nav-tabs > li.active > a:focus {
   color: var(--harvard-crimson) !important;
 }
 
-/* Force remove all borders from active li elements */
 div#rs-text-annotation-types .nav-tabs > li.active {
   border: none !important;
   box-shadow: none !important;
@@ -1645,4 +859,158 @@ div#rs-text-annotation-types .nav-tabs > li.active {
 div#rs-text-annotation-types .nav-tabs > li {
   border: none !important;
   box-shadow: none !important;
+}
+
+#mb_diaries_header {
+  margin-top: 80px;
+  background-color: #6b181a!important;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .main-title {
+    font-size: 100px;
+  }
+  
+  .date-title {
+    font-size: 42px;
+  }
+  
+  .hero-description-text {
+    font-size: 20px;
+    max-width: 600px;
+  }
+  
+  #mb_home .panel2 h2 {
+    font-size: 42px;
+  }
+  
+  .panel-content {
+    padding: 0 40px;
+  }
+
+  #mb_home .panel3 .container_table tbody {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px;
+  }
+  
+  #mb_home .panel3 .container_table .container_diary {
+    max-width: 120px;
+  }
+  
+  #mb_home .panel3 .container_table .container_diary img {
+    max-width: 100px;
+  }
+}
+
+@media (max-width: 992px) {
+  .main-title {
+    font-size: 80px;
+  }
+  
+  .date-title {
+    font-size: 38px;
+  }
+  
+  .hero-description-text {
+    font-size: 18px;
+    max-width: 500px;
+  }
+  
+  #mb_home .panel2 h2 {
+    font-size: 36px;
+    margin-bottom: 40px;
+  }
+  
+  #mb_home .panel2 p.introduction {
+    font-size: 18px;
+  }
+  
+  .page-nav-dots-css {
+    right: 20px;
+    gap: 15px;
+  }
+  
+  .nav-dot-css {
+    width: 10px;
+    height: 10px;
+  }
+
+  #mb_home .panel3 .container_table tbody {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+  }
+  
+  #mb_home .panel3 .container_table .container_diary {
+    max-width: 100px;
+  }
+  
+  #mb_home .panel3 .container_table .container_diary img {
+    max-width: 80px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-content {
+    padding: 0 30px;
+  }
+  
+  .main-title {
+    font-size: 60px;
+  }
+  
+  .date-title {
+    font-size: 32px;
+  }
+  
+  .hero-description-text {
+    font-size: 16px;
+    max-width: 400px;
+    line-height: 1.5;
+  }
+  
+  .scroll-cta {
+    margin-top: 40px;
+  }
+  
+  .scroll-down-btn {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .scroll-down-btn i {
+    font-size: 16px;
+  }
+  
+  #mb_home .panel2 h2 {
+    font-size: 32px;
+    margin-bottom: 30px;
+  }
+  
+  #mb_home .panel2 p.introduction {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  
+  .panel-content {
+    padding: 0 30px;
+  }
+
+  #mb_home .panel3 .container_table tbody {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 5px;
+  }
+  
+  #mb_home .panel3 .container_table .container_diary {
+    max-width: 80px;
+    padding: 5px;
+  }
+  
+  #mb_home .panel3 .container_table .container_diary img {
+    max-width: 70px;
+  }
+  
+  #mb_home .panel3 .container_table .container_diary p {
+    font-size: 12px;
+  }
 }
