@@ -1,0 +1,121 @@
+<link rel="stylesheet" href="../../assets/mb_diaries.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+[[> mbdiaries:Header ]]
+
+<!-- Page Navigation Dots - CSS Only -->
+<div class="page-nav-dots-css">
+  <a href="#panel-1" class="nav-dot-css active" data-panel="0">
+    <span class="dot-inner"></span>
+  </a>
+  <a href="#panel-2" class="nav-dot-css" data-panel="1">
+    <span class="dot-inner"></span>
+    <span class="nav-tooltip">The digital edition</span>
+  </a>
+  <a href="#panel-3" class="nav-dot-css" data-panel="2">
+    <span class="dot-inner"></span>
+    <span class="nav-tooltip">The diaries</span>
+  </a>
+</div>
+
+<div class="container-fluid">
+
+  <div id="mb_home" data-flex-layout="column spread-stretch">
+    <!-- Panel 1: Full-screen Hero -->
+    <div class="panel1 full-screen-panel" id="panel-1">
+
+      <div class="hero-content">
+        <div class="hero-title-section">
+          <h1 class="main-title">The Mary Berenson Diaries</h1>
+          <h1 class="date-title">1891 <span>-</span> 1937</h1>
+        </div>
+
+        <div class="scroll-cta">
+          <a href="#panel-2" class="scroll-down-btn">
+            <i class="fas fa-chevron-down"></i>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Panel 2: About Section -->
+    <div class="panel2 full-screen-panel" id="panel-2">
+      <div class="panel-content">
+        <h2>Mary's Diaries: the Digital Edition</h2>
+        <div class="about-content">
+          <p class="introduction">
+            The diaries kept by Mary Berenson between 1891 and 1937 are preserved in the Biblioteca Berenson at I Tatti - the Harvard University Center for Italian Renaissance Studies in Florence.
+            <br><br>
+            They not only contain descriptions of Mary's many visits with Bernard to museums, churches, and private collections; but also reveal her thoughts on books, music, and the myriad people the couple encountered over the years.
+            <br><br>
+            <strong>Mary's diaries capture the zeitgeist of the Berensons' I Tatti</strong>, where the guests at afternoon tea were nearly as distinguished as the Renaissance artists the Villa's occupants spent their mornings researching. Mary's casual reference to a young "Keynes", for example, was none other than John Maynard Keynes, while "Bertie" was simply an affectionate nickname for Bertrand Russell.
+            <br><br>
+            The diaries form a potentially important source for all manner of research projects and as such, the Biblioteca Berenson has decided to make them available in an online edition.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel 3: Browse Diaries -->
+    <div id="panel-3" class="panel3 full-screen-panel">
+
+      <div data-flex-layout="column spread-center">
+
+        <h2>Browse the Diaries</h2>
+
+        <div class="hero-description-section">
+          <p class="hero-description-text">
+            Browse the complete digital edition of Mary Berenson's diaries, featuring transcriptions and high-resolution scans.
+          </p>
+        </div>
+
+        <div class="container_table">
+          <semantic-context repository="mbdiaries">
+            <semantic-table
+              query='
+                SELECT ?g ?diary ?label ?imageIRI ?order WHERE {
+                  GRAPH ?g {
+                      ?diary crm:P2_has_type <https://mbdiaries.itatti.harvard.edu/ontology/Diary>;
+                        rdfs:label ?label;
+                        crm:P183i_has_representation ?imageIRI;
+                        mbdiaries-ontology:is_published true;
+                        mbdiaries-ontology:order ?order.
+                      
+                  }
+                } order by ASC(?order)'
+              number-of-displayed-rows='32'
+              tuple-template='{{>diary_card }}'
+              options='{"showFilter": false}'
+              no-result-template='No Diaries published'>
+
+                <template id="diary_card">
+
+                  <div class="container_diary clickable-diary">
+                    <semantic-link iri="{{diary.value}}">
+                      <div class="diary-thumbnail-wrapper">
+                        <img src="{{imageIRI.value}}" style="width: 100%; height: 100%; object-fit: cover;" />
+                        <div class="diary-overlay">
+                          <i class="fas fa-external-link-alt"></i>
+                        </div>
+                      </div>
+                    </semantic-link>
+                    <p><strong>{{label.value}}</strong></p>
+                  </div>
+
+                </template>
+
+            </semantic-table>
+          </semantic-context>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+
+</div>
+
+

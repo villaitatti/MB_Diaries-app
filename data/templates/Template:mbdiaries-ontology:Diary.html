@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="../../assets/mb_diaries.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 [[> mbdiaries:Header ]]
 
 <div class="page">
@@ -155,7 +156,7 @@
                     }
                     "></semantic-search-query-constant>
 
-                <div data-flex-layout="row stretch-stretch">
+                <div data-flex-layout="row stretch-stretch" style="padding: 0;">
                     <div data-flex-self="size-1of3" style="flex: 0 0 20px;">
                     <semantic-search-facet
                         open-by-default="false"
@@ -225,18 +226,41 @@
 
                             <rs-text-annotation-workspace
                                 document-iri="{{document.value}}"
-                                storage="MB_Diaries-app"
+                                storage="mbdiaries"
+                                sidebar-tabs='[{"key": "iiif", "label": "IIIF"}]'
                                 annotation-subject-template="https://mbdiaries.itatti.harvard.edu/annotation/{{{{raw}}}}{{UUID}}{{{{/raw}}}}"
                                 fallback-template="{{> fallback-template}}"
                                 annotation-tooltip="{{> annotation-tooltip}}"
                                 image-iri="{{imageIRI.value}}"
                                 image-id-pattern='BIND(REPLACE(STR(REPLACE(STR(?imageIRI),"/full/full/0/default.jpg","")), "(^.*)\\/(.*)$", "$2") AS ?imageID)'
-                                iiif-server-url="https://ids.lib.harvard.edu/ids/iiif/">
+                                iiif-server-url="https://ids.lib.harvard.edu/ids/iiif">
 
                                 <template id="fallback-template">
                                 {{#> mbdiaries:template}} Missing type for annotation
                                     <semantic-link iri="{{ iri.value }}"></semantic-link>
                                 {{/ mbdiaries:template}}
+                                </template>
+
+                                <template id="sidebar-iiif">
+                                  <div style="height: 700px">
+                                    
+                                    <semantic-query 
+                                      query='SELECT ?representation WHERE { 
+                                        ?page crm:P129i_is_subject_of <{{iri.value}}> .
+                                        ?page crm:P183i_has_representation ?representation
+                                      }'
+                                      template="{{> iiif-viewer}}"
+                                    >
+                                      <template id="iiif-viewer">
+                                        <rs-iiif-mirador 
+                                          image-or-region="{{bindings.0.representation.value}}"
+                                          image-id-pattern='BIND(REPLACE(str(?imageIRI),"^.*/iiif/([0-9]+)/.*$", "$1") AS ?imageID)'
+                                          iiif-server-url='https://ids.lib.harvard.edu/ids/iiif'
+                                          ></rs-iiif-mirador>
+                                      </template>
+                                    </semantic-query>
+                                    
+                                  </div>
                                 </template>
 
                                 <template id="annotation-tooltip">
@@ -332,12 +356,26 @@
     padding: 15px 0;
   }
 
-  /* Image styling with border */
+  /* Set 50/50 ratio for text and image panels */
+  .TextAnnotationEditor--component {
+    flex: 1 1 50% !important;
+    max-width: 50% !important;
+  }
+  .AnnotationSidebar--component {
+    flex: 1 1 50% !important;
+    max-width: 50% !important;
+  }
+
+  /* Image styling with border - fill available width */
   .image-thumbnail {
-    width: 400px !important;
+    width: 100% !important;
+    max-width: 800px !important;
+    height: auto !important;
     border: 1px solid #ddd;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 4px;
+    margin: 0 !important;
+    display: block;
   }
 
   td {
@@ -420,33 +458,83 @@
     position: relative;
   }
 
-  .rs--image-click{
+
+  /* CTA style for enlarge image button */
+  .rs--image-click {
     position: absolute;
-    height: 35px;
-    width: 35px;
+    height: 40px;
+    width: 40px;
     color: white;
     background-color: var(--harvard-crimson);
-    left: 69%!important;
-    bottom: 9%!important;
+    left: 90% !important;
+    top: 2% !important;
     border-radius: 50%;
-    box-shadow: inset 0 0 5px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 12px rgba(227, 43, 49, 0.15), 0 0 5px 2px rgba(0, 0, 0, 0.2) inset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: transform 0.18s cubic-bezier(0.4,0,0.2,1), box-shadow 0.18s cubic-bezier(0.4,0,0.2,1), background 0.18s;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    font-size: 18px;
+    z-index: 2;
   }
 
-  .rs--image-click:hover{
-    background-color: lightgray;
+  .rs--image-click:hover, .rs--image-click:focus {
+    background-color: #b71c1c;
+    box-shadow: 0 8px 24px rgba(227, 43, 49, 0.25), 0 0 8px 3px rgba(0,0,0,0.18) inset;
+    transform: scale(1.12);
+    text-decoration: none;
+  }
+
+  /* Slightly enlarge the image on button hover */
+  .rs--image-click:hover ~ .image-thumbnail,
+  .rs--image-click:focus ~ .image-thumbnail {
+    transform: scale(1.04);
+    transition: transform 0.18s cubic-bezier(0.4,0,0.2,1);
+    z-index: 1;
   }
 
   .rs--image-click > span{
-    text-align: center;
-    vertical-align: middle;
-    line-height: 32px;
-    margin-left: 11px;
-    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    font-size: 0; /* Hide any text content */
+    text-decoration: none;
+  }
+
+  .rs--image-click > span::before {
+    content: '\f35d'; /* Font Awesome external-link-alt icon */
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    font-size: 14px;
+    text-decoration: none;
+    border: none;
+    outline: none;
+  }
+
+  /* Hide any existing text/content in the span */
+  .rs--image-click > span * {
+    display: none;
+  }
+
+  /* Remove any underlines or borders from the link */
+  .rs--image-click,
+  .rs--image-click:hover,
+  .rs--image-click:focus,
+  .rs--image-click:active {
+    text-decoration: none !important;
+    border: none !important;
+    outline: none !important;
   }
 
   /* Page number styling */
   .page-n{
-    bottom: -15px;
+    bottom: -50px;
     position: relative;
     background-color: white;
     padding: 5px;
@@ -478,5 +566,70 @@
 
   div.TextAnnotationEditor--textEditor{
     color: var(--harvard-anthracite)
+  }
+
+  /* 50/50 layout for text and image */
+
+  /* 40/60 layout for text and image - enlarged image */
+  .TextAnnotationWorkspace--component {
+    display: flex !important;
+    gap: 20px;
+    padding: 0 20px;
+  }
+
+  .TextAnnotationWorkspace--editorPanel {
+    flex: 1 1 40% !important;
+    max-width: 40% !important;
+    margin-top: 36px;
+  }
+
+
+  .TextAnnotationWorkspace--annotationsPanel {
+    flex: 1 1 60% !important;
+    max-width: 60% !important;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 600px; /* Ensures consistent height even if image is missing */
+    box-sizing: border-box;
+    position: relative;
+  }
+
+  /* Ensure image container takes full width of annotation panel and centers image */
+
+  .image-container {
+    width: 80%;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0;
+    margin-left: 20px;
+    box-sizing: border-box;
+    min-height: 500px; /* Ensures container keeps height even if image is missing */
+    position: relative;
+  }
+
+  .image-toolbar-row {
+    width: 60%;
+    min-width: 300px;
+    margin: 0 auto 10px auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .image-thumbnail {
+    width: 100% !important;
+    max-width: 800px !important;
+    height: auto !important;
+    margin: 0 auto !important;
+    display: block;
+  }
+
+  #rs-text-annotation-types{
+    width: 100% !important;
   }
 </style>
