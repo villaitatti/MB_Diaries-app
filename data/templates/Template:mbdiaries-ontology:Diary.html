@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 [[> mbdiaries:Header ]]
 
-<div class="page">
+<div class="page" id="mb_diaries_diary">
     <div class='container-fluid'>
         <semantic-context repository='default'>
             <div>
@@ -338,35 +338,66 @@
     padding-bottom: 25px;
   }
 
-  /* Style the dash in the diary title */
   .diary-title span {
     color: var(--harvard-crimson);
   }
 
+  /* 40/60 layout for text and image - enlarged image */
   .TextAnnotationWorkspace--component {
     margin-top: 2px;
+    display: flex !important;
+    gap: 20px;
+    padding: 0 20px;
   }
 
   .TextAnnotationEditor--textEditor {
     font-size: 16px;
   }
 
+  .TextAnnotationEditor--textEditor h3 {
+    color: #E32B31;
+  }
+
+  div.TextAnnotationEditor--textEditor {
+    color: var(--harvard-anthracite);
+  }
+
   .TextAnnotationWorkspace--editorPanel {
     border-top: 1px solid var(--harvard-light-grey);
     padding: 15px 0;
+    flex: 1 1 40% !important;
+    max-width: 40% !important;
+    margin-top: 36px;
   }
 
-  /* Set 50/50 ratio for text and image panels */
   .TextAnnotationEditor--component {
     flex: 1 1 50% !important;
     max-width: 50% !important;
   }
+
   .AnnotationSidebar--component {
     flex: 1 1 50% !important;
     max-width: 50% !important;
   }
 
-  /* Image styling with border - fill available width */
+  .TextAnnotationWorkspace--annotationsPanel {
+    padding-bottom: 2px;
+    background-color: #F0F0F0;
+    flex: 1 1 60% !important;
+    max-width: 60% !important;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 600px;
+    box-sizing: border-box;
+    position: relative;
+  }
+
+  .TextAnnotationWorkspace--annotationsPanel .image-thumbnail {
+    margin: 20px;
+  }
+
+  /* Image styling - fill available width, centred */
   .image-thumbnail {
     width: 100% !important;
     max-width: 800px !important;
@@ -374,8 +405,32 @@
     border: 1px solid #ddd;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 4px;
-    margin: 0 !important;
+    margin: 0 auto !important;
     display: block;
+  }
+
+  .image-container {
+    position: relative;
+    width: 80%;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0;
+    margin-left: 20px;
+    box-sizing: border-box;
+    min-height: 500px;
+  }
+
+  .image-toolbar-row {
+    width: 60%;
+    min-width: 300px;
+    margin: 0 auto 10px auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
   }
 
   td {
@@ -383,20 +438,7 @@
     padding-bottom: 0px !important;
   }
 
-  .TextAnnotationEditor--textEditor h3 {
-    color: #E32B31;
-  }
-
-  .TextAnnotationWorkspace--annotationsPanel {
-    padding-bottom: 2px;
-    background-color: #F0F0F0
-  }
-
-  .TextAnnotationWorkspace--annotationsPanel .image-thumbnail {
-    margin: 20px;
-  }
-
-  header>h1 {
+  header > h1 {
     padding-left: 8px;
     font-size: 32px;
     padding-bottom: 25px;
@@ -421,43 +463,33 @@
     color: white !important;
   }
 
-
-  .facet__category-selector-holder{
-    display: none!important;
+  .facet__category-selector-holder {
+    display: none !important;
   }
 
-  .AnnotationSidebar--annotation{
+  .AnnotationSidebar--annotation {
     box-shadow: none !important;
-    background-color: #FAFAFA!important;
+    background-color: #FAFAFA !important;
     border: none !important;
   }
-  
-  .anno-icon{
-    height: 25px!important;
+
+  .anno-icon {
+    height: 25px !important;
   }
 
-  .anno-label{
+  .anno-label {
     font-size: 20px;
     margin-left: 20px;
   }
 
-  .dpub-annotation-template{
+  .dpub-annotation-template {
     padding: 10px;
   }
 
-  .dpub-annotation-template .btn-group{
+  .dpub-annotation-template .btn-group {
     float: right;
     margin-top: -30px;
   }
-
-  .image-thumbnail{
-    margin: auto;
-  }
-
-  .image-container{
-    position: relative;
-  }
-
 
   /* CTA style for enlarge image button */
   .rs--image-click {
@@ -482,47 +514,6 @@
     z-index: 2;
   }
 
-  .rs--image-click:hover, .rs--image-click:focus {
-    background-color: #b71c1c;
-    box-shadow: 0 8px 24px rgba(227, 43, 49, 0.25), 0 0 8px 3px rgba(0,0,0,0.18) inset;
-    transform: scale(1.12);
-    text-decoration: none;
-  }
-
-  /* Slightly enlarge the image on button hover */
-  .rs--image-click:hover ~ .image-thumbnail,
-  .rs--image-click:focus ~ .image-thumbnail {
-    transform: scale(1.04);
-    transition: transform 0.18s cubic-bezier(0.4,0,0.2,1);
-    z-index: 1;
-  }
-
-  .rs--image-click > span{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    font-size: 0; /* Hide any text content */
-    text-decoration: none;
-  }
-
-  .rs--image-click > span::before {
-    content: '\f35d'; /* Font Awesome external-link-alt icon */
-    font-family: 'Font Awesome 5 Free';
-    font-weight: 900;
-    font-size: 14px;
-    text-decoration: none;
-    border: none;
-    outline: none;
-  }
-
-  /* Hide any existing text/content in the span */
-  .rs--image-click > span * {
-    display: none;
-  }
-
-  /* Remove any underlines or borders from the link */
   .rs--image-click,
   .rs--image-click:hover,
   .rs--image-click:focus,
@@ -532,8 +523,43 @@
     outline: none !important;
   }
 
+  .rs--image-click:hover,
+  .rs--image-click:focus {
+    background-color: #b71c1c;
+    box-shadow: 0 8px 24px rgba(227, 43, 49, 0.25), 0 0 8px 3px rgba(0,0,0,0.18) inset;
+    transform: scale(1.12);
+  }
+
+  .rs--image-click:hover ~ .image-thumbnail,
+  .rs--image-click:focus ~ .image-thumbnail {
+    transform: scale(1.04);
+    transition: transform 0.18s cubic-bezier(0.4,0,0.2,1);
+    z-index: 1;
+  }
+
+  .rs--image-click > span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    font-size: 0;
+    text-decoration: none;
+  }
+
+  .rs--image-click > span::before {
+    content: '\f35d'; /* Font Awesome external-link-alt icon */
+    font-family: 'Font Awesome 5 Free', sans-serif;
+    font-weight: 900;
+    font-size: 14px;
+  }
+
+  .rs--image-click > span * {
+    display: none;
+  }
+
   /* Page number styling */
-  .page-n{
+  .page-n {
     bottom: -50px;
     position: relative;
     background-color: white;
@@ -545,7 +571,6 @@
     font-family: 'Brandon Grotesque', 'Open Sans', sans-serif;
   }
 
-  /* Search filter styling */
   .table-filter {
     border: 1px solid var(--harvard-light-grey);
     border-radius: 4px;
@@ -559,77 +584,13 @@
     color: var(--harvard-anthracite);
   }
 
-  .show-facet-button__show, .show-facet-button__hide {
+  .show-facet-button__show,
+  .show-facet-button__hide {
     background-color: var(--harvard-medium-grey);
-    top: 240px!important;
+    top: 240px !important;
   }
 
-  div.TextAnnotationEditor--textEditor{
-    color: var(--harvard-anthracite)
-  }
-
-  /* 50/50 layout for text and image */
-
-  /* 40/60 layout for text and image - enlarged image */
-  .TextAnnotationWorkspace--component {
-    display: flex !important;
-    gap: 20px;
-    padding: 0 20px;
-  }
-
-  .TextAnnotationWorkspace--editorPanel {
-    flex: 1 1 40% !important;
-    max-width: 40% !important;
-    margin-top: 36px;
-  }
-
-
-  .TextAnnotationWorkspace--annotationsPanel {
-    flex: 1 1 60% !important;
-    max-width: 60% !important;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    min-height: 600px; /* Ensures consistent height even if image is missing */
-    box-sizing: border-box;
-    position: relative;
-  }
-
-  /* Ensure image container takes full width of annotation panel and centers image */
-
-  .image-container {
-    width: 80%;
-    max-width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 0;
-    margin-left: 20px;
-    box-sizing: border-box;
-    min-height: 500px; /* Ensures container keeps height even if image is missing */
-    position: relative;
-  }
-
-  .image-toolbar-row {
-    width: 60%;
-    min-width: 300px;
-    margin: 0 auto 10px auto;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .image-thumbnail {
-    width: 100% !important;
-    max-width: 800px !important;
-    height: auto !important;
-    margin: 0 auto !important;
-    display: block;
-  }
-
-  #rs-text-annotation-types{
+  #rs-text-annotation-types {
     width: 100% !important;
   }
 </style>

@@ -1,12 +1,12 @@
-/* Pagination styling - match MB Diaries style */
-.griddle-footer {
+/* Pagination styling - scoped to mbdiaries:diaries */
+#mb_diaries_diaries .griddle-footer {
   align-items: center;
   background: none;
   border: none;
   box-shadow: none;
 }
 
-.griddle-footer ul.pagination {
+#mb_diaries_diaries .griddle-footer ul.pagination {
   display: flex;
   align-items: center;
   list-style: none;
@@ -17,7 +17,7 @@
   box-shadow: none;
 }
 
-.griddle-footer ul.pagination li {
+#mb_diaries_diaries .griddle-footer ul.pagination li {
   font-family: 'Brandon Grotesque', 'Open Sans', sans-serif;
   color: var(--harvard-anthracite);
   background: none;
@@ -31,15 +31,18 @@
   cursor: pointer;
 }
 
-.griddle-footer ul.pagination li.active > a{
+#mb_diaries_diaries .griddle-footer ul.pagination li.active > a {
   background: var(--harvard-crimson) !important;
 }
 
-.griddle-footer .pagination > li > a, .griddle-footer .pagination > li > span, .pagination > li > a, .pagination > li > span {
+#mb_diaries_diaries .griddle-footer .pagination > li > a,
+#mb_diaries_diaries .griddle-footer .pagination > li > span,
+#mb_diaries_diaries .pagination > li > a,
+#mb_diaries_diaries .pagination > li > span {
   font-style: normal;
 }
 
-.griddle-footer ul.pagination li.active {
+#mb_diaries_diaries .griddle-footer ul.pagination li.active {
   background: var(--harvard-crimson) !important;
   color: #fff !important;
   border-radius: 4px;
@@ -47,14 +50,14 @@
   cursor: default;
 }
 
-.griddle-footer ul.pagination li.disabled {
+#mb_diaries_diaries .griddle-footer ul.pagination li.disabled {
   color: var(--harvard-medium-grey) !important;
   background: none !important;
   cursor: not-allowed;
   opacity: 0.6;
 }
 
-.griddle-footer ul.pagination li a {
+#mb_diaries_diaries .griddle-footer ul.pagination li a {
   font-family: inherit;
   color: inherit;
   background: none;
@@ -64,7 +67,7 @@
   transition: background 0.15s, color 0.15s;
 }
 
-.griddle-footer ul.pagination li:not(.active):not(.disabled) a:hover {
+#mb_diaries_diaries .griddle-footer ul.pagination li:not(.active):not(.disabled) a:hover {
   background: var(--harvard-light-grey);
   color: var(--harvard-crimson);
   text-decoration: none;
@@ -119,10 +122,14 @@
 #mb_home h2,
 #mb_home h3,
 #mb_home h4,
-.page h1,
-.page h2,
-.page h3,
-.page h4 {
+#mb_diaries_pages h1,
+#mb_diaries_pages h2,
+#mb_diaries_pages h3,
+#mb_diaries_pages h4,
+#mb_diaries_diary h1,
+#mb_diaries_diary h2,
+#mb_diaries_diary h3,
+#mb_diaries_diary h4 {
   font-family: 'BauerBodoni BT', Garamond, serif;
 }
 
@@ -130,17 +137,22 @@
 #mb_home body,
 #mb_home p,
 #mb_home span,
-.page body,
-.page p,
-.page span {
+#mb_diaries_pages body,
+#mb_diaries_pages p,
+#mb_diaries_pages span,
+#mb_diaries_diary body,
+#mb_diaries_diary p,
+#mb_diaries_diary span {
   font-family: 'Brandon Grotesque', 'Open Sans', sans-serif;
 }
 
 /* Emphasis in body text - scoped to mbdiaries pages only */
 #mb_home em,
 #mb_home i,
-.page em,
-.page i {
+#mb_diaries_pages em,
+#mb_diaries_pages i,
+#mb_diaries_diary em,
+#mb_diaries_diary i {
   font-style: italic;
 }
 
@@ -154,7 +166,8 @@
   --harvard-white: #ffffff;
 }
 
-.TextAnnotationEditor--component {
+/* Text annotation editor - scoped to Template:mbdiaries-ontology:Diary */
+#mb_diaries_diary .TextAnnotationEditor--component {
   white-space: normal;
   border: 1 px solid #ddddddd1;
   background-color: white;
@@ -162,34 +175,34 @@
   margin-right: 20px;
 }
 
-.TextAnnotationWorkspace--editorPanel {
+#mb_diaries_diary .TextAnnotationWorkspace--editorPanel {
   flex: auto;
   overflow-y: hidden !important;
 }
 
-.TextAnnotationEditor--component > div {
+#mb_diaries_diary .TextAnnotationEditor--component > div {
   padding: 20px 70px;
 }
 
-.AnnotationSidebar--annotation {
+#mb_diaries_diary .AnnotationSidebar--annotation {
   border-left: 5px solid lightgrey;
 }
 
-.dpub-annotation-template {
+#mb_diaries_diary .dpub-annotation-template {
   padding: 10px 20px;
 }
 
-.dpub-annotation-template .btn-group {
+#mb_diaries_diary .dpub-annotation-template .btn-group {
   float: right;
   margin-bottom: 10px;
 }
 
-.page-holder {
+#mb_diaries_diary .page-holder {
   display: block;
 }
 
-/* Full-screen panel base styles */
-.full-screen-panel {
+/* Full-screen panel base styles - scoped to mbdiaries:diaries */
+#mb_diaries_diaries .full-screen-panel {
   height: 100vh;
   width: 100vw;
   margin-left: calc(-50vw + 50%);
@@ -226,7 +239,7 @@
   z-index: 2;
 }
 
-.hero-content {
+#mb_diaries_diaries .hero-content {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -237,11 +250,11 @@
   padding: 0 40px 120px 40px;
 }
 
-.hero-title-section {
+#mb_diaries_diaries .hero-title-section {
   margin-bottom: 250px;
 }
 
-.main-title {
+#mb_diaries_diaries .main-title {
   font-family: 'BauerBodoni BT', Garamond, serif;
   font-size: 90px;
   font-weight: 600;
@@ -253,7 +266,7 @@
   text-align: right;
 }
 
-.date-title {
+#mb_diaries_diaries .date-title {
   font-family: 'BauerBodoni BT', Garamond, serif;
   font-size: 48px;
   font-weight: 600;
@@ -264,26 +277,24 @@
   text-align: right;
 }
 
-.date-title span {
+#mb_diaries_diaries .date-title span {
   color: var(--harvard-crimson);
   margin: 0 10px;
 }
 
-/* Override container-fluid padding for the header section */
-.container-fluid {
-  padding-left: 0;
-  padding-right: 0;
-  overflow-x: hidden;
+/* Override container-fluid padding for the diaries section only */
+#mb_diaries_diaries .container-fluid {
   padding: 0;
+  overflow-x: hidden;
   margin: 0;
   margin-top: 12px;
 }
 
-.hero-description-section {
+#mb_diaries_diaries .hero-description-section {
   margin: 40px 0;
 }
 
-.hero-description-text {
+#mb_diaries_diaries .hero-description-text {
   font-family: 'Brandon Grotesque', 'Open Sans', sans-serif;
   font-size: 22px;
   line-height: 1.6;
@@ -296,18 +307,18 @@
 }
 
 /* Panel 3 description text styling - different from panel 1 */
-#panel-3 .hero-description-text {
+#mb_diaries_diaries #panel-3 .hero-description-text {
   color: var(--harvard-anthracite);
   text-shadow: none;
   margin-bottom: 40px;
 }
 
 /* Scroll CTA */
-.scroll-cta {
+#mb_diaries_diaries .scroll-cta {
   margin-top: 60px;
 }
 
-.scroll-down-btn {
+#mb_diaries_diaries .scroll-down-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -318,10 +329,10 @@
   color: #fafafa;
   text-decoration: none;
   transition: all 0.3s ease;
-  animation: bounce 2s infinite;
+  animation: mb-diaries-bounce 2s infinite;
 }
 
-.scroll-down-btn:hover {
+#mb_diaries_diaries .scroll-down-btn:hover {
   background-color: var(--harvard-crimson);
   border-color: var(--harvard-crimson);
   color: white;
@@ -329,11 +340,11 @@
   animation: none;
 }
 
-.scroll-down-btn i {
+#mb_diaries_diaries .scroll-down-btn i {
   font-size: 20px;
 }
 
-@keyframes bounce {
+@keyframes mb-diaries-bounce {
   0%, 20%, 50%, 80%, 100% {
     transform: translateY(0);
   }
@@ -345,8 +356,8 @@
   }
 }
 
-/* CSS-Only Page Navigation Dots */
-.page-nav-dots-css {
+/* CSS-Only Page Navigation Dots - scoped to mbdiaries:diaries */
+#mb_diaries_diaries .page-nav-dots-css {
   position: fixed;
   right: 30px;
   top: 50%;
@@ -357,7 +368,7 @@
   gap: 20px;
 }
 
-.nav-dot-css {
+#mb_diaries_diaries .nav-dot-css {
   width: 12px;
   height: 12px;
   border-radius: 50%;
@@ -370,19 +381,19 @@
   display: block;
 }
 
-.nav-dot-css:hover {
+#mb_diaries_diaries .nav-dot-css:hover {
   background-color: rgba(255, 255, 255, 0.8);
   border-color: rgba(255, 255, 255, 0.9);
   transform: scale(1.2);
 }
 
-.nav-dot-css.active {
+#mb_diaries_diaries .nav-dot-css.active {
   background-color: var(--harvard-crimson);
   border: 2px solid var(--harvard-crimson);
   transform: scale(1.3);
 }
 
-.nav-dot-css::after {
+#mb_diaries_diaries .nav-dot-css::after {
   content: '';
   position: absolute;
   top: 50%;
@@ -396,12 +407,12 @@
   transition: opacity 0.3s ease;
 }
 
-.nav-dot-css.active::after {
+#mb_diaries_diaries .nav-dot-css.active::after {
   opacity: 1;
   border-color: var(--harvard-crimson);
 }
 
-.dot-inner {
+#mb_diaries_diaries .dot-inner {
   display: block;
   width: 100%;
   height: 100%;
@@ -409,7 +420,7 @@
 }
 
 /* Navigation dot tooltips */
-.nav-tooltip {
+#mb_diaries_diaries .nav-tooltip {
   position: absolute;
   right: 25px;
   top: 50%;
@@ -430,7 +441,7 @@
 }
 
 /* Arrow pointing to the dot */
-.nav-tooltip::after {
+#mb_diaries_diaries .nav-tooltip::after {
   content: '';
   position: absolute;
   left: 100%;
@@ -441,13 +452,13 @@
 }
 
 /* Show tooltip on hover */
-.nav-dot-css:hover .nav-tooltip {
+#mb_diaries_diaries .nav-dot-css:hover .nav-tooltip {
   opacity: 1;
   visibility: visible;
   transform: translateY(-50%) translateX(-5px);
 }
 
-/* Header navigation links standardization */
+/* Header navigation links standardization - scoped to mbdiaries:Header */
 #mb_diaries_header .rs-body-m-M.grey,
 #mb_diaries_header .rs-body-m-M {
   font-family: 'Brandon Grotesque', 'Open Sans', sans-serif !important;
@@ -460,7 +471,7 @@
   font-style: normal !important;
 }
 
-/* Breadcrumbs styling - ensure consistent font family and no italics */
+/* Breadcrumbs styling - scoped to mbdiaries:Header */
 #mb_diaries_header .breadcrumb,
 #mb_diaries_header .breadcrumb li,
 #mb_diaries_header .breadcrumb a {
@@ -493,7 +504,7 @@
   width: 100%;
 }
 
-/* Hide ADMIN, SPARQL, and logout buttons */
+/* Hide ADMIN, SPARQL, and logout buttons - scoped to mbdiaries:Header */
 #mb_diaries_header mp-anonymous-hidden,
 #mb_diaries_header #logout-Link,
 #mb_diaries_header #login-Link,
@@ -512,7 +523,7 @@
   padding: 0;
 }
 
-.panel-content {
+#mb_diaries_diaries .panel-content {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -534,7 +545,7 @@
   letter-spacing: 1px;
 }
 
-.about-content {
+#mb_diaries_diaries .about-content {
   max-width: 800px;
 }
 
@@ -651,7 +662,7 @@
 }
 
 /* Force the thumbnail wrapper to have consistent size */
-.diary-thumbnail-wrapper {
+#mb_diaries_diaries .diary-thumbnail-wrapper {
   width: 120px !important;
   height: 160px !important;
   min-width: 120px !important;
@@ -666,21 +677,21 @@
 }
 
 /* Enhanced clickable diary styling */
-.clickable-diary {
+#mb_diaries_diaries .clickable-diary {
   position: relative;
   transition: all 0.3s ease;
 }
 
-.clickable-diary:hover {
+#mb_diaries_diaries .clickable-diary:hover {
   transform: translateY(-5px);
 }
 
-.diary-thumbnail-wrapper:hover {
+#mb_diaries_diaries .diary-thumbnail-wrapper:hover {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
   transform: scale(1.03);
 }
 
-.diary-thumbnail-wrapper:hover::before {
+#mb_diaries_diaries .diary-thumbnail-wrapper:hover::before {
   content: '';
   position: absolute;
   top: 0;
@@ -706,7 +717,7 @@
 }
 
 /* Overlay icon for clickable indication */
-.diary-overlay {
+#mb_diaries_diaries .diary-overlay {
   position: absolute;
   top: 8px;
   right: 8px;
@@ -724,7 +735,7 @@
   z-index: 2;
 }
 
-.diary-thumbnail-wrapper:hover .diary-overlay {
+#mb_diaries_diaries .diary-thumbnail-wrapper:hover .diary-overlay {
   opacity: 1;
   transform: scale(1.1);
 }
@@ -745,7 +756,7 @@
   width: 100%;
 }
 
-/* Scroll behavior - only for mbdiaries pages */
+/* Scroll behavior - only for mbdiaries:diaries */
 #mb_home {
   scroll-snap-type: y mandatory;
 }
@@ -762,32 +773,35 @@ body:has(#mb_home) {
   overflow-x: hidden;
 }
 
-.TextAnnotationEditor--textEditor {
+/* Text annotation editor font sizes - scoped to Template:mbdiaries-ontology:Diary */
+#mb_diaries_diary .TextAnnotationEditor--textEditor {
   font-size: 18px!important;
 }
 
-.TextAnnotationEditor--textEditor h3 {
+#mb_diaries_diary .TextAnnotationEditor--textEditor h3 {
   font-size: 20px!important;
 }
 
-.TextAnnotationWorkspace--annotationsPanel {
+#mb_diaries_diary .TextAnnotationWorkspace--annotationsPanel {
   background-color: #fff!important;
 }
 
-.page .filter-container{
+/* Search filter - scoped to mbdiaries:pages */
+#mb_diaries_pages .filter-container {
   margin-left: 12px;
 }
 
-.page .filter-container input{
+#mb_diaries_pages .filter-container input {
   width: 61%;
 }
 
-.grey {
+/* Grey utility class - scoped to mbdiaries:Header */
+#mb_diaries_header .grey {
   color: var(--harvard-anthracite);
 }
 
-/* Images and Notes tabs styling */
-div#rs-text-annotation-types .nav-tabs li a {
+/* Images and Notes tabs styling - scoped to Template:mbdiaries-ontology:Diary */
+#mb_diaries_diary div#rs-text-annotation-types .nav-tabs li a {
   border-bottom: none !important;
   border: none !important;
   box-shadow: none !important;
@@ -803,7 +817,7 @@ div#rs-text-annotation-types .nav-tabs li a {
   display: inline-block;
 }
 
-div#rs-text-annotation-types .nav-tabs li a::after {
+#mb_diaries_diary div#rs-text-annotation-types .nav-tabs li a::after {
   content: '';
   position: absolute;
   bottom: -4px;
@@ -815,48 +829,48 @@ div#rs-text-annotation-types .nav-tabs li a::after {
   transform: translateX(-50%);
 }
 
-div#rs-text-annotation-types .nav-tabs li a:hover {
+#mb_diaries_diary div#rs-text-annotation-types .nav-tabs li a:hover {
   color: var(--harvard-crimson) !important;
   border-bottom: none !important;
   border: none !important;
   box-shadow: none !important;
 }
 
-div#rs-text-annotation-types .nav-tabs li a:hover::after {
+#mb_diaries_diary div#rs-text-annotation-types .nav-tabs li a:hover::after {
   width: 100%;
 }
 
-div#rs-text-annotation-types .nav-tabs li.active a {
+#mb_diaries_diary div#rs-text-annotation-types .nav-tabs li.active a {
   border-bottom: none !important;
   border: none !important;
   box-shadow: none !important;
   color: var(--harvard-crimson) !important;
 }
 
-div#rs-text-annotation-types .nav-tabs li.active a::after {
+#mb_diaries_diary div#rs-text-annotation-types .nav-tabs li.active a::after {
   width: 100% !important;
 }
 
 /* Remove any default Bootstrap nav-tabs styling */
-div#rs-text-annotation-types .nav-tabs {
+#mb_diaries_diary div#rs-text-annotation-types .nav-tabs {
   border-bottom: none !important;
 }
 
-div#rs-text-annotation-types .nav-tabs > li.active > a,
-div#rs-text-annotation-types .nav-tabs > li.active > a:hover,
-div#rs-text-annotation-types .nav-tabs > li.active > a:focus {
+#mb_diaries_diary div#rs-text-annotation-types .nav-tabs > li.active > a,
+#mb_diaries_diary div#rs-text-annotation-types .nav-tabs > li.active > a:hover,
+#mb_diaries_diary div#rs-text-annotation-types .nav-tabs > li.active > a:focus {
   border: none !important;
   box-shadow: none !important;
   background-color: transparent !important;
   color: var(--harvard-crimson) !important;
 }
 
-div#rs-text-annotation-types .nav-tabs > li.active {
+#mb_diaries_diary div#rs-text-annotation-types .nav-tabs > li.active {
   border: none !important;
   box-shadow: none !important;
 }
 
-div#rs-text-annotation-types .nav-tabs > li {
+#mb_diaries_diary div#rs-text-annotation-types .nav-tabs > li {
   border: none !important;
   box-shadow: none !important;
 }
@@ -867,24 +881,24 @@ div#rs-text-annotation-types .nav-tabs > li {
 
 /* Responsive Design */
 @media (max-width: 1200px) {
-  .main-title {
+  #mb_diaries_diaries .main-title {
     font-size: 100px;
   }
-  
-  .date-title {
+
+  #mb_diaries_diaries .date-title {
     font-size: 42px;
   }
-  
-  .hero-description-text {
+
+  #mb_diaries_diaries .hero-description-text {
     font-size: 20px;
     max-width: 600px;
   }
-  
+
   #mb_home .panel2 h2 {
     font-size: 42px;
   }
-  
-  .panel-content {
+
+  #mb_diaries_diaries .panel-content {
     padding: 0 40px;
   }
 
@@ -892,45 +906,45 @@ div#rs-text-annotation-types .nav-tabs > li {
     grid-template-columns: repeat(5, 1fr);
     gap: 15px;
   }
-  
+
   #mb_home .panel3 .container_table .container_diary {
     max-width: 120px;
   }
-  
+
   #mb_home .panel3 .container_table .container_diary img {
     max-width: 100px;
   }
 }
 
 @media (max-width: 992px) {
-  .main-title {
+  #mb_diaries_diaries .main-title {
     font-size: 80px;
   }
-  
-  .date-title {
+
+  #mb_diaries_diaries .date-title {
     font-size: 38px;
   }
-  
-  .hero-description-text {
+
+  #mb_diaries_diaries .hero-description-text {
     font-size: 18px;
     max-width: 500px;
   }
-  
+
   #mb_home .panel2 h2 {
     font-size: 36px;
     margin-bottom: 40px;
   }
-  
+
   #mb_home .panel2 p.introduction {
     font-size: 18px;
   }
-  
-  .page-nav-dots-css {
+
+  #mb_diaries_diaries .page-nav-dots-css {
     right: 20px;
     gap: 15px;
   }
-  
-  .nav-dot-css {
+
+  #mb_diaries_diaries .nav-dot-css {
     width: 10px;
     height: 10px;
   }
@@ -939,59 +953,59 @@ div#rs-text-annotation-types .nav-tabs > li {
     grid-template-columns: repeat(5, 1fr);
     gap: 10px;
   }
-  
+
   #mb_home .panel3 .container_table .container_diary {
     max-width: 100px;
   }
-  
+
   #mb_home .panel3 .container_table .container_diary img {
     max-width: 80px;
   }
 }
 
 @media (max-width: 768px) {
-  .hero-content {
+  #mb_diaries_diaries .hero-content {
     padding: 0 30px;
   }
-  
-  .main-title {
+
+  #mb_diaries_diaries .main-title {
     font-size: 60px;
   }
-  
-  .date-title {
+
+  #mb_diaries_diaries .date-title {
     font-size: 32px;
   }
-  
-  .hero-description-text {
+
+  #mb_diaries_diaries .hero-description-text {
     font-size: 16px;
     max-width: 400px;
     line-height: 1.5;
   }
-  
-  .scroll-cta {
+
+  #mb_diaries_diaries .scroll-cta {
     margin-top: 40px;
   }
-  
-  .scroll-down-btn {
+
+  #mb_diaries_diaries .scroll-down-btn {
     width: 50px;
     height: 50px;
   }
-  
-  .scroll-down-btn i {
+
+  #mb_diaries_diaries .scroll-down-btn i {
     font-size: 16px;
   }
-  
+
   #mb_home .panel2 h2 {
     font-size: 32px;
     margin-bottom: 30px;
   }
-  
+
   #mb_home .panel2 p.introduction {
     font-size: 16px;
     line-height: 1.6;
   }
-  
-  .panel-content {
+
+  #mb_diaries_diaries .panel-content {
     padding: 0 30px;
   }
 
@@ -999,16 +1013,16 @@ div#rs-text-annotation-types .nav-tabs > li {
     grid-template-columns: repeat(5, 1fr);
     gap: 5px;
   }
-  
+
   #mb_home .panel3 .container_table .container_diary {
     max-width: 80px;
     padding: 5px;
   }
-  
+
   #mb_home .panel3 .container_table .container_diary img {
     max-width: 70px;
   }
-  
+
   #mb_home .panel3 .container_table .container_diary p {
     font-size: 12px;
   }
