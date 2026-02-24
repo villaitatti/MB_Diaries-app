@@ -17,6 +17,14 @@
   box-shadow: none;
 }
 
+#mb_diaries_diary .AnnotationSidebar--customTabContent {
+  flex: 1;
+  min-height: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
 #mb_diaries_diaries .griddle-footer ul.pagination li {
   font-family: 'Brandon Grotesque', 'Open Sans', sans-serif;
   color: var(--harvard-anthracite);
@@ -154,6 +162,19 @@
 #mb_diaries_diary em,
 #mb_diaries_diary i {
   font-style: italic;
+}
+
+/* Fix: icon fonts must not inherit italic - overrides rule above */
+#mb_diaries_diary i[class*="fa"],
+#mb_diaries_diary i[class*="glyphicon"],
+#mb_diaries_diary i[class*="material-icon"],
+#mb_diaries_diary span[class*="fa"],
+#mb_diaries_diary span[class*="glyphicon"],
+#mb_diaries_diary .fa,
+#mb_diaries_diary [class^="fa-"],
+#mb_diaries_diary [class*=" fa-"] {
+  font-style: normal !important;
+  color: var(--harvard-anthracite);
 }
 
 :root {
@@ -784,6 +805,8 @@ body:has(#mb_home) {
 
 #mb_diaries_diary .TextAnnotationWorkspace--annotationsPanel {
   background-color: #fff!important;
+  align-items: stretch !important;
+  justify-content: flex-start !important;
 }
 
 /* Search filter - scoped to mbdiaries:pages */
@@ -1026,4 +1049,124 @@ body:has(#mb_home) {
   #mb_home .panel3 .container_table .container_diary p {
     font-size: 12px;
   }
+}
+
+/* ── Links – scoped to Template:mbdiaries-ontology:Diary ──────────────── */
+
+#mb_diaries_diary a,
+#mb_diaries_diary a:link,
+#mb_diaries_diary a:visited {
+  color: var(--harvard-crimson);
+  text-decoration: none;
+}
+
+#mb_diaries_diary a:hover,
+#mb_diaries_diary a:focus {
+  color: var(--harvard-crimson);
+  text-decoration: underline;
+}
+
+#mb_diaries_diary .AnnotationSidebar--component.TextAnnotationWorkspace--annotationsPanel{
+  margin-top: -10px;
+}
+
+#mb_diaries_diary .semantic-facet-holder{
+  margin-top: 100px;
+}
+
+/* ── IIIF sidebar viewer – scoped to Template:mbdiaries-ontology:Diary ──── */
+
+#mb_diaries_diary .nav.nav-tabs > li.active {
+  box-shadow: inset 0 -3px 0 0 var(--harvard-crimson);
+}
+
+/* IIIF sidebar thumbnail wrapper */
+#mb_diaries_diary .AnnotationSidebar--component .sidebar-iiif-wrapper {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  padding: 16px;
+  background-color: var(--harvard-light-grey);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Thumbnail viewer container */
+#mb_diaries_diary .sidebar-thumbnail-viewer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+/* Anchor – position context for hover overlay */
+#mb_diaries_diary .sidebar-thumbnail-viewer a {
+  display: inline-block;
+  position: relative;
+  line-height: 0;
+}
+
+/* Hover overlay: low-opacity crimson with animated fade */
+#mb_diaries_diary .sidebar-thumbnail-viewer a::after {
+  content: 'Open in a new tab';
+  position: absolute;
+  inset: 0;
+  background: rgba(171, 25, 45, 0.72);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Brandon Grotesque', 'Open Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  border-radius: 2px;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+
+#mb_diaries_diary .sidebar-thumbnail-viewer a:hover::after {
+  opacity: 1;
+}
+
+/* Thumbnail image – fixed 500px height, width follows aspect ratio */
+#mb_diaries_diary .sidebar-thumbnail-img {
+  cursor: pointer;
+  height: 500px;
+  width: auto;
+  max-width: 100%;
+  display: block;
+  border: 1px solid var(--harvard-medium-grey);
+  border-radius: 2px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+#mb_diaries_diary .sidebar-thumbnail-img:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+  border-color: var(--harvard-crimson);
+}
+
+/* Annotation sidebar tab underline colour */
+#mb_diaries_diary div#rs-text-annotation-types .nav-tabs li.active a {
+  color: var(--harvard-crimson) !important;
+}
+
+/* Diary page image – constrained height only */
+#mb_diaries_diary .image-thumbnail {
+  max-height: 450px !important;
+}
+
+/* Sequence label */
+#mb_diaries_diary .page-n {
+  font-family: 'Brandon Grotesque', 'Open Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--harvard-crimson);
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
