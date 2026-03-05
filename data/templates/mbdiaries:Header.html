@@ -1,17 +1,44 @@
-<bs-navbar id="mb_diaries_header" class="navbar navbar-default navbar-fixed-top" role="navigation">
+<link rel="stylesheet" href="../../assets/mb_diaries.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<bs-navbar id="mb_diaries_header" class="itatti-navbar navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="rs-header">
-    
+
+    <semantic-link class="nav-logo" iri="mbdiaries:diaries">
+      <div class="nav-logo-text">
+        <span class="nav-logo-title">The Mary Berenson Diaries</span>
+        <span class="nav-logo-subtitle">I Tatti — Harvard University</span>
+      </div>
+    </semantic-link>
+
     <bs-navbar-collapse class="pull-right">
       <bs-nav>
 
+        <bs-nav-dropdown title="About" id="mb-about-dropdown">
+          <bs-menu-item>
+            <semantic-link iri="mbdiaries:diaries">About the Diaries</semantic-link>
+          </bs-menu-item>
+          <bs-menu-item>
+            <semantic-link iri="mbdiaries:upload">Upload Documents</semantic-link>
+          </bs-menu-item>
+        </bs-nav-dropdown>
+
         <bs-nav-item>
-            <semantic-link class="rs-body-m-M grey" iri="mbdiaries:diaries">Browse Diaries</semantic-link>
+          <semantic-link iri="mbdiaries:diaries">Diaries</semantic-link>
         </bs-nav-item>
 
         <bs-nav-item>
-            <semantic-link class="rs-body-m-M grey" iri="mbdiaries:Search">Search keywords</semantic-link>
+          <semantic-link iri="mbdiaries:Search">Search</semantic-link>
         </bs-nav-item>
+
+        <bs-nav-dropdown title="People" id="mb-people-dropdown">
+          <bs-menu-item>
+            <semantic-link iri="mbdiaries:diaries">People mentioned</semantic-link>
+          </bs-menu-item>
+        </bs-nav-dropdown>
+
       </bs-nav>
     </bs-navbar-collapse>
+
   </div>
 </bs-navbar>

@@ -26,7 +26,7 @@
 }
 
 #mb_diaries_diaries .griddle-footer ul.pagination li {
-  font-family: 'Brandon Grotesque', 'Open Sans', sans-serif;
+  font-family: var(--itatti-font-body);
   color: var(--harvard-anthracite);
   background: none;
   border: none;
@@ -81,49 +81,8 @@
   text-decoration: none;
 }
 
-/* Serif Font: Bauer Bodoni (primary), Garamond (fallback) */
-@font-face {
-  font-family: 'BauerBodoni BT';
-  font-style: normal;
-  font-weight: 700;
-  src: url('fonts/Bitstream - BauerBodoni BT Bold.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: 'BauerBodoni BT';
-  font-style: italic;
-  font-weight: 400;
-  src: url('fonts/Bitstream - BauerBodoni BT Italic.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: 'BauerBodoni BT';
-  font-style: normal;
-  font-weight: 400;
-  src: url('fonts/Bitstream - BauerBodoni BT Roman.ttf') format('truetype');
-}
-
-/* Sans-serif Font: Brandon Grotesque (primary), Open Sans (fallback) */
-@font-face {
-  font-family: 'Brandon Grotesque';
-  font-style: normal;
-  font-weight: 400;
-  src: url('fonts/HVD Fonts - BrandonGrotesque-Regular.otf') format('opentype');
-}
-
-@font-face {
-  font-family: 'Brandon Grotesque';
-  font-style: normal;
-  font-weight: 700;
-  src: url('fonts/HVD Fonts - BrandonGrotesque-Bold.otf') format('opentype');
-}
-
-@font-face {
-  font-family: 'Brandon Grotesque';
-  font-style: italic;
-  font-weight: 700;
-  src: url('fonts/HVD Fonts - BrandonGrotesque-BoldItalic.otf') format('opentype');
-}
+/* Fonts loaded globally via html-head.hbs: Playfair Display (heading) + Lato (body).
+   The rules below reference them through --itatti-font-* tokens. */
 
 /* Headers and titles (use serif) - scoped to mbdiaries pages only */
 #mb_home h1,
@@ -138,7 +97,7 @@
 #mb_diaries_diary h2,
 #mb_diaries_diary h3,
 #mb_diaries_diary h4 {
-  font-family: 'BauerBodoni BT', Garamond, serif;
+  font-family: var(--itatti-font-heading);
 }
 
 /* Body and general content (use sans-serif) - scoped to mbdiaries pages only */
@@ -151,7 +110,7 @@
 #mb_diaries_diary body,
 #mb_diaries_diary p,
 #mb_diaries_diary span {
-  font-family: 'Brandon Grotesque', 'Open Sans', sans-serif;
+  font-family: var(--itatti-font-body);
 }
 
 /* Emphasis in body text - scoped to mbdiaries pages only */
@@ -178,12 +137,12 @@
 }
 
 :root {
-  /* Harvard Brand Colors: */
-  --harvard-crimson: #ab192d;
-  --harvard-anthracite: #1d252c;
-  --harvard-light-grey: #e5eaec;
-  --harvard-medium-grey: #b3bec5;
-  --harvard-black: #1d1d1b;
+  /* Harvard Brand Colors — neutralised for academic minimal palette: */
+  --harvard-crimson: #222222;
+  --harvard-anthracite: #1a1a1a;
+  --harvard-light-grey: #f0f0f0;
+  --harvard-medium-grey: #aaaaaa;
+  --harvard-black: #1a1a1a;
   --harvard-white: #ffffff;
 }
 
@@ -276,7 +235,7 @@
 }
 
 #mb_diaries_diaries .main-title {
-  font-family: 'BauerBodoni BT', Garamond, serif;
+  font-family: var(--itatti-font-heading);
   font-size: 90px;
   font-weight: 600;
   color: #fafafa;
@@ -288,7 +247,7 @@
 }
 
 #mb_diaries_diaries .date-title {
-  font-family: 'BauerBodoni BT', Garamond, serif;
+  font-family: var(--itatti-font-heading);
   font-size: 48px;
   font-weight: 600;
   color: #fafafa;
@@ -316,7 +275,7 @@
 }
 
 #mb_diaries_diaries .hero-description-text {
-  font-family: 'Brandon Grotesque', 'Open Sans', sans-serif;
+  font-family: var(--itatti-font-body);
   font-size: 22px;
   line-height: 1.6;
   color: #fafafa;
@@ -450,7 +409,7 @@
   color: white;
   padding: 8px 12px;
   border-radius: 4px;
-  font-family: 'Brandon Grotesque', 'Open Sans', sans-serif;
+  font-family: var(--itatti-font-body);
   font-size: 14px;
   font-weight: 500;
   white-space: nowrap;
@@ -479,50 +438,12 @@
   transform: translateY(-50%) translateX(-5px);
 }
 
-/* Header navigation links standardization - scoped to mbdiaries:Header */
-#mb_diaries_header .rs-body-m-M.grey,
-#mb_diaries_header .rs-body-m-M {
-  font-family: 'Brandon Grotesque', 'Open Sans', sans-serif !important;
-  font-size: 18px !important;
-  line-height: 24px !important;
-  font-weight: normal !important;
-  letter-spacing: 0 !important;
-  text-decoration: none !important;
-  transition: color 0.3s ease !important;
-  font-style: normal !important;
-}
-
-/* Breadcrumbs styling - scoped to mbdiaries:Header */
+/* Breadcrumbs - scoped to mbdiaries:Header */
 #mb_diaries_header .breadcrumb,
 #mb_diaries_header .breadcrumb li,
 #mb_diaries_header .breadcrumb a {
-  font-family: 'Brandon Grotesque', 'Open Sans', sans-serif !important;
+  font-family: var(--itatti-font-body) !important;
   font-style: normal !important;
-}
-
-#mb_diaries_header .rs-body-m-M.grey {
-  position: relative;
-  display: inline-block;
-}
-
-#mb_diaries_header .rs-body-m-M.grey::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 50%;
-  width: 0;
-  height: 2px;
-  background-color: var(--harvard-crimson);
-  transition: all 0.3s ease;
-  transform: translateX(-50%);
-}
-
-#mb_diaries_header .rs-body-m-M.grey:hover {
-  color: var(--harvard-crimson);
-}
-
-#mb_diaries_header .rs-body-m-M.grey:hover::after {
-  width: 100%;
 }
 
 /* Hide ADMIN, SPARQL, and logout buttons - scoped to mbdiaries:Header */
@@ -556,7 +477,7 @@
 }
 
 #mb_home .panel2 h2 {
-  font-family: 'BauerBodoni BT', Garamond, serif;
+  font-family: var(--itatti-font-heading);
   font-size: 48px;
   font-weight: 600;
   color: var(--harvard-anthracite);
@@ -571,7 +492,7 @@
 }
 
 #mb_home .panel2 p.introduction {
-  font-family: 'Brandon Grotesque', 'Open Sans', sans-serif;
+  font-family: var(--itatti-font-body);
   font-size: 20px;
   line-height: 1.7;
   color: var(--harvard-anthracite);
@@ -599,7 +520,7 @@
   max-width: 960px;
   margin-top: 80px;
   margin-bottom: 40px;
-  font-family: 'BauerBodoni BT', Garamond, serif;
+  font-family: var(--itatti-font-heading);
   font-size: 32px;
   line-height: 36px;
   font-weight: 600;
@@ -719,7 +640,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, rgba(171, 25, 45, 0.1), rgba(29, 37, 44, 0.1));
+  background: rgba(0, 0, 0, 0.05);
   z-index: 1;
   border-radius: 8px;
 }
@@ -742,7 +663,7 @@
   position: absolute;
   top: 8px;
   right: 8px;
-  background-color: rgba(171, 25, 45, 0.9);
+  background-color: rgba(0, 0, 0, 0.75);
   color: white;
   width: 24px;
   height: 24px;
@@ -828,7 +749,7 @@ body:has(#mb_home) {
   border-bottom: none !important;
   border: none !important;
   box-shadow: none !important;
-  font-family: 'Brandon Grotesque', 'Open Sans', sans-serif !important;
+  font-family: var(--itatti-font-body) !important;
   font-size: 18px !important;
   line-height: 24px !important;
   font-weight: normal !important;
@@ -898,9 +819,7 @@ body:has(#mb_home) {
   box-shadow: none !important;
 }
 
-#mb_diaries_header {
-  margin-top: 80px;
-}
+/* margin-top handled by .itatti-navbar in collection/navbar.css */
 
 /* Responsive Design */
 @media (max-width: 1200px) {
@@ -1114,12 +1033,12 @@ body:has(#mb_home) {
   content: 'Open in a new tab';
   position: absolute;
   inset: 0;
-  background: rgba(171, 25, 45, 0.72);
+  background: rgba(0, 0, 0, 0.60);
   color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Brandon Grotesque', 'Open Sans', sans-serif;
+  font-family: var(--itatti-font-body);
   font-size: 15px;
   font-weight: 700;
   letter-spacing: 0.5px;
@@ -1163,10 +1082,21 @@ body:has(#mb_home) {
 
 /* Sequence label */
 #mb_diaries_diary .page-n {
-  font-family: 'Brandon Grotesque', 'Open Sans', sans-serif;
+  font-family: var(--itatti-font-body);
   font-size: 16px;
   font-weight: 700;
   color: var(--harvard-crimson);
   text-transform: uppercase;
   letter-spacing: 1px;
 }
+
+/* ── Container alignment for pages that have simple single-column content ── */
+#mb_diaries_pages {
+  max-width  : var(--itatti-container-max, 1200px);
+  margin-left : auto;
+  margin-right: auto;
+  padding-left : var(--itatti-container-padding, 2rem);
+  padding-right: var(--itatti-container-padding, 2rem);
+  box-sizing  : border-box;
+}
+/* #mb_diaries_diary uses its own internal two-column layout — no outer max-width */
