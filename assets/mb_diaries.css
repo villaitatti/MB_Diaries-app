@@ -1,4 +1,9 @@
 /* Pagination styling - scoped to mbdiaries:diaries */
+:root {
+  --mb-diaries-accent: #ab192d
+}
+
+
 #mb_diaries_diaries .griddle-footer {
   align-items: center;
   background: none;
@@ -368,8 +373,8 @@
 }
 
 #mb_diaries_diaries .nav-dot-css.active {
-  background-color: var(--harvard-crimson);
-  border: 2px solid var(--harvard-crimson);
+  background-color: var(--mb-diaries-accent);
+  border: 2px solid var(--mb-diaries-accent);
   transform: scale(1.3);
 }
 
@@ -389,7 +394,7 @@
 
 #mb_diaries_diaries .nav-dot-css.active::after {
   opacity: 1;
-  border-color: var(--harvard-crimson);
+  border-color: var(--mb-diaries-accent);
 }
 
 #mb_diaries_diaries .dot-inner {
@@ -532,7 +537,7 @@
 }
 
 #mb_home .panel3 .container_table {
-  max-width: 1200px;
+  max-width: 700px;
   margin: 40px auto;
 }
 
@@ -742,6 +747,76 @@ body:has(#mb_home) {
 /* Grey utility class - scoped to mbdiaries:Header */
 #mb_diaries_header .grey {
   color: var(--harvard-anthracite);
+}
+
+/* Navbar search – scoped to mbdiaries:Header */
+#mb_diaries_header .mb-navbar-search-form {
+  display: flex;
+  align-items: center;
+  margin: 0 0 0 24px;
+  align-self: center;
+  height: 100%;
+}
+
+#mb_diaries_header .mb-navbar-search-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-bottom: 1px solid transparent;
+  padding: 0 2px;
+  transition: border-color 0.2s ease;
+  height: 100%;
+}
+
+#mb_diaries_header .mb-navbar-search-wrapper i {
+  color: #aaaaaa;
+}
+
+#mb_diaries_header .mb-navbar-search-wrapper:hover,
+#mb_diaries_header .mb-navbar-search-wrapper:focus-within {
+  border-bottom-color: var(--mb-diaries-accent);
+}
+
+#mb_diaries_header .mb-navbar-search-wrapper:hover i,
+#mb_diaries_header .mb-navbar-search-wrapper:focus-within i {
+  color: var(--mb-diaries-accent);
+}
+
+#mb_diaries_header .mb-navbar-search-btn {
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: #cccccc !important;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  flex-shrink: 0;
+  transition: color 0.2s ease;
+}
+
+#mb_diaries_header .mb-navbar-search-btn:hover {
+  color: #999999 !important;
+}
+
+#mb_diaries_header .mb-navbar-search-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #1a1a1a;
+  padding: 0;
+  font-family: var(--itatti-font-body, 'Lato', sans-serif);
+  font-size: var(--itatti-nav-item-size, 12px);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  width: 180px;
+  line-height: 1;
+}
+
+#mb_diaries_header .mb-navbar-search-input::placeholder {
+  color: #aaaaaa;
+  font-weight: 400;
+  letter-spacing: 0;
 }
 
 /* Images and Notes tabs styling - scoped to Template:mbdiaries-ontology:Diary */

@@ -3,363 +3,376 @@
 
 [[> mbdiaries:Header ]]
 
+[[#if (urlParam "q")]]
+
 <div id="mb_diaries_search">
-<div class="search-page-wrapper">
-  <div class="container">
+  <div class="search-page-wrapper">
+    <div class="container">
 
-    <div class="search-header">
-      <h1>Search keywords</h1>
-    </div>
+      <div class="search-header">
+        <h1>Search the Diaries</h1>
+        <p class="search-subtitle">1891–1937 · Mary Berenson</p>
+      </div>
 
-    <div class="search-main-content">
-      <semantic-search>
-        <!-- 1. search definition -->
-        <semantic-search-form-query
-           query-template='{
-             "queryString": 
-                 "SELECT ?subject ?d ?diary ?page ?stringLabel WHERE { 
-                     ?subject a mbdiaries-ontology:Page;
-                         rdf:value ?stringLabel;
-                         rdfs:label ?page;
-                         mbdiaries-ontology:index ?pageOrder;
-                         mbdiaries-ontology:part_of ?d.
+      <div class="search-main-content">
 
-       				?d rdfs:label ?diary;
-                         mbdiaries-ontology:order ?diaryOrder.
-                     FILTER(REGEX(?stringLabel,?label,\"i\"))
-                 }",
-             "arguments": {
-                 "label": {"type": "xsd:string"}
-             }
-           }'
-           fields='[
-             {
-              "id": "label",
-              "label": "Search Term",
-              "description": "Enter a word or phrase to search within the diary content.",
-              "minOccurs": "1",
-              "xsdDatatype":"xsd:string"
-              }
-           ]'>
-             <div class="search-form-container">
-               <semantic-form-text-input for="label" placeholder='Enter search term (e.g., "Bernhard", "Bernard", "Florence")'></semantic-form-text-input>
-               <button type='button' name='submit' class='search-submit-button' title="Search Mary's entries by date or keyword">
-                 <i class="fas fa-search"></i> Search the Diaries
-               </button>
-             </div>
-         </semantic-search-form-query>
+        <!-- Pre-filled form + direct results when ?q= is present -->
+        <form class="search-form-container" method="get">
+          <input type="hidden" name="uri" value="mbdiaries:Search">
+          <div class="search-input-row">
+            <input
+              type="text"
+              name="q"
+              value='[[urlParam "q"]]'
+              placeholder="Search the diaries…"
+              class="search-text-input"
+              autocomplete="off"
+            >
+            <button type="submit" class="search-submit-button">
+              <i class="fas fa-search"></i><span>Search</span>
+            </button>
+          </div>
+        </form>
 
-        <semantic-search-result-holder>
-          <semantic-search-result>
-            <semantic-table 
-              id='table' 
-              query='
-                  SELECT ?d ?diary ?page ?stringLabel ?diaryOrder ?pageOrder 
-                  WHERE{ } order by ?diaryOrder ?pageOrder'
-              tuple-template="{{> table-row}}">
-              <template id="table-row">
-                  <div class="results-header show-one">
-                      <div class="result-column diary-column">
-                          <strong>Diary</strong>
-                      </div>
-                      <div class="result-column sequence-column">
-                          <strong>Sequence</strong>
-                      </div>
-                      <div class="result-column content-column">
-                          <strong>Content</strong>
-                      </div>
+        <semantic-table
+          id='table'
+          query='
+            SELECT ?d ?diary ?page ?stringLabel ?diaryOrder ?pageOrder WHERE {
+              ?subject a mbdiaries-ontology:Page;
+                  rdf:value ?stringLabel;
+                  rdfs:label ?page;
+                  mbdiaries-ontology:index ?pageOrder;
+                  mbdiaries-ontology:part_of ?d.
+              ?d rdfs:label ?diary;
+                  mbdiaries-ontology:order ?diaryOrder.
+              FILTER(REGEX(?stringLabel, "[[urlParam "q"]]", "i"))
+            } ORDER BY ?diaryOrder ?pageOrder'
+          tuple-template='{{> table-row}}'>
+          <template id="table-row">
+              <div class="results-header show-one">
+                  <div class="result-column diary-column"><strong>Diary</strong></div>
+                  <div class="result-column sequence-column"><strong>Sequence</strong></div>
+                  <div class="result-column content-column"><strong>Content</strong></div>
+              </div>
+              <semantic-link iri="{{d.value}}">
+                  <div class="result-row clickable-row">
+                      <div class="result-column diary-column">{{diary.value}}</div>
+                      <div class="result-column sequence-column">Page {{page.value}}</div>
+                      <div class="result-column content-column">{{stringLabel.value}}</div>
                   </div>
+              </semantic-link>
+          </template>
+        </semantic-table>
 
-                  <semantic-link iri="{{d.value}}">
-                      <div class="result-row clickable-row">
-                          <div class="result-column diary-column">
-                              {{diary.value}}
-                          </div>
-                          <div class="result-column sequence-column">
-                              Page {{page.value}}
-                          </div>
-                          <div class="result-column content-column">
-                              {{stringLabel.value}}
-                          </div>
-                      </div>
-                  </semantic-link>
-
-          </semantic-table>
-          </semantic-search-result>
-        </semantic-search-result-holder>
-      </semantic-search>
+      </div>
     </div>
-
   </div>
 </div>
 
+[[else]]
+
+<div id="mb_diaries_search">
+  <div class="search-page-wrapper">
+    <div class="container">
+
+      <div class="search-header">
+        <h1>Search the Diaries</h1>
+        <p class="search-subtitle">1891–1937 · Mary Berenson</p>
+      </div>
+
+      <div class="search-main-content">
+
+        <!-- Empty search form: submit navigates to ?q=term, results shown by the [[if]] branch -->
+        <form class="search-form-container" method="get">
+          <input type="hidden" name="uri" value="mbdiaries:Search">
+          <div class="search-input-row">
+            <input
+              type="text"
+              name="q"
+              placeholder='e.g. "Bernhard", "Florence", "London"'
+              class="search-text-input"
+              autocomplete="off"
+            >
+            <button type="submit" class="search-submit-button">
+              <i class="fas fa-search"></i><span>Search</span>
+            </button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
 </div>
 
+[[/if]]
+
 <style>
-    /* Page wrapper with panel3 background */
-    .search-page-wrapper {
-        background: var(--harvard-light-grey) 0% 0% no-repeat padding-box;
-        opacity: 1;
-        min-height: calc(100vh - 80px);
-        padding: 60px 0;
-    }
+  /* ── Page wrapper ── */
+  .search-page-wrapper {
+    background: var(--harvard-light-grey, #f5f5f5);
+    min-height: calc(100vh - 84px);
+    padding: 70px 0 80px;
+  }
 
-    /* Header styling */
-    .search-header {
-        text-align: center;
-        margin: 50px 0;
-    }
+  /* ── Page header ── */
+  .search-header {
+    text-align: center;
+    margin: 100px;
+  }
 
+  .search-header h1 {
+    font-family: var(--itatti-font-heading, 'Playfair Display', serif);
+    font-size: 42px;
+    font-weight: 700;
+    color: var(--harvard-anthracite, #1d252c);
+    margin: 0 0 8px;
+    letter-spacing: 0.5px;
+  }
+
+  .search-subtitle {
+    font-family: var(--itatti-font-body, 'Lato', sans-serif);
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--harvard-crimson, #ab192d);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  /* ── Search form ── */
+  .search-form-container {
+    margin: 0 0 48px;
+  }
+
+  .search-input-row {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    max-width: 680px;
+    margin: 0 auto;
+    border: 2px solid var(--harvard-medium-grey, #ccc);
+    border-radius: 6px;
+    overflow: hidden;
+    background: #fff;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .search-input-row:focus-within {
+    border-color: var(--harvard-crimson, #ab192d);
+    box-shadow: 0 0 0 3px rgba(171, 25, 45, 0.12);
+  }
+
+  .search-input-row semantic-form-text-input {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .search-input-row .search-text-input {
+    flex: 1;
+    min-width: 0;
+    width: auto;
+    height: 52px;
+    padding: 0 18px;
+    border: none;
+    outline: none;
+    font-family: var(--itatti-font-body, 'Lato', sans-serif);
+    font-size: 16px;
+    color: var(--harvard-anthracite, #1d252c);
+    background: transparent;
+    box-sizing: border-box;
+  }
+
+  .search-input-row input[type="text"] {
+    width: 100%;
+    height: 52px;
+    padding: 0 18px;
+    border: none;
+    outline: none;
+    font-family: var(--itatti-font-body, 'Lato', sans-serif);
+    font-size: 16px;
+    color: var(--harvard-anthracite, #1d252c);
+    background: transparent;
+    box-sizing: border-box;
+  }
+
+  .search-input-row input[type="text"]::placeholder {
+    color: #aaa;
+  }
+
+  .search-submit-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--harvard-crimson, #ab192d);
+    color: #fff;
+    border: none;
+    padding: 0 24px;
+    height: 52px;
+    cursor: pointer;
+    font-family: var(--itatti-font-body, 'Lato', sans-serif);
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    transition: background 0.2s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .search-submit-button:hover {
+    background: #8a1425;
+  }
+
+  .search-submit-button i {
+    font-size: 14px;
+  }
+
+  /* ── Results ── */
+  .results-header {
+    display: flex;
+    background-color: var(--harvard-anthracite, #1d252c);
+    color: #fff;
+    padding: 18px 24px;
+    margin: 0 0 8px;
+    border-radius: 6px 6px 0 0;
+    font-family: var(--itatti-font-body, 'Lato', sans-serif);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 12px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .result-row {
+    display: flex;
+    padding: 20px 24px;
+    border: 1px solid #e5e5e5;
+    border-top: none;
+    background: #fff;
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 64px;
+    align-items: center;
+    transition: background 0.15s ease, border-color 0.15s ease;
+  }
+
+  .result-row:last-child {
+    border-radius: 0 0 6px 6px;
+  }
+
+  .result-row:hover {
+    background: #fdf6f7;
+    border-color: var(--harvard-crimson, #ab192d);
+    cursor: pointer;
+  }
+
+  .result-column {
+    padding: 0 12px;
+    box-sizing: border-box;
+    font-family: var(--itatti-font-body, 'Lato', sans-serif);
+    font-size: 15px;
+  }
+
+  .diary-column {
+    flex: 0 0 22%;
+    font-weight: 700;
+    color: var(--harvard-crimson, #ab192d);
+  }
+
+  .sequence-column {
+    flex: 0 0 14%;
+    font-weight: 600;
+    color: var(--harvard-anthracite, #1d252c);
+    text-align: center;
+  }
+
+  .content-column {
+    flex: 1;
+    color: var(--harvard-anthracite, #1d252c);
+    line-height: 1.55;
+  }
+
+  .show-one .sequence-column,
+  .show-one .content-column {
+    color: #fff;
+  }
+
+  /* ── RS overrides ── */
+  semantic-search-result-holder,
+  semantic-search-result,
+  semantic-table {
+    width: 100%;
+    display: block;
+  }
+
+  semantic-table table,
+  semantic-table tbody,
+  semantic-table tr,
+  semantic-table td {
+    display: block;
+    width: 100%;
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .show-one {
+    display: none;
+  }
+
+  .show-one:first-of-type {
+    display: flex !important;
+  }
+
+  .facet__category-selector-holder {
+    display: none;
+  }
+
+  .griddle-custom-row {
+    display: block !important;
+  }
+
+  .rs-draggable-container {
+    padding: 0;
+    border: none;
+  }
+
+  .container-fluid {
+    padding: 0;
+    margin-top: 0;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
     .search-header h1 {
-        font-family: 'BauerBodoni BT', Garamond, serif;
-        font-size: 48px;
-        font-weight: 600;
-        color: var(--harvard-anthracite);
-        margin-bottom: 0;
-        text-transform: uppercase;
-        letter-spacing: 1px;
+      font-size: 30px;
     }
 
-    /* Main content area - no border, no background */
-    .search-main-content {
-        background: transparent;
-        padding: 0;
-    }
-
-    /* Search form styling - vertical layout */
-    .search-form-container {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-        margin: 30px 0 50px 0;
-        width: 100%;
-    }
-
-    .search-form-container semantic-form-text-input {
-        width: 100%;
-    }
-
-    .search-form-container input[type="text"] {
-        width: 100%;
-        padding: 15px 20px;
-        border: 2px solid var(--harvard-medium-grey);
-        border-radius: 6px;
-        font-family: 'Brandon Grotesque', 'Open Sans', sans-serif;
-        font-size: 18px;
-        transition: all 0.3s ease;
-        background-color: white;
-        height: 54px;
-        box-sizing: border-box;
-    }
-
-    .search-form-container input[type="text"]:focus {
-        outline: none;
-        border-color: var(--harvard-crimson);
-        box-shadow: 0 0 0 4px rgba(171, 25, 45, 0.1);
+    .search-input-row {
+      flex-direction: column;
+      border-radius: 6px;
     }
 
     .search-submit-button {
-        background-color: var(--harvard-crimson);
-        color: white;
-        border: none;
-        border-radius: 6px;
-        padding: 15px 30px;
-        cursor: pointer;
-        font-family: 'Brandon Grotesque', 'Open Sans', sans-serif;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        transition: all 0.3s ease;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
-        min-width: 180px;
-        height: 54px;
-        box-sizing: border-box;
+      width: 100%;
+      height: 48px;
+      justify-content: center;
     }
 
-    .search-submit-button:hover {
-        background-color: #8a1425;
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-        transform: translateY(-2px);
-    }
-
-    .search-submit-button:active {
-        transform: translateY(0);
-        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
-    }
-
-    .search-submit-button i {
-        margin-right: 10px;
-        font-size: 16px;
-    }
-
-    /* Results styling - full width and larger */
-    .results-header {
-        display: flex;
-        background-color: var(--harvard-anthracite);
-        color: white;
-        padding: 25px;
-        margin: 40px 0 20px 0;
-        border-radius: 8px;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        font-size: 16px;
-        width: 100%;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        box-sizing: border-box;
-    }
-
+    .results-header,
     .result-row {
-        display: flex;
-        padding: 25px;
-        border: 1px solid var(--harvard-medium-grey);
-        margin-bottom: 12px;
-        border-radius: 8px;
-        transition: all 0.3s ease;
-        background-color: white;
-        width: 100%;
-        box-sizing: border-box;
-        min-height: 80px;
-        align-items: center;
-    }
-
-    .result-row:hover {
-        background-color: #f8f9fa;
-        border-color: var(--harvard-crimson);
-        cursor: pointer;
-        transform: translateY(-2px);
-        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+      flex-direction: column;
+      gap: 8px;
     }
 
     .result-column {
-        padding: 0 20px;
-        box-sizing: border-box;
+      padding: 6px 0;
     }
 
+    .sequence-column,
     .diary-column {
-        flex: 0 0 25%;
-        font-weight: 600;
-        color: var(--harvard-crimson);
-        font-size: 16px;
+      flex: none;
     }
-
-    .sequence-column {
-        flex: 0 0 15%;
-        font-weight: 600;
-        color: var(--harvard-anthracite);
-        font-size: 16px;
-        text-align: center;
-    }
-
-    .content-column {
-        flex: 1;
-        color: var(--harvard-anthracite);
-        line-height: 1.6;
-        font-size: 16px;
-    }
-
-    .show-one .sequence-column {
-      color: white;
-    }
-
-    .show-one .content-column {
-      color: white;
-    }
-
-    /* Ensure full width for search results container */
-    semantic-search-result-holder,
-    semantic-search-result,
-    semantic-table {
-        width: 100%;
-        display: block;
-    }
-
-    /* Hide default table styling */
-    .show-one {
-        display: none;
-    }
-
-    .show-one:first-of-type {
-        display: flex !important;
-    }
-
-    /* Responsive design */
-    @media (max-width: 768px) {
-        .search-page-wrapper {
-            padding: 40px 0;
-        }
-
-        .search-header h1 {
-            font-size: 36px;
-        }
-
-        .search-form-container {
-            gap: 15px;
-            margin: 20px 0 30px 0;
-        }
-
-        .search-submit-button {
-            min-width: auto;
-            width: 100%;
-        }
-
-        .results-header,
-        .result-row {
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .result-column {
-            padding: 12px 0;
-        }
-
-        .sequence-column,
-        .diary-column {
-            flex: none;
-        }
-
-        .results-header .result-column {
-            font-size: 14px;
-        }
-
-        .result-row {
-            min-height: auto;
-            padding: 20px;
-        }
-    }
-
-    /* Override any conflicting styles */
-    .facet__category-selector-holder {
-        display: none;
-    }
-
-    .griddle-custom-row {
-        display: block !important;
-    }
-
-    .rs-draggable-container {
-        padding: none;
-        border: none;
-    }
-
-    /* Ensure semantic-table doesn't interfere */
-    semantic-table table,
-    semantic-table tbody,
-    semantic-table tr,
-    semantic-table td {
-        display: block;
-        width: 100%;
-        border: none;
-        padding: 0;
-        margin: 0;
-    }
-
-    /* Container fluid override */
-    .container-fluid {
-        padding: 0;
-        margin-top: 0;
-    }
+  }
 </style>

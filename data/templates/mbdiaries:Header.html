@@ -7,37 +7,32 @@
     <semantic-link class="nav-logo" iri="mbdiaries:diaries">
       <div class="nav-logo-text">
         <span class="nav-logo-title">The Mary Berenson Diaries</span>
-        <span class="nav-logo-subtitle">I Tatti — Harvard University</span>
+        <span class="nav-logo-subtitle">1891–1937</span>
       </div>
     </semantic-link>
 
     <bs-navbar-collapse class="pull-right">
       <bs-nav>
-
-        <bs-nav-dropdown title="About" id="mb-about-dropdown">
-          <bs-menu-item>
-            <semantic-link iri="mbdiaries:diaries">About the Diaries</semantic-link>
-          </bs-menu-item>
-          <bs-menu-item>
-            <semantic-link iri="mbdiaries:upload">Upload Documents</semantic-link>
-          </bs-menu-item>
-        </bs-nav-dropdown>
-
         <bs-nav-item>
           <semantic-link iri="mbdiaries:diaries">Diaries</semantic-link>
         </bs-nav-item>
-
-        <bs-nav-item>
-          <semantic-link iri="mbdiaries:Search">Search</semantic-link>
-        </bs-nav-item>
-
-        <bs-nav-dropdown title="People" id="mb-people-dropdown">
-          <bs-menu-item>
-            <semantic-link iri="mbdiaries:diaries">People mentioned</semantic-link>
-          </bs-menu-item>
-        </bs-nav-dropdown>
-
       </bs-nav>
+
+      <form class="mb-navbar-search-form">
+        <input type="hidden" name="uri" value="mbdiaries:Search">
+        <div class="mb-navbar-search-wrapper">
+          <input
+            type="text"
+            name="q"
+            class="mb-navbar-search-input"
+            placeholder="SEARCH THE DIARIES…"
+            autocomplete="off"
+          >
+          <button type="submit" class="mb-navbar-search-btn" aria-label="Search">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </form>
     </bs-navbar-collapse>
 
   </div>
