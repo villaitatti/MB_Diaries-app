@@ -226,7 +226,8 @@
 
                             <rs-text-annotation-workspace
                                 document-iri="{{document.value}}"
-                                storage="MB_Diaries-app"
+                                storage="mbdiaries"
+                                sidebar-tabs='[{"key": "iiif", "label": "IIIF"}]'
                                 annotation-subject-template="https://mbdiaries.itatti.harvard.edu/annotation/{{{{raw}}}}{{UUID}}{{{{/raw}}}}"
                                 fallback-template="{{> fallback-template}}"
                                 annotation-tooltip="{{> annotation-tooltip}}"
@@ -238,6 +239,28 @@
                                 {{#> mbdiaries:template}} Missing type for annotation
                                     <semantic-link iri="{{ iri.value }}"></semantic-link>
                                 {{/ mbdiaries:template}}
+                                </template>
+
+                                <template id="sidebar-iiif">
+                                  <div style="height: 700px">
+                                    
+                                    <semantic-query 
+                                      query='SELECT ?representation WHERE { 
+                                        ?page crm:P129i_is_subject_of <{{iri.value}}> .
+                                        ?page crm:P183i_has_representation ?representation
+                                      }'
+                                      template="{{> iiif-viewer}}"
+                                    >
+                                      <template id="iiif-viewer">
+                                        <rs-iiif-mirador 
+                                          image-or-region="{{bindings.0.representation.value}}"
+                                          image-id-pattern='BIND(REPLACE(str(?imageIRI),"^.*/iiif/([0-9]+)/.*$", "$1") AS ?imageID)'
+                                          iiif-server-url='https://ids.lib.harvard.edu/ids/iiif'
+                                          ></rs-iiif-mirador>
+                                      </template>
+                                    </semantic-query>
+                                    
+                                  </div>
                                 </template>
 
                                 <template id="annotation-tooltip">

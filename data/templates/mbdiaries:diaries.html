@@ -71,44 +71,43 @@
         </div>
 
         <div class="container_table">
-          <semantic-table
-            query='
-              SELECT ?g ?diary ?label ?imageIRI ?order WHERE {
-                GRAPH ?g {
-                    ?diary crm:P2_has_type <https://mbdiaries.itatti.harvard.edu/ontology/Diary>;
-                      rdfs:label ?label;
-                      crm:P183i_has_representation ?imageIRI;
-                      mbdiaries-ontology:is_published true;
-                      mbdiaries-ontology:order ?order.
-                    
-                }
-              } order by ASC(?order)'
-            number-of-displayed-rows='32'
-            tuple-template='{{>diary_card }}'
-            options='{"showFilter": false}'
-            no-result-template='No Diaries published'>
+          <semantic-context repository="mbdiaries">
+            <semantic-table
+              query='
+                SELECT ?g ?diary ?label ?imageIRI ?order WHERE {
+                  GRAPH ?g {
+                      ?diary crm:P2_has_type <https://mbdiaries.itatti.harvard.edu/ontology/Diary>;
+                        rdfs:label ?label;
+                        crm:P183i_has_representation ?imageIRI;
+                        mbdiaries-ontology:is_published true;
+                        mbdiaries-ontology:order ?order.
+                      
+                  }
+                } order by ASC(?order)'
+              number-of-displayed-rows='32'
+              tuple-template='{{>diary_card }}'
+              options='{"showFilter": false}'
+              no-result-template='No Diaries published'>
 
-              <template id="diary_card">
+                <template id="diary_card">
 
-                <div class="container_diary clickable-diary">
-                  <semantic-link iri="{{diary.value}}">
-                    <div class="diary-thumbnail-wrapper">
-                      <rs-iiif-image-thumbnail
-                        image-or-region='{{imageIRI.value}}'
-                        image-id-pattern='BIND(REPLACE(STR(REPLACE(STR(?imageIRI),"/full/full/0/default.jpg","")), "(^.*)\\/(.*)$", "$2") AS ?imageID)'
-                        iiif-server-url='https://ids.lib.harvard.edu/ids/iiif'>
-                      </rs-iiif-image-thumbnail>
-                      <div class="diary-overlay">
-                        <i class="fas fa-external-link-alt"></i>
+                  <div class="container_diary clickable-diary">
+                    <semantic-link iri="{{diary.value}}">
+                      <div class="diary-thumbnail-wrapper">
+                        <img src="{{imageIRI.value}}" style="width: 100%; height: 100%; object-fit: cover;" />
+                        <div class="diary-overlay">
+                          <i class="fas fa-external-link-alt"></i>
+                        </div>
                       </div>
-                    </div>
-                  </semantic-link>
-                  <p><strong>{{label.value}}</strong></p>
-                </div>
+                    </semantic-link>
+                    <p><strong>{{label.value}}</strong></p>
+                  </div>
 
-              </template>
+                </template>
 
-        </semantic-table>
+            </semantic-table>
+          </semantic-context>
+
         </div>
       </div>
 
