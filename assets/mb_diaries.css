@@ -166,7 +166,7 @@
 }
 
 #mb_diaries_diary .TextAnnotationEditor--component > div {
-  padding: 20px 70px;
+  padding: 48px 70px 40px;
 }
 
 #mb_diaries_diary .AnnotationSidebar--annotation {
@@ -208,6 +208,12 @@
   position: relative;
 }
 
+/* Shorter hero than a full viewport */
+#mb_diaries_diaries #panel-1.full-screen-panel {
+  height: 65vh;
+  min-height: 480px;
+}
+
 #mb_home .panel1::before {
   content: '';
   position: absolute;
@@ -215,7 +221,6 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.3);
   z-index: 1;
 }
 
@@ -232,11 +237,7 @@
   text-align: center;
   height: 100%;
   max-width: 800px;
-  padding: 0 40px 120px 40px;
-}
-
-#mb_diaries_diaries .hero-title-section {
-  margin-bottom: 250px;
+  padding: 0 40px 60px;
 }
 
 #mb_diaries_diaries .main-title {
@@ -275,172 +276,33 @@
   margin-top: 12px;
 }
 
-#mb_diaries_diaries .hero-description-section {
-  margin: 40px 0;
+/* Hero CTA button - scrolls down to the "Browse the Diaries" panel */
+#mb_diaries_diaries .hero-cta {
+  margin-top: 40px;
 }
 
-#mb_diaries_diaries .hero-description-text {
-  font-family: var(--itatti-font-body);
-  font-size: 22px;
-  line-height: 1.6;
-  color: #fafafa;
-  text-align: center;
-  max-width: 700px;
-  margin: 0;
-  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8), 1px 1px 3px rgba(0, 0, 0, 0.9);
-  font-weight: 400;
-}
-
-/* Panel 3 description text styling - different from panel 1 */
-#mb_diaries_diaries #panel-3 .hero-description-text {
-  color: var(--harvard-anthracite);
-  text-shadow: none;
-  margin-bottom: 40px;
-}
-
-/* Scroll CTA */
-#mb_diaries_diaries .scroll-cta {
-  margin-top: 60px;
-}
-
-#mb_diaries_diaries .scroll-down-btn {
+#mb_diaries_diaries .hero-cta-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 60px;
-  height: 60px;
+  padding: 14px 32px;
   border: 2px solid #fafafa;
-  border-radius: 50%;
+  border-radius: 30px;
   color: #fafafa;
+  font-family: var(--itatti-font-body);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
   text-decoration: none;
+  text-shadow: none;
   transition: all 0.3s ease;
-  animation: mb-diaries-bounce 2s infinite;
 }
 
-#mb_diaries_diaries .scroll-down-btn:hover {
-  background-color: var(--harvard-crimson);
-  border-color: var(--harvard-crimson);
+#mb_diaries_diaries .hero-cta-btn:hover {
+  background-color: var(--mb-diaries-accent);
+  border-color: var(--mb-diaries-accent);
   color: white;
   transform: translateY(-3px);
-  animation: none;
-}
-
-#mb_diaries_diaries .scroll-down-btn i {
-  font-size: 20px;
-}
-
-@keyframes mb-diaries-bounce {
-  0%, 20%, 50%, 80%, 100% {
-    transform: translateY(0);
-  }
-  40% {
-    transform: translateY(-10px);
-  }
-  60% {
-    transform: translateY(-5px);
-  }
-}
-
-/* CSS-Only Page Navigation Dots - scoped to mbdiaries:diaries */
-#mb_diaries_diaries .page-nav-dots-css {
-  position: fixed;
-  right: 30px;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 1000;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-#mb_diaries_diaries .nav-dot-css {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background-color: var(--harvard-anthracite);
-  border: 2px solid var(--harvard-anthracite);
-  cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-  text-decoration: none;
-  display: block;
-}
-
-#mb_diaries_diaries .nav-dot-css:hover {
-  background-color: rgba(255, 255, 255, 0.8);
-  border-color: rgba(255, 255, 255, 0.9);
-  transform: scale(1.2);
-}
-
-#mb_diaries_diaries .nav-dot-css.active {
-  background-color: var(--mb-diaries-accent);
-  border: 2px solid var(--mb-diaries-accent);
-  transform: scale(1.3);
-}
-
-#mb_diaries_diaries .nav-dot-css::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 20px;
-  height: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 50%;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-#mb_diaries_diaries .nav-dot-css.active::after {
-  opacity: 1;
-  border-color: var(--mb-diaries-accent);
-}
-
-#mb_diaries_diaries .dot-inner {
-  display: block;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-}
-
-/* Navigation dot tooltips */
-#mb_diaries_diaries .nav-tooltip {
-  position: absolute;
-  right: 25px;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: rgba(0, 0, 0, 0.8);
-  color: white;
-  padding: 8px 12px;
-  border-radius: 4px;
-  font-family: var(--itatti-font-body);
-  font-size: 14px;
-  font-weight: 500;
-  white-space: nowrap;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s ease;
-  z-index: 1001;
-  pointer-events: none;
-}
-
-/* Arrow pointing to the dot */
-#mb_diaries_diaries .nav-tooltip::after {
-  content: '';
-  position: absolute;
-  left: 100%;
-  top: 50%;
-  transform: translateY(-50%);
-  border: 6px solid transparent;
-  border-left-color: rgba(0, 0, 0, 0.8);
-}
-
-/* Show tooltip on hover */
-#mb_diaries_diaries .nav-dot-css:hover .nav-tooltip {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(-50%) translateX(-5px);
 }
 
 /* Breadcrumbs - scoped to mbdiaries:Header */
@@ -476,8 +338,8 @@
   align-items: center;
   justify-content: center;
   height: 100%;
-  max-width: 1000px;
-  padding: 0 60px;
+  max-width: 1100px;
+  padding: 0 40px;
   text-align: center;
 }
 
@@ -490,6 +352,7 @@
   margin-bottom: 60px;
   text-transform: uppercase;
   letter-spacing: 1px;
+  white-space: nowrap;
 }
 
 #mb_diaries_diaries .about-content {
@@ -508,7 +371,14 @@
 /* Panel 3: Browse Diaries */
 #mb_home .panel3 {
   background: var(--harvard-light-grey) 0% 0% no-repeat padding-box;
-  padding: 60px 20px;
+  padding: 100px 20px 80px;
+}
+
+/* Size to content instead of forcing a full viewport height, so the
+   section sits flush against the footer with no leftover gap below it */
+#mb_diaries_diaries #panel-3.full-screen-panel {
+  height: auto;
+  min-height: auto;
 }
 
 #mb_home .panel3 .panel-content {
@@ -523,8 +393,8 @@
 
 #mb_home .panel3 h2 {
   max-width: 960px;
-  margin-top: 80px;
-  margin-bottom: 40px;
+  margin-top: 0;
+  margin-bottom: 50px;
   font-family: var(--itatti-font-heading);
   font-size: 32px;
   line-height: 36px;
@@ -538,7 +408,7 @@
 
 #mb_home .panel3 .container_table {
   max-width: 700px;
-  margin: 40px auto;
+  margin: 20px auto 0;
 }
 
 /* Override semantic-table default styling */
@@ -809,7 +679,7 @@ body:has(#mb_home) {
   font-size: var(--itatti-nav-item-size, 12px);
   font-weight: 500;
   letter-spacing: 0.04em;
-  width: 180px;
+  width: 280px;
   line-height: 1;
 }
 
@@ -906,11 +776,6 @@ body:has(#mb_home) {
     font-size: 42px;
   }
 
-  #mb_diaries_diaries .hero-description-text {
-    font-size: 20px;
-    max-width: 600px;
-  }
-
   #mb_home .panel2 h2 {
     font-size: 42px;
   }
@@ -942,11 +807,6 @@ body:has(#mb_home) {
     font-size: 38px;
   }
 
-  #mb_diaries_diaries .hero-description-text {
-    font-size: 18px;
-    max-width: 500px;
-  }
-
   #mb_home .panel2 h2 {
     font-size: 36px;
     margin-bottom: 40px;
@@ -954,16 +814,6 @@ body:has(#mb_home) {
 
   #mb_home .panel2 p.introduction {
     font-size: 18px;
-  }
-
-  #mb_diaries_diaries .page-nav-dots-css {
-    right: 20px;
-    gap: 15px;
-  }
-
-  #mb_diaries_diaries .nav-dot-css {
-    width: 10px;
-    height: 10px;
   }
 
   #mb_home .panel3 .container_table tbody {
@@ -993,23 +843,9 @@ body:has(#mb_home) {
     font-size: 32px;
   }
 
-  #mb_diaries_diaries .hero-description-text {
-    font-size: 16px;
-    max-width: 400px;
-    line-height: 1.5;
-  }
-
-  #mb_diaries_diaries .scroll-cta {
-    margin-top: 40px;
-  }
-
-  #mb_diaries_diaries .scroll-down-btn {
-    width: 50px;
-    height: 50px;
-  }
-
-  #mb_diaries_diaries .scroll-down-btn i {
-    font-size: 16px;
+  #mb_diaries_diaries .hero-cta-btn {
+    padding: 12px 24px;
+    font-size: 14px;
   }
 
   #mb_home .panel2 h2 {
@@ -1064,14 +900,16 @@ body:has(#mb_home) {
   margin-top: -10px;
 }
 
-#mb_diaries_diary .semantic-facet-holder{
-  margin-top: 100px;
-}
-
 /* ── IIIF sidebar viewer – scoped to Template:mbdiaries-ontology:Diary ──── */
 
 #mb_diaries_diary .nav.nav-tabs > li.active {
   box-shadow: inset 0 -3px 0 0 var(--harvard-crimson);
+}
+
+/* Line up the tab label with the image's left edge (sidebar-iiif-wrapper
+   has 16px of its own left padding) instead of the platform's own link padding. */
+#mb_diaries_diary .AnnotationSidebar--topNav > li > a {
+  padding-left: 16px !important;
 }
 
 /* IIIF sidebar thumbnail wrapper */
@@ -1080,18 +918,18 @@ body:has(#mb_home) {
   min-height: 0;
   width: 100%;
   padding: 16px;
-  background-color: var(--harvard-light-grey);
+  background-color: #fff;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
 }
 
 /* Thumbnail viewer container */
 #mb_diaries_diary .sidebar-thumbnail-viewer {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   width: 100%;
 }
@@ -1127,10 +965,10 @@ body:has(#mb_home) {
   opacity: 1;
 }
 
-/* Thumbnail image – fixed 500px height, width follows aspect ratio */
+/* Thumbnail image – fixed height, width follows aspect ratio */
 #mb_diaries_diary .sidebar-thumbnail-img {
   cursor: pointer;
-  height: 500px;
+  height: 550px;
   width: auto;
   max-width: 100%;
   display: block;
@@ -1160,8 +998,7 @@ body:has(#mb_home) {
   font-family: var(--itatti-font-body);
   font-size: 16px;
   font-weight: 700;
-  color: var(--harvard-crimson);
-  text-transform: uppercase;
+  color: var(--mb-diaries-accent);
   letter-spacing: 1px;
 }
 
@@ -1174,4 +1011,14 @@ body:has(#mb_home) {
   padding-right: var(--itatti-container-padding, 2rem);
   box-sizing  : border-box;
 }
-/* #mb_diaries_diary uses its own internal two-column layout — no outer max-width */
+/* #mb_diaries_diary uses its own internal two-column layout — no outer
+   max-width, and it's reset flush against the left edge instead of being
+   centered like #mb_diaries_pages above. */
+#mb_diaries_diary {
+  max-width: none;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: var(--itatti-container-padding, 2rem);
+  padding-right: var(--itatti-container-padding, 2rem);
+  box-sizing: border-box;
+}

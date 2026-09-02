@@ -93,58 +93,14 @@
                     {
                         "iri": "<https://mbdiaries.itatti.harvard.edu/ontology/Page>",
                         "label": "Page"
-                    },
-                    {
-                        "iri": "<https://mbdiaries.itatti.harvard.edu/ontology/Person>",
-                        "label": "Person"
-                    },
-                    {
-                        "iri": "<https://mbdiaries.itatti.harvard.edu/ontology/Artwork>",
-                        "label": "Artwork"
-                    },
-                    {
-                        "iri": "<https://mbdiaries.itatti.harvard.edu/ontology/Painting>",
-                        "label": "Painting"
-                    },
-                    {
-                        "iri": "<http://www.w3.org/2001/XMLSchema#string>",
-                        "label": "Date"
-                    },
-                    {
-                        "iri": "<https://mbdiaries.itatti.harvard.edu/ontology/Location>",
-                        "label": "Location"
                     }
                     ],
                     "relations": [
                     {
-                        "iri": "<https://mbdiaries.itatti.harvard.edu/ontology/page_person>",
-                        "label": "PEOPLE",
-                        "hasDomain": "<https://mbdiaries.itatti.harvard.edu/ontology/Page>",
-                        "hasRange": "<https://mbdiaries.itatti.harvard.edu/ontology/Person>"
-                    },
-                    {
                         "iri": "<https://mbdiaries.itatti.harvard.edu/ontology/page_day>",
-                        "label": "DAY (yyyy-mm-dd)",
+                        "label": "Filter by date",
                         "hasDomain": "<https://mbdiaries.itatti.harvard.edu/ontology/Page>",
                         "hasRange": "<http://www.cidoc-crm.org/cidoc-crm/E52_Time_Span>"
-                    },
-                    {
-                        "iri": "<https://mbdiaries.itatti.harvard.edu/ontology/page_artwork>",
-                        "label": "BOOKS",
-                        "hasDomain": "<https://mbdiaries.itatti.harvard.edu/ontology/Page>",
-                        "hasRange": "<https://mbdiaries.itatti.harvard.edu/ontology/Artwork>"
-                    },
-                    {
-                        "iri": "<https://mbdiaries.itatti.harvard.edu/ontology/page_painting>",
-                        "label": "PAINTINGS",
-                        "hasDomain": "<https://mbdiaries.itatti.harvard.edu/ontology/Page>",
-                        "hasRange": "<https://mbdiaries.itatti.harvard.edu/ontology/Painting>"
-                    },
-                    {
-                        "iri": "<https://mbdiaries.itatti.harvard.edu/ontology/page_location>",
-                        "label": "CITIES",
-                        "hasDomain": "<https://mbdiaries.itatti.harvard.edu/ontology/Page>",
-                        "hasRange": "<https://mbdiaries.itatti.harvard.edu/ontology/Location>"
                     }
                     ]
                 }'
@@ -157,30 +113,26 @@
                     }
                     "></semantic-search-query-constant>
 
-                <div data-flex-layout="row stretch-stretch" style="padding: 0;">
-                    <div data-flex-self="size-1of3" style="flex: 0 0 20px;">
-                    <semantic-search-facet
-                        open-by-default="false"
-                    ></semantic-search-facet>
-                    </div>
-                    <semantic-search-result-holder>
+                <semantic-search-result-holder>
                     <div data-flex-self="md-full">
 
 
                         <semantic-search-result>
                         <semantic-query
                             id="diary_name"
-                            query='select ?label ?manifest where {
+                            query='select ?label ?manifest ?beforeDash ?afterDash where {
                                 <[[this]]> rdfs:label ?label.
                                 optional {
                                     <[[this]]> mbdiaries-ontology:iiif-manifest ?manifest.
                                 }
+                                BIND(IF(CONTAINS(?label, "-"), STRBEFORE(?label, "-"), ?label) AS ?beforeDash)
+                                BIND(IF(CONTAINS(?label, "-"), STRAFTER(?label, "-"), "") AS ?afterDash)
                             }'
                             template="{{>header}}"
                         >
                             <template id="header">
                             <header>
-                                <h1 class="diary-title">{{bindings.0.label.value}}
+                                <h1 class="diary-title">{{bindings.0.beforeDash.value}}{{#if bindings.0.afterDash.value}}<span>-</span>{{bindings.0.afterDash.value}}{{/if}}
                                 {{#if bindings.0.manifest.value}}
                                     <a href="{{bindings.0.manifest.value}}" target="_blank">
                                         <img height="30px" src="../../assets/icons/IIIF-logo-colored-text.svg" alt="IIIF logo">
@@ -198,9 +150,14 @@
                         </semantic-query>
                         </semantic-search-result>
 
-                        
+                        <div class="diary-filter-row">
+                        <semantic-search-facet
+                            open-by-default="true"
+                            hide-toggle-button="true"
+                        ></semantic-search-facet>
+
                         <semantic-search-result>
-                        <semantic-table 
+                        <semantic-table
                             id='table-result'
                             query='SELECT DISTINCT ?subject ?string ?document ?imageIRI ?index_num WHERE { 
                             ?subject mbdiaries-ontology:index ?index;
@@ -323,10 +280,10 @@
 
                         </semantic-table>
                         </semantic-search-result>
+                        </div>
 
                     </div>
                     </semantic-search-result-holder>
-                </div>
                 </semantic-search>
 
             </div>
@@ -346,12 +303,45 @@
   }
 
   .diary-title span {
-    color: var(--harvard-crimson);
+    color: var(--mb-diaries-accent);
+  }
+
+  /* Intro text above the filter/results row */
+  .diary-intro-text {
+    padding-left: 8px;
+    max-width: 800px;
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--harvard-anthracite);
+    margin: 0 0 30px;
+  }
+
+  /* The built-in "Annotations" tab has no prop to rename or reorder it, so we
+     flip its visual position after the "Image" tab and relabel it via CSS */
+  .AnnotationSidebar--topNav {
+    display: flex;
+  }
+
+  .AnnotationSidebar--topNav > li:first-child {
+    order: 2;
+  }
+
+  .AnnotationSidebar--topNav > li:not(:first-child) {
+    order: 1;
+  }
+
+  .AnnotationSidebar--topNav > li:first-child > a {
+    font-size: 0;
+  }
+
+  .AnnotationSidebar--topNav > li:first-child > a::after {
+    content: 'Notes';
+    font-size: 14px;
   }
 
   /* 40/60 layout for text and image - enlarged image */
   .TextAnnotationWorkspace--component {
-    margin-top: 2px;
+    margin-top: 60px;
     display: flex !important;
     gap: 20px;
     padding: 0 20px;
@@ -371,28 +361,26 @@
   }
 
   .TextAnnotationWorkspace--editorPanel {
-    border-top: 1px solid var(--harvard-light-grey);
-    padding: 20px 30px 20px 0;
-    flex: 1 1 55% !important;
-    max-width: 55% !important;
-    margin-top: 36px;
+    padding: 20px 30px 20px 20px;
+    flex: 1 1 60% !important;
+    max-width: 60% !important;
   }
 
   .TextAnnotationEditor--component {
-    flex: 1 1 55% !important;
-    max-width: 55% !important;
+    flex: 1 1 60% !important;
+    max-width: 60% !important;
   }
 
   .AnnotationSidebar--component {
-    flex: 1 1 45% !important;
-    max-width: 45% !important;
+    flex: 1 1 40% !important;
+    max-width: 40% !important;
   }
 
   .TextAnnotationWorkspace--annotationsPanel {
     padding-bottom: 2px;
-    background-color: var(--harvard-light-grey);
-    flex: 1 1 45% !important;
-    max-width: 45% !important;
+    background-color: #fff;
+    flex: 1 1 40% !important;
+    max-width: 40% !important;
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -444,6 +432,7 @@
   td {
     padding-top: 0px !important;
     padding-bottom: 0px !important;
+    border: none !important;
   }
 
   header > h1 {
@@ -465,7 +454,11 @@
   }
 
   .semantic-facet-holder input,
-  .semantic-facet-holder select,
+  .semantic-facet-holder select {
+    border-color: var(--harvard-light-grey) !important;
+    color: var(--harvard-anthracite) !important;
+  }
+
   .semantic-facet-holder button {
     border-color: var(--harvard-light-grey) !important;
     color: white !important;
@@ -577,25 +570,144 @@
     cursor: help;
     font-size: 18px;
     font-family: 'Brandon Grotesque', 'Open Sans', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 60%;
+    box-sizing: border-box;
   }
 
-  .table-filter {
+  .page-n::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background-color: var(--harvard-light-grey, #ddd);
+  }
+
+  /* The search box and the table rows are buried three components deep
+     inside <semantic-table> (custom element > researchspace wrapper >
+     Griddle's own root, where Griddle renders "top-section" [holds the
+     search box] and "griddle-container" [holds the rows] as siblings).
+     The custom elements don't survive as wrapping tags in the rendered
+     DOM - <semantic-search-facet> renders straight to .semantic-facet-holder,
+     and <semantic-search-result>/<semantic-table> render straight to
+     .semantic-table-holder > .researchspace-table-widget-holder > .griddle.
+     Flatten the table-side wrappers with display:contents so top-section
+     and griddle-container become real grid items alongside the date facet.
+     Grid (not flex-wrap) is used deliberately: flex-wrap decides per-line
+     placement from content width, and that kept wrapping "results" and
+     "dates" onto separate lines even once both fit comfortably - explicit
+     grid-template-areas place each one in its cell regardless of content
+     width, so there's no wrapping heuristic left to fight. */
+  /* The "filler" column has no content - it's a blank spacer sized to the
+     same 60/40 share as the text/image split below (see
+     .TextAnnotationWorkspace--editorPanel/--annotationsPanel), so the two
+     filter controls stop at the same right edge as the text column instead
+     of stretching under the image. */
+  #mb_diaries_diary .diary-filter-row {
+    display: grid !important;
+    grid-template-columns: minmax(160px, max-content) minmax(0, 60fr) minmax(0, 40fr);
+    grid-template-areas:
+      "dates   results filler"
+      "table   table   table";
+    column-gap: 16px;
+    row-gap: 8px;
+    align-items: start;
+  }
+
+  #mb_diaries_diary .diary-filter-row > .semantic-table-holder,
+  #mb_diaries_diary .diary-filter-row .researchspace-table-widget-holder,
+  #mb_diaries_diary .diary-filter-row .griddle {
+    display: contents !important;
+  }
+
+  #mb_diaries_diary .diary-filter-row > .semantic-facet-holder {
+    grid-area: dates !important;
+  }
+
+  #mb_diaries_diary .diary-filter-row .facet__relation__header {
+    background-color: #fff !important;
+    border: 1px solid var(--harvard-light-grey) !important;
+    border-radius: 4px !important;
+  }
+
+  /* The value list normally renders in-flow below the header and pushes
+     the table row down when expanded. Let it escape the flow instead so
+     it overlays the content below - the facet column stays pill-sized
+     whether the list is open or closed. */
+  #mb_diaries_diary .diary-filter-row .facet,
+  #mb_diaries_diary .diary-filter-row .facet-relations {
+    overflow: visible !important;
+  }
+
+  #mb_diaries_diary .diary-filter-row .facet__relation__values {
+    position: absolute !important;
+    top: 100%;
+    left: 0;
+    width: 420px;
+    max-width: 90vw;
+    max-height: 360px;
+    overflow-y: auto;
+    z-index: 20;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+  }
+
+  /* Force an opaque backing on every layer of the expanded dropdown -
+     some inner layers render with no background of their own, letting
+     the page content underneath show through the overlay. */
+  #mb_diaries_diary .diary-filter-row .facet__relation__values,
+  #mb_diaries_diary .diary-filter-row .facet__relation__values_list_container,
+  #mb_diaries_diary .diary-filter-row .facet__relation__values__value {
+    background-color: #fff !important;
+  }
+
+  #mb_diaries_diary .diary-filter-row .top-section {
+    grid-area: results !important;
+    position: static !important;
+    width: auto !important;
+    min-width: 160px;
+    padding-top: 5px;
+  }
+
+  #mb_diaries_diary .diary-filter-row .griddle-settings-toggle {
+    display: none !important;
+  }
+
+  #mb_diaries_diary .diary-filter-row .filter-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
     border: 1px solid var(--harvard-light-grey);
     border-radius: 4px;
-    padding: 8px;
-    margin-bottom: 15px;
-    background-color: #f9f9f9;
+    min-height: var(--input-height, 38px);
+    padding: 6px 10px;
+    margin: 0;
   }
 
-  .table-filter input {
-    border-color: var(--harvard-light-grey);
+  /* The search icon is a :before pseudo-element with its own border and
+     background (meant to look like a joined icon+input segment) - now that
+     the whole row already has one outer border, that gives the icon a
+     second, nested box. Strip its border/background so only the glyph shows. */
+  #mb_diaries_diary .diary-filter-row .filter-container:before {
+    border: none !important;
+    background: transparent !important;
+    height: auto !important;
+    padding: 0 8px 0 0 !important;
+  }
+
+  #mb_diaries_diary .diary-filter-row .filter-container input.form-control {
+    border: none;
+    background: transparent;
+    box-shadow: none;
     color: var(--harvard-anthracite);
+    width: 100%;
+    height: auto;
+    padding: 0;
   }
 
-  .show-facet-button__show,
-  .show-facet-button__hide {
-    background-color: var(--harvard-medium-grey);
-    top: 240px !important;
+  #mb_diaries_diary .diary-filter-row .griddle-container {
+    grid-area: table !important;
   }
 
   #rs-text-annotation-types {
