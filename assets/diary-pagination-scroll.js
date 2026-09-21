@@ -15,25 +15,73 @@
   var PAGINATION_LINK_SELECTOR =
     CONTAINER_SELECTOR + ' .griddle-footer .pagination li:not(.disabled) a';
 
-  function scrollToTopOfResults() {
+  function scrollToTopOfResults(behavior) {
     var target =
       document.querySelector(RESULTS_SELECTOR) ||
       document.querySelector(CONTAINER_SELECTOR);
     if (target) {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      target.scrollIntoView({ behavior: behavior, block: 'start' });
     } else {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: behavior });
     }
   }
 
+  // Each new row mounts an rs-text-annotation-workspace that fetches its own
+  // IIIF image after the row itself lands in the DOM, so the page keeps
+  // growing/reflowing for a while after Griddle's initial swap (image load
+  // time varies with network conditions). A single scroll right after the
+  // swap gets outrun by that later reflow and the reader ends up back below
+  // the fold, so watch the container for DOM mutations and keep re-pinning
+  // the scroll position until things settle down, instead of trusting one
+  // fixed delay.
+  var SETTLE_QUIET_MS = 250;
+  var MAX_WATCH_MS = 4000;
+
+  function afterPageChange() {
+    var container = document.querySelector(CONTAINER_SELECTOR);
+
+    scrollToTopOfResults('auto');
+
+    if (!container || typeof MutationObserver === 'undefined') {
+      setTimeout(function () { scrollToTopOfResults('smooth'); }, 300);
+      return;
+    }
+
+    var quietTimer = null;
+    var stopped = false;
+
+    function stop() {
+      if (stopped) {
+        return;
+      }
+      stopped = true;
+      observer.disconnect();
+      clearTimeout(quietTimer);
+      clearTimeout(maxWatchTimer);
+      scrollToTopOfResults('smooth');
+    }
+
+    var observer = new MutationObserver(function () {
+      scrollToTopOfResults('auto');
+      clearTimeout(quietTimer);
+      quietTimer = setTimeout(stop, SETTLE_QUIET_MS);
+    });
+
+    observer.observe(container, { childList: true, subtree: true, attributes: true });
+
+    quietTimer = setTimeout(stop, SETTLE_QUIET_MS);
+    var maxWatchTimer = setTimeout(stop, MAX_WATCH_MS);
+  }
+
+  // Capture phase, not bubble: Griddle/React may call stopPropagation() on
+  // the click as part of its own handling, which would stop a bubble-phase
+  // listener on document from ever seeing it. Capture fires on the way down,
+  // before that can happen.
   document.addEventListener('click', function (event) {
     var link = event.target.closest(PAGINATION_LINK_SELECTOR);
     if (!link) {
       return;
     }
-    // Griddle re-renders the row set asynchronously on click; wait a tick
-    // so the new rows are in the DOM (and the page has reflowed) before
-    // measuring/scrolling to the results container.
-    setTimeout(scrollToTopOfResults, 50);
-  });
+    afterPageChange();
+  }, true);
 })();
