@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="../../assets/mb_diaries.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <script src="../../assets/diary-pagination-scroll.js"></script>
+<script src="../../assets/diary-toc-scroll.js"></script>
 [[> mbdiaries:Header ]]
 
 <div class="page" id="mb_diaries_diary">
@@ -81,6 +82,16 @@
                         $subject crm:P129i_is_subject_of ?document .
                         ?document mbdiaries-ontology:has_date ?__value__ .
                         }"
+                    }],
+
+                    "<https://mbdiaries.itatti.harvard.edu/ontology/page_sequence>": [{
+                    "kind": "numeric-range",
+                    "queryPattern": "{
+                        $subject mbdiaries-ontology:index ?__sequenceLiteral__.
+                        BIND(xsd:integer(?__sequenceLiteral__) AS ?__sequenceNum__)
+                        FILTER(?__sequenceNum__ >= ?__numericRangeBeginValue__)
+                        FILTER(?__sequenceNum__ <= ?__numericRangeEndValue__)
+                    }"
                     }]
                 }'
 
@@ -101,6 +112,12 @@
                         "label": "Filter by date",
                         "hasDomain": "<https://mbdiaries.itatti.harvard.edu/ontology/Page>",
                         "hasRange": "<http://www.cidoc-crm.org/cidoc-crm/E52_Time_Span>"
+                    },
+                    {
+                        "iri": "<https://mbdiaries.itatti.harvard.edu/ontology/page_sequence>",
+                        "label": "Filter by sequence",
+                        "hasDomain": "<https://mbdiaries.itatti.harvard.edu/ontology/Page>",
+                        "hasRange": "<http://www.w3.org/2001/XMLSchema#integer>"
                     }
                     ]
                 }'
@@ -132,6 +149,13 @@
                         >
                             <template id="header">
                             <header>
+                                <ol class="breadcrumb diary-breadcrumbs">
+                                    <li class="breadcrumb-item">
+                                        <semantic-link iri="mbdiaries:diaries">Diaries</semantic-link>
+                                    </li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{bindings.0.beforeDash.value}}{{#if bindings.0.afterDash.value}}-{{bindings.0.afterDash.value}}{{/if}}</li>
+                                </ol>
+
                                 <h1 class="diary-title">{{bindings.0.beforeDash.value}}{{#if bindings.0.afterDash.value}}<span>-</span>{{bindings.0.afterDash.value}}{{/if}}
                                 {{#if bindings.0.manifest.value}}
                                     <a href="{{bindings.0.manifest.value}}" target="_blank">
@@ -156,6 +180,38 @@
                             hide-toggle-button="true"
                         ></semantic-search-facet>
 
+                        <div class="diary-toc-holder">
+                        <semantic-search-result>
+                        <semantic-query
+                            id="sequence-toc"
+                            query='SELECT DISTINCT ?subject ?index_num WHERE {
+                                ?subject mbdiaries-ontology:index ?index.
+                                BIND(xsd:integer(?index) as ?index_num)
+                            } ORDER BY ASC(?index_num)'
+                            template="{{> toc}}"
+                        >
+                            <template id="toc">
+                            <nav class="diary-toc" aria-label="Sequence navigator">
+                                <div class="diary-toc-jump">
+                                    <label for="diary-toc-jump-input">Go to sequence</label>
+                                    <div class="diary-toc-jump-controls">
+                                        <input type="number" id="diary-toc-jump-input" min="1" placeholder="#">
+                                        <button type="button" id="diary-toc-jump-btn">Go</button>
+                                    </div>
+                                    <p class="diary-toc-jump-error" hidden></p>
+                                </div>
+                                <div class="diary-toc-count">{{bindings.length}} sequences in current results</div>
+                                <ol class="diary-toc-list">
+                                    {{#each bindings}}
+                                    <li><a href="#seq-{{index_num.value}}" data-sequence="{{index_num.value}}">{{index_num.value}}</a></li>
+                                    {{/each}}
+                                </ol>
+                            </nav>
+                            </template>
+                        </semantic-query>
+                        </semantic-search-result>
+                        </div>
+
                         <semantic-search-result>
                         <semantic-table
                             id='table-result'
@@ -177,9 +233,10 @@
                             "showTableHeading": false,
                             "showFilter": true
                             }'
-                            number-of-displayed-rows="15">
+                            number-of-displayed-rows="1000">
 
                             <template id="text">
+                                <div class="diary-sequence" id="seq-{{index_num.value}}">
                                 <span class="page-n">Sequence {{index_num.value}}</span>
 
                             <rs-text-annotation-workspace
@@ -276,6 +333,7 @@
                                 [[> mbdiaries-type:Location ]] 
 
                             </rs-text-annotation-workspace>
+                                </div>
                             </template>
 
                         </semantic-table>
@@ -293,6 +351,23 @@
 
 
 <style>
+  /* Breadcrumbs - re-uses bootstrap's .breadcrumb/.breadcrumb-item classes
+     (already imported site-wide) rather than introducing new ones. */
+  .diary-breadcrumbs {
+    margin: 0 0 10px;
+    padding-left: 8px;
+    background: transparent;
+    font-size: 14px;
+  }
+
+  .diary-breadcrumbs .breadcrumb-item a {
+    color: var(--harvard-crimson);
+  }
+
+  .diary-breadcrumbs .breadcrumb-item.active {
+    color: var(--harvard-anthracite);
+  }
+
   /* Diary title styling */
   .diary-title {
     text-transform: uppercase;
@@ -606,10 +681,10 @@
      of stretching under the image. */
   #mb_diaries_diary .diary-filter-row {
     display: grid !important;
-    grid-template-columns: minmax(160px, max-content) minmax(0, 60fr) minmax(0, 40fr);
+    grid-template-columns: minmax(220px, max-content) minmax(0, 60fr) minmax(0, 40fr);
     grid-template-areas:
       "dates   results filler"
-      "table   table   table";
+      "toc     table   table";
     column-gap: 16px;
     row-gap: 8px;
     align-items: start;
@@ -623,6 +698,124 @@
 
   #mb_diaries_diary .diary-filter-row > .semantic-facet-holder {
     grid-area: dates !important;
+  }
+
+  /* The sequence TOC sits in its own plain <div class="diary-toc-holder">
+     (not a custom element) specifically so it can be flattened the same
+     way as the table wrappers above - everything down to the real
+     <nav class="diary-toc"> content box collapses via display:contents,
+     and that content box alone becomes the "toc" grid item. */
+  #mb_diaries_diary .diary-filter-row > .diary-toc-holder,
+  #mb_diaries_diary .diary-filter-row > .diary-toc-holder > *,
+  #mb_diaries_diary .diary-filter-row > .diary-toc-holder > * > * {
+    display: contents;
+  }
+
+  #mb_diaries_diary .diary-filter-row .diary-toc {
+    display: block;
+    grid-area: toc;
+    position: sticky;
+    top: 90px;
+    max-height: calc(100vh - 110px);
+    overflow-y: auto;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid var(--harvard-light-grey);
+    border-radius: 4px;
+    background-color: #fff;
+  }
+
+  #mb_diaries_diary .diary-toc-jump {
+    margin-bottom: 10px;
+  }
+
+  #mb_diaries_diary .diary-toc-jump label {
+    display: block;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 4px;
+    color: var(--harvard-anthracite);
+  }
+
+  #mb_diaries_diary .diary-toc-jump-controls {
+    display: flex;
+    gap: 6px;
+  }
+
+  #mb_diaries_diary .diary-toc-jump-controls input {
+    width: 100%;
+    min-width: 0;
+    border: 1px solid var(--harvard-light-grey);
+    border-radius: 4px;
+    padding: 4px 8px;
+  }
+
+  #mb_diaries_diary .diary-toc-jump-controls button {
+    border: 1px solid var(--harvard-crimson);
+    background-color: var(--harvard-crimson);
+    color: #fff;
+    border-radius: 4px;
+    padding: 4px 12px;
+    cursor: pointer;
+  }
+
+  #mb_diaries_diary .diary-toc-jump-error {
+    color: var(--harvard-crimson);
+    font-size: 12px;
+    margin: 6px 0 0;
+  }
+
+  #mb_diaries_diary .diary-toc-jump-error[hidden] {
+    display: none;
+  }
+
+  #mb_diaries_diary .diary-toc-count {
+    font-size: 12px;
+    color: var(--harvard-anthracite);
+    margin-bottom: 8px;
+  }
+
+  #mb_diaries_diary .diary-toc-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  #mb_diaries_diary .diary-toc-list a {
+    display: block;
+    min-width: 28px;
+    text-align: center;
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 1px solid var(--harvard-light-grey);
+    color: var(--harvard-anthracite);
+    text-decoration: none;
+    font-size: 12px;
+  }
+
+  #mb_diaries_diary .diary-toc-list a:hover,
+  #mb_diaries_diary .diary-toc-list a.active {
+    border-color: var(--harvard-crimson);
+    color: var(--harvard-crimson);
+    font-weight: bold;
+  }
+
+  /* Anchor target for each rendered sequence - scroll-margin-top keeps the
+     sticky site header from covering the top of the row when jumped to. */
+  #mb_diaries_diary .diary-sequence {
+    scroll-margin-top: 90px;
+  }
+
+  #mb_diaries_diary .diary-sequence--highlight {
+    animation: diary-sequence-flash 1.5s ease-out;
+  }
+
+  @keyframes diary-sequence-flash {
+    0% { background-color: rgba(227, 43, 49, 0.12); }
+    100% { background-color: transparent; }
   }
 
   #mb_diaries_diary .diary-filter-row .facet__relation__header {
